@@ -1,0 +1,15 @@
+{
+  "lang": "en-US",
+  "background_color": "#ffffff",
+  "name": "Vietnam Visa: Vietnam Visa on Arrival - Vietn",
+  "short_name": "Vietnam Visa",
+  "display": "standalone",
+  "theme_color ": "#ffffff",
+  "icons": [
+    {
+      "src": "http://localhost/visa-vietnam.org.vn/template/images/_visa-vietnam.png",
+      "sizes": "224x50",
+      "type": "image/png"
+    }
+  ]
+}
