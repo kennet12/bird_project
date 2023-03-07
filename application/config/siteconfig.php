@@ -33,7 +33,7 @@ define("HOSTNAME",			"localhost");
 define("USERNAME",			"csduyandy_db");
 define("PASSWORD",			"nevermorepda1ss");
 define("DATABASE",			"csduyandy_db");
-define("DRIVER",			"mysqli");
+define("DRIVER",			"mysqli");    
 
 // USER TYPES
 define("USR_USER",			1);
