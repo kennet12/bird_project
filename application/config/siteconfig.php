@@ -1,7 +1,7 @@
 <?php
 // WEB ROOT URI
-define("PROTOCOL",			"https://");
-define("BASE_URL",			PROTOCOL."www.basa-mekong.com");
+define("PROTOCOL",			"http://localhost:3001");
+define("BASE_URL",			PROTOCOL);
 define("TPL_URL",			BASE_URL."/template/");
 define("IMG_URL",			TPL_URL."images/");
 define("CSS_URL",			TPL_URL."css/");
@@ -29,11 +29,11 @@ define("CACHE_RAND",		date("YmdH"));
 define("ROW_PER_PAGE",		6);
 
 // WEB DATABASE
-define("HOSTNAME",			"localhost");
-define("USERNAME",			"csduyandy_db");
-define("PASSWORD",			"nevermorepda1ss");
-define("DATABASE",			"csduyandy_db");
-define("DRIVER",			"mysqli");    
+define("HOSTNAME",			"db");
+define("USERNAME",			"root");
+define("PASSWORD",			"123456");
+define("DATABASE",			"bird_db");
+define("DRIVER",			"mysqli");
 
 // USER TYPES
 define("USR_USER",			1);
