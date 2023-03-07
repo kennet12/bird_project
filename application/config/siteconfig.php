@@ -31,7 +31,7 @@ define("ROW_PER_PAGE",		6);
 // WEB DATABASE
 define("HOSTNAME",			"localhost");
 define("USERNAME",			"csduyandy_db");
-define("PASSWORD",			"nevermorepda1");
+define("PASSWORD",			"nevermorepda1ss");
 define("DATABASE",			"csduyandy_db");
 define("DRIVER",			"mysqli");
 
