@@ -21,6 +21,12 @@
             <span class="nav-link-text ms-1">Bài Viết</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=site_url("syslog/contents")?>">
+          <i class="fa-solid fa-image"></i>
+            <span class="nav-link-text ms-1">Slider</span>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
