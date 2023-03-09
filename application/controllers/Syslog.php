@@ -173,6 +173,17 @@ class Syslog extends CI_Controller {
 		$tmpl_content["content"] = $this->load->view("admin/account/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
+	public function contents(){
+		$contents = $this->m_contents->items();
+		$view_data = array();
+		$view_data["contents"] = $contents;
+		$view_data["title"] = 'Danh sách bài viết';
+
+		$tmpl_content = array();
+		$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_content);
+
+	}
 	
 	public function users1($action=null, $id=null)
 	{

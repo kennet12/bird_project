@@ -1,106 +1,67 @@
-<div class="cluster">
-	<div class="container-fluid">
-		<div class="tool-bar clearfix">
-			<h1 class="page-title">
-				<?=$category->name?>
-				<div class="pull-right">
-					<ul class="action-icon-list">
-						<li><a href="#" class="btn-unpublish"><i class="fa fa-eye-slash" aria-hidden="true"></i> Ẩn</a></li>
-						<li><a href="#" class="btn-publish"><i class="fa fa-eye-slash" aria-hidden="true"></i> Hiện</a></li>
-						<li><a href="#" class="btn-delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a></li>
-						<li><a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/{$category->alias}/add")?>"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</a></li>
-					</ul>
-				</div>
-			</h1>
-		</div>
-		<? if (empty($items) || !sizeof($items)) { ?>
-		<p class="help-block">Chưa có bài viết nào.</p>
-		<? } else { ?>
-		<form id="frm-admin" name="adminForm" action="" method="POST">
-			<input type="hidden" id="task" name="task" value="">
-			<input type="hidden" id="boxchecked" name="boxchecked" value="0" />
-			<table class="table table-bordered">
-				<tr>
-					<th class="text-center" width="30px">#</th>
-					<th class="text-center" width="30px">
-						<input type="checkbox" id="toggle" name="toggle" onclick="checkAll('<?=sizeof($items)?>');" />
-					</th>
-					<th>Tên tiêu đề</th>
-					<th width="180px">Cập nhật</th>
-				</tr>
-				<?
-					$i = 0;
-					foreach ($items as $item) {
-				?>
-				<tr class="row<?=$item->active?>">
-					<td class="text-center"><?=($i+1)?></td>
-					<td class="text-center">
-						<input type="checkbox" id="cb<?=$i?>" name="cid[]" value="<?=$item->id?>" onclick="isChecked(this.checked);">
-					</td>
-					<td>
-						<a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/{$category->alias}/edit/{$item->id}")?>"><?=$item->title?></a>
-						<ul class="action-icon-list">
-							<li><a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/{$category->alias}/edit/{$item->id}")?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh sửa</a></li>
-							<li><a href="#" onclick="return confirmBox('Xóa bài biết', 'Bạn có chắc là xóa bài viết này không ?', 'itemTask', ['cb<?=$i?>', 'delete']);"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a></li>
-							<? if ($item->active) { ?>
-							<li><a href="#" onclick="return itemTask('cb<?=$i?>','unpublish');"><i class="fa fa-eye-slash" aria-hidden="true"></i> Ẩn</a></li>
-							<? } else { ?>
-							<li><a href="#" onclick="return itemTask('cb<?=$i?>','publish');"><i class="fa fa-eye-slash" aria-hidden="true"></i> Hiện</a></li>
-							<? } ?>
-						</ul>
-					</td>
-					<td>
-						<?
-							$updated_by = $this->m_user->load($item->updated_by);
-							if (!empty($updated_by)) {
-						?>
-						<strong><?=$updated_by->fullname?></strong>
-						<div class="action-icon-list"><span class="text-color-grey"><?=date("Y-m-d H:i:s", strtotime($item->updated_date))?></span></div>
-						<?
-							}
-						?>
-					</td>
-				</tr>
-				<?
-						$i++;
-					}
-				?>
-			</table>
-		</form>
-		<? } ?>
-		<div class="col-md-12 text-center"><?=$pagination?></div>
-	</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6><?=$title?></h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center justify-content-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tiêu Đề
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Danh Mục</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Lượt Xem</th>
+                                <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                                    Trạng Thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+							<? foreach ($contents as $content) { ?>
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-2">
+                                        <div>
+                                            <img src="<?=TPL_URL_ADMIN?>images/small-logos/logo-spotify.svg"
+                                                class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                        </div>
+                                        <div class="my-auto">
+                                            <h6 class="mb-0 text-sm"><?=$content->title?></h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+									<?
+										$category = $this->m_content_categories->load($content->category_id);
+									?>
+                                    <p class="text-sm font-weight-bold mb-0"><?=$category->name?></p>
+                                </td>
+                                <td>
+                                    <span class="text-xs font-weight-bold"><i class="fa-solid fa-eye"></i> <?=$content->view_num?></span>
+                                </td>
+                                <td class="align-middle text-center">
+								<? if ($content->active == 1)  { ?>
+                                    <span class="badge badge-sm bg-gradient-success">Hiện</span>
+                                    <? } else { ?>
+                                    <span class="badge badge-sm bg-gradient-secondary">Ẩn</span>
+                                    <? } ?>
+                                </td>
+                                <td class="align-middle">
+                                    <button class="btn btn-link text-secondary mb-0">
+                                        <i class="fa fa-ellipsis-v text-xs"></i>
+                                    </button>
+                                </td>
+                            </tr>
+							<?}?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<script>
-$(document).ready(function() {
-	jQuery.noConflict();
-	$(".btn-publish").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to publish.");
-		}
-		else {
-			submitButton("read");
-		}
-	});
-	$(".btn-unpublish").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to unpublish.");
-		}
-		else {
-			submitButton("unread");
-		}
-	});
-	$(".btn-delete").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to delete.");
-		}
-		else {
-			confirmBox("Delete items", "Are you sure you want to delete the selected items?", "submitButton", "delete");
-		}
-	});
-});
-</script>
