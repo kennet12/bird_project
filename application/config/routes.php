@@ -63,3 +63,4 @@ $route['hoi-dap/(:any)'] 					= "hoi-dap/index/$1";
 $route['thong-tin-chung/(:any)/(:any)'] 	= "thong-tin-chung/index/$1/$2";
 $route['thong-tin-chung/(:any)'] 			= "thong-tin-chung/index/$1";
 $route['lien-he/ajax-contact']				= 'lien-he/ajax-contact';
+$route['test']				                = 'bieu-phi-dich-vu/index1';

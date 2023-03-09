@@ -29,7 +29,7 @@ class Syslog extends CI_Controller {
 	public function index()
 	{
 		$view_data = array();
-		$view_data["breadcrumb"] = $this->_breadcrumb;
+		$view_data["title"] = 'Dinh Quoc Kiet';
 		
 		$tmpl_content = array();
 		$tmpl_content["content"] = $this->load->view("admin/index", $view_data, true);
@@ -162,8 +162,19 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 	// Users
 	//------------------------------------------------------------------------------
+	public function users()
+	{
+		$users = $this->m_user->users();
+		$view_data = array();
+		$view_data["users"] = $users;
+		$view_data["title"] = 'Danh sách thành viên';
+		
+		$tmpl_content = array();
+		$tmpl_content["content"] = $this->load->view("admin/account/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_content);
+	}
 	
-	public function users($action=null, $id=null)
+	public function users1($action=null, $id=null)
 	{
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);

@@ -16,6 +16,7 @@ class M_product extends M_db
 				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
 		}
+		
 		if (!is_null($active)) {
 			$sql .= " AND I.active = '{$active}'";
 		}
@@ -31,6 +32,7 @@ class M_product extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
+
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
@@ -103,6 +105,25 @@ class M_product extends M_db
 		$query = $this->db->query($sql);
 		$result = $query->row_array();
 		return (int)$result['COUNT(*)'];
+	}
+
+	public function getItems($info=null, $active=null)
+	{
+		$sql = "SELECT I.*, C.alias AS 'category_alias', '0' AS 'child_num' FROM m_product AS I INNER JOIN m_product_categories AS C ON (I.category_id = C.id) WHERE 1 = 1";
+		if (!is_null($info)) {
+			if (!empty($info->category_id)) {
+				$sql .= " AND I.category_id = '{$info->category_id}'";
+			}
+			if (!empty($info->id)) {
+				$sql .= " AND I.id > '{$info->id}'";
+			}
+		}
+		if (!is_null($active)) {
+			$sql .= " AND I.active = '{$active}'";
+		}
+		echo $sql;
+		$query = $this->db->query($sql);
+		return $query->result();
 	}
 }
 ?>
