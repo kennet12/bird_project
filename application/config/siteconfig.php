@@ -1,8 +1,9 @@
 <?php
 // WEB ROOT URI
-define("PROTOCOL",			"http://localhost:3001");
-define("BASE_URL",			PROTOCOL);
+define("PROTOCOL",			"http://localhost/");
+define("BASE_URL",			PROTOCOL."bird_project");
 define("TPL_URL",			BASE_URL."/template/");
+define("TPL_URL_ADMIN",		TPL_URL."admin/");
 define("IMG_URL",			TPL_URL."images/");
 define("CSS_URL",			TPL_URL."css/");
 define("JS_URL",			TPL_URL."js/");
@@ -29,9 +30,9 @@ define("CACHE_RAND",		date("YmdH"));
 define("ROW_PER_PAGE",		6);
 
 // WEB DATABASE
-define("HOSTNAME",			"db");
+define("HOSTNAME",			"localhost");
 define("USERNAME",			"root");
-define("PASSWORD",			"123456");
+define("PASSWORD",			"");
 define("DATABASE",			"bird_db");
 define("DRIVER",			"mysqli");
 
@@ -53,4 +54,6 @@ define("GOOGLE_KEY",		"1016427659580-b9k8si9eqbdma8m9lnitak6h4bcpg8oe.apps.googl
 
 // Facebook API
 define("FB_KEY",			"1262899223739716");
-?>
+
+// Facebook API
+define("SERVICE_FEE", 1);
