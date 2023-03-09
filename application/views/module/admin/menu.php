@@ -16,9 +16,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/tables.html">
-            <i class="fa-solid fa-user"></i>
-            <span class="nav-link-text ms-1">Nội dung</span>
+          <a class="nav-link" href="<?=site_url("syslog/contents")?>">
+          <i class="fa-solid fa-book-open"></i>
+            <span class="nav-link-text ms-1">Bài Viết</span>
           </a>
         </li>
       </ul>
