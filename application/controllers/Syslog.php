@@ -173,16 +173,67 @@ class Syslog extends CI_Controller {
 		$tmpl_content["content"] = $this->load->view("admin/account/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
-	public function contents(){
-		$contents = $this->m_contents->items();
-		$view_data = array();
-		$view_data["contents"] = $contents;
-		$view_data["title"] = 'Danh sách bài viết';
+	public function contents($action=null, $id=null){
+		if (!empty($action)) {
+			$categories = $this->m_content_categories->items(null,1);
+			if (!empty($_POST)) {
+				$data = [];
+				$data['title'] 			= $_POST['title'];
+				$data['alias'] 			= $_POST['alias'];
+				$data['category_id'] 	= $_POST['category_id'];
+				$data['description'] 	= $_POST['description'];
+				$data['thumbnail'] 		= $_POST['thumbnail'];
+				$data['active'] 		= $_POST['active'];
+				$data['content'] 		= $_POST['content'];
+				
+				if ($action == 'add') {
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_contents->add($data);
+				} else if ($action == 'edit') {
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+					$this->m_contents->update($data, ['id' => $id]);
+				}
+				
+				redirect(site_url("syslog/contents"), "back");
+			}
+			
+			if ($action == 'add') {
 
-		$tmpl_content = array();
-		$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
-		$this->load->view("layout/admin/main", $tmpl_content);
+				$view_data = array();
+				$view_data["categories"] = $categories;
+				$view_data["title"] = 'Thêm bài viết';
+	
+				$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);
 
+			} else if ($action == 'edit') {
+				$item = $this->m_contents->load($id);
+
+				$view_data = array();
+				$view_data["item"] = $item;
+				$view_data["categories"] = $categories;
+				$view_data["title"] = 'Chỉnh sửa bài viết';
+	
+				$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);	
+			} else if ($action == 'delete') {
+				$this->m_contents->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/contents"), "back");
+			}
+
+		} else {
+			$contents = $this->m_contents->items();
+			$view_data = array();
+			$view_data["contents"] = $contents;
+			$view_data["title"] = 'Danh sách bài viết';
+
+			$tmpl_content = array();
+			$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_content);
+		}
 	}
 	public function partners(){
 		$partners = $this->m_partner->items();

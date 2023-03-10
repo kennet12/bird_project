@@ -12,6 +12,7 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
 		<!-- Content -->
+      <? require_once(APPPATH."views/module/admin/notification.php"); ?>
 		  <?=$content?>
 		<!-- End content -->
 		<? require_once(APPPATH."views/module/admin/footer.php"); ?>
@@ -36,6 +37,13 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="<?=TPL_URL_ADMIN?>js/argon-dashboard.min.js?v=2.0.4"></script>
+  <script>
+    tinymce.init({
+      selector: '.tinymce',
+      plugins: 'color anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+  </script>
 </body>
 
 </html>

@@ -35,10 +35,10 @@
                       </td>
                       <td class="align-middle text-center text-sm">
                       <? if ($partners->active == 1)  { ?>
-                                    <span class="badge badge-sm bg-gradient-success">Hoạt động</span>
-                                    <? } else { ?>
-                                    <span class="badge badge-sm bg-gradient-secondary">Khóa</span>
-                                    <? } ?>
+                        <span class="badge badge-sm bg-gradient-success">Hoạt động</span>
+                      <? } else { ?>
+                        <span class="badge badge-sm bg-gradient-secondary">Khóa</span>
+                      <? } ?>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold"><?=date('d/m/Y',strtotime($partners->updated_date))?></span>
