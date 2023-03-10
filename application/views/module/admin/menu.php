@@ -33,6 +33,18 @@
             <span class="nav-link-text ms-1">Sản Phẩm</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=site_url("syslog/sliders")?>">
+          <i class="fa-solid fa-image"></i>
+            <span class="nav-link-text ms-1">Slider</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=site_url("syslog/contacts")?>">
+          <i class="fa-solid fa-address-card"></i>
+            <span class="nav-link-text ms-1">Contact</span>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
