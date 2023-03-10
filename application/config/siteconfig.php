@@ -33,7 +33,7 @@ define("ROW_PER_PAGE",		6);
 define("HOSTNAME",			"localhost");
 define("USERNAME",			"root");
 define("PASSWORD",			"");
-define("DATABASE",			"bird_db");
+define("DATABASE",			"basamekong_db");
 define("DRIVER",			"mysqli");
 
 // USER TYPES

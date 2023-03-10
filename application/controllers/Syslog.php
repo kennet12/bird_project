@@ -184,6 +184,27 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 
 	}
+	public function partners(){
+		$partners = $this->m_partner->items();
+		$view_data = array();
+		$view_data["partner"] = $partners;
+		$view_data["title"] = 'Danh Sách Đối Tác';
+
+		$tmpl_content = array();
+		$tmpl_content["content"] = $this->load->view("admin/partner/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_content);
+
+	}
+	public function products(){
+		$product = $this->m_product->items();
+		$view_data =array();
+		$view_data['products']=$product;
+		$view_data['title'] = 'Danh Sách Sản Phẩm';
+
+		$tmpl_product = array();
+		$tmpl_product['content']=$this->load->view('admin/product/category/index',$view_data, true);
+		$this->load->view('layout/admin/main',$tmpl_product);
+	}
 	
 	public function users1($action=null, $id=null)
 	{
