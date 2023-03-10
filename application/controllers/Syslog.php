@@ -184,7 +184,31 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 
 	}
-	
+
+
+	public function sliders(){
+		$kq_slider = $this->m_slide->items();
+		$view_data = array();
+		$view_data["slider_chuyen"] = $kq_slider;
+		$view_data["titles"] = 'Danh sách Slider';
+
+		
+		$tmpl_slider = array();
+		$tmpl_slider["content"] = $this->load->view("admin/slide/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_slider);
+	}
+
+	public function contacts(){
+		$kq_contact = $this->m_contact->items();
+		$view_data = array();
+		$view_data["contact_chuyen"] = $kq_contact;
+		$view_data["title"] = 'Danh sách Contact';
+
+		$tmpl_contact = array();
+		$tmpl_contact["content"] = $this->load->view("admin/contact/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_contact);
+	}
+
 	public function users1($action=null, $id=null)
 	{
 		$config_row_page = ADMIN_ROW_PER_PAGE;
