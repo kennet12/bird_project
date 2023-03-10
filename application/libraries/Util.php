@@ -1,6 +1,6 @@
 <?php
 class Util {
-	function Util() {
+	function __construct() {
 		$this->ci = &get_instance();
 	} 
 	

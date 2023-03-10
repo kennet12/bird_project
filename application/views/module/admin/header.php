@@ -1,124 +1,114 @@
-<?
-	
-	$admin = $this->session->userdata("admin");
-	$method = $this->router->fetch_method();
-	$product_categories = $this->m_product_categories->items();
-	$new_categories = $this->m_content_categories->items();
-	$info = new stdClass();
-	$info->user_types = array(USR_SUPPER_ADMIN, USR_ADMIN);
-	$user_onlines = $this->m_user->users($info);
-	$posts_categories = $this->m_posts_categories->items();
-	$faq_categories = $this->m_faq_categories->items(null,1);
-?>
-<div class="header">
-	<div class="header-top">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-						<span class="sr-only"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<div class="clearfix">
-							<div class="pull-left">
-								<span class="header-sitename"><?=SITE_NAME?></span><br>
-								<span class="header-title">Administration</span>
-							</div>
-							<div class="pull-left">
-								<span class="caret"></span>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li class="<?=(($method=='users')?'active':'')?>"><a href="<?=site_url("syslog/users")?>">Thành viên</a></li>
-						<li class="dropdown <?=in_array($method, array('product','product_categories')) ? 'active' : ''?>">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?=site_url("syslog/product-categories")?>">Danh mục</a></li>
-								<li role="separator" class="divider"></li>
-								<? foreach ($product_categories as $product_categorie) { ?>
-								<li><a href="<?=site_url("syslog/product/$product_categorie->alias")?>"><?=$product_categorie->name?></a></li>
-								<? } ?>
-							</ul>
-						</li>
-						<li class="dropdown <?=in_array($method, array('news','new_categories')) ? 'active' : ''?>">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tin tức - sự kiện <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?=site_url("syslog/new-categories")?>">Danh mục</a></li>
-								<li role="separator" class="divider"></li>
-								<? foreach ($new_categories as $new_categorie) { ?>
-								<li><a href="<?=site_url("syslog/news/$new_categorie->alias")?>"><?=$new_categorie->name?></a></li>
-								<? } ?>
-							</ul>
-						</li>
-						<li class="dropdown <?=in_array($method, array('posts','posts_categories')) ? 'active' : ''?>">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Thông tin chung <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?=site_url("syslog/posts-categories")?>">Danh mục</a></li>
-								<li role="separator" class="divider"></li>
-								<? foreach ($posts_categories as $posts_categorie) { ?>
-								<li><a href="<?=site_url("syslog/posts/$posts_categorie->alias")?>"><?=$posts_categorie->name?></a></li>
-								<? } ?>
-							</ul>
-						</li>
-						<li class="dropdown <?=in_array($method, array('about')) ? 'active' : ''?>">
-							<a href="<?=site_url("syslog/about")?>" class="navbar-link" class="dropdown-toggle" >Giới thiệu </a>
-						</li>
-						<li class="dropdown <?=($method=='partner') ? 'active' : ''?>">
-							<a href="<?=site_url('syslog/partner')?>">Banner đối tác</a>
-						</li>
-						<li class="<?=(($method=='slide')?'active':'')?>"><a href="<?=site_url("syslog/slide")?>">Slide</a></li>
-						<li class="dropdown <?=in_array($method, array('faq','faq_categories')) ? 'active' : ''?>">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hỏi - đáp <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?=site_url("syslog/faq-categories")?>">Danh mục</a></li>
-								<li role="separator" class="divider"></li>
-								<? foreach ($faq_categories as $faq_category) { ?>
-								<li><a href="<?=site_url("syslog/faq/$faq_category->alias")?>"><?=$faq_category->name?></a></li>
-								<? } ?>
-							</ul>
-						</li>
-						<li class="<?=(($method=='contact')?'active':'')?>"><a href="<?=site_url("syslog/contact")?>">Liên hệ</a></li>
-						<li class="<?=(($method=='settings')?'active':'')?>"><a href="<?=site_url("syslog/settings")?>">Cài đặt Web</a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" class="navbar-link" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$this->session->admin->fullname?> <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?=site_url("syslog/logout")?>"><i class="fa fa-sign-out"></i> Log Out</a></li>
-							</ul>
-						</li>
-						<?
-							foreach ($user_onlines as $user_online) {
-								if (($user_online->id != $this->session->admin->id) && (date($this->config->item("log_date_format"), strtotime($user_online->last_activity)) >= date($this->config->item("log_date_format"), strtotime("-30 minutes")))) {
-						?>
-						<li>
-							<a href="#" title="<?=$user_online->fullname?>">
-								<? if (!empty($user_online->avatar)) { ?>
-								<img class="img-circle" src="<?=$user_online->avatar?>" width="20px">
-								<? } else { ?>
-								<img class="img-circle" src="<?=IMG_URL?>no-avatar.gif" width="20px">
-								<? } ?>
-								<? if (date($this->config->item("log_date_format"), strtotime($user_online->last_activity)) >= date($this->config->item("log_date_format"), strtotime("-10 minutes"))) { ?>
-								<sup style="margin-left: -6px;"><i class="fa fa-circle" style="color: #5cb85c;"></i></sup>
-								<? } else if (date($this->config->item("log_date_format"), strtotime($user_online->last_activity)) >= date($this->config->item("log_date_format"), strtotime("-20 minutes"))) { ?>
-								<sup style="margin-left: -6px;"><i class="fa fa-circle" style="color: orange;"></i></sup>
-								<? } else { ?>
-								<sup style="margin-left: -6px;"><i class="fa fa-circle" style="color: #afafaf;"></i></sup>
-								<? } ?>
-							</a>
-						</li>
-						<?
-								}
-							}
-						?>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-</div>
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Tables</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Tables</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Type here...">
+            </div>
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="<?=TPL_URL_ADMIN?>img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New message</span> from Laur
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="<?=TPL_URL_ADMIN?>img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New album</span> by Travis Scott
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Payment successfully completed
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
