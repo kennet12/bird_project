@@ -17,8 +17,20 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?=site_url("syslog/contents")?>">
-          <i class="fa-solid fa-book-open"></i>
+            <i class="fa-solid fa-book-open"></i>
             <span class="nav-link-text ms-1">Bài Viết</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=site_url("syslog/partners")?>">
+          <i class="fa-solid fa-handshake-simple"></i>
+            <span class="nav-link-text ms-1">Đối Tác</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?=site_url("syslog/products")?>">
+          <i class="fa-brands fa-product-hunt"></i>
+            <span class="nav-link-text ms-1">Sản Phẩm</span>
           </a>
         </li>
         <li class="nav-item">
