@@ -173,29 +173,156 @@ class Syslog extends CI_Controller {
 		$tmpl_content["content"] = $this->load->view("admin/account/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
-	public function contents(){
-		$contents = $this->m_contents->items();
+	public function contents($action=null, $id=null){
+		if (!empty($action)) {
+			$categories = $this->m_content_categories->items(null,1);
+			if (!empty($_POST)) {
+				$data = [];
+				$data['title'] 			= $_POST['title'];
+				$data['alias'] 			= $_POST['alias'];
+				$data['category_id'] 	= $_POST['category_id'];
+				$data['description'] 	= $_POST['description'];
+				$data['thumbnail'] 		= $_POST['thumbnail'];
+				$data['active'] 		= $_POST['active'];
+				$data['content'] 		= $_POST['content'];
+				
+				if ($action == 'add') {
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_contents->add($data);
+				} else if ($action == 'edit') {
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+					$this->m_contents->update($data, ['id' => $id]);
+				}
+				
+				redirect(site_url("syslog/contents"), "back");
+			}
+			
+			if ($action == 'add') {
+
+				$view_data = array();
+				$view_data["categories"] = $categories;
+				$view_data["title"] = 'Thêm bài viết';
+	
+				$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);
+
+			} else if ($action == 'edit') {
+				$item = $this->m_contents->load($id);
+
+				$view_data = array();
+				$view_data["item"] = $item;
+				$view_data["categories"] = $categories;
+				$view_data["title"] = 'Chỉnh sửa bài viết';
+	
+				$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);	
+			} else if ($action == 'delete') {
+				$this->m_contents->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/contents"), "back");
+			}
+
+		} else {
+			$contents = $this->m_contents->items();
+			$view_data = array();
+			$view_data["contents"] = $contents;
+			$view_data["title"] = 'Danh sách bài viết';
+
+			$tmpl_content = array();
+			$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_content);
+		}
+	}
+	public function partners(){
+		$partners = $this->m_partner->items();
 		$view_data = array();
-		$view_data["contents"] = $contents;
-		$view_data["title"] = 'Danh sách bài viết';
+		$view_data["partner"] = $partners;
+		$view_data["title"] = 'Danh Sách Đối Tác';
 
 		$tmpl_content = array();
-		$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
+		$tmpl_content["content"] = $this->load->view("admin/partner/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 
 	}
+	public function products(){
+		$product = $this->m_product->items();
+		$view_data =array();
+		$view_data['products']=$product;
+		$view_data['title'] = 'Danh Sách Sản Phẩm';
 
+		$tmpl_product = array();
+		$tmpl_product['content']=$this->load->view('admin/product/category/index',$view_data, true);
+		$this->load->view('layout/admin/main',$tmpl_product);
+	}
 
-	public function sliders(){
-		$kq_slider = $this->m_slide->items();
-		$view_data = array();
-		$view_data["slider_chuyen"] = $kq_slider;
-		$view_data["titles"] = 'Danh sách Slider';
+	public function sliders($action=null, $id=null){
+		if(!empty($action))
+		{
+			if(!empty($_POST))
+			{
+				$receive_data=[];
+				$receive_data['title'] 		 = $_POST['title'];
+				$receive_data['link']		 = $_POST['link'];
+				$receive_data['description'] = $_POST['description'];
+				$receive_data['thumbnail']   = $_POST['thumbnail'];
+				$receive_data['active'] 	 = $_POST['active'];
+				if($action == 'add')
+				{
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_slide->add($receive_data);
+					
+				}
+				else if($action =='edit')
+				{
+					$this->m_slide->update($receive_data,['id'=>$id]);
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+					
+				}
+				redirect(site_url("syslog/sliders"), "back");
 
-		
-		$tmpl_slider = array();
-		$tmpl_slider["content"] = $this->load->view("admin/slide/index", $view_data, true);
-		$this->load->view("layout/admin/main", $tmpl_slider);
+			}
+			// load giao diện
+			if($action == 'add')
+			{
+				$view_data = array();
+				$view_data["title"] = 'Thêm mới Slider';
+				
+				$tmpl_slider = array();
+				$tmpl_slider["content"] = $this->load->view("admin/slide/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_slider);
+			}
+			else if($action == 'edit')
+			{
+				
+				$kq_slider_item = $this->m_slide->load($id);
+				$view_data = array();
+				$view_data["slider_chuyen_item"] = $kq_slider_item;
+				$view_data["title"] = 'Cập nhật Slider';
+				
+				$tmpl_slider = array();
+				$tmpl_slider["content"] = $this->load->view("admin/slide/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_slider);	
+			}
+			else if($action == 'delete')
+			{
+				$this->m_slide->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/sliders"), "back");
+			}
+		}
+		else
+		{
+			$kq_slider = $this->m_slide->items();
+			$view_data = array();
+			$view_data["slider_chuyen"] = $kq_slider;
+			$view_data["titles"] = 'Danh sách Slider';
+
+			$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/slide/index", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);
+		}
 	}
 
 	public function contacts(){
