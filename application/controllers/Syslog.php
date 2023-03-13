@@ -162,16 +162,33 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 	// Users
 	//------------------------------------------------------------------------------
-	public function users()
-	{
+	public function users($action = null , $id = null){
+		if(!empty($action)){
+			$users = $this->m_user->users(null,1);
+			if($action == 'edit'){
+				$view_data = array();
+				$view_data['users'] = $users;
+				$view_data['title'] = 'Chỉnh Sửa User';
+
+				$tmpl_content = array();
+				$tmpl_content["content"] = $this->load->view("admin/account/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content);
+			}
+			else if ($action == 'delete') {
+				$this->m_user->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/users"), "back");
+			}
+		} else {
 		$users = $this->m_user->users();
-		$view_data = array();
+		$view_data = array();	
 		$view_data["users"] = $users;
 		$view_data["title"] = 'Danh sách thành viên';
 		
 		$tmpl_content = array();
 		$tmpl_content["content"] = $this->load->view("admin/account/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
+		}
 	}
 	public function contents($action=null, $id=null){
 		if (!empty($action)) {
@@ -235,18 +252,68 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
-	public function partners(){
+	public function partners($action=null,$id=null){
+		if(!empty($action)){
+				$partners = $this->m_partner->items(null,1);
+			if(!empty($_POST)){
+				$data = array();
+				$data['name'] 	 = $_POST['name'];
+				$data['url']	 = $_POST['url'];
+				$data['banner']	 = $_POST['banner'];
+				$data['active']  = $_POST['active'];
+				if ($action == 'add') {
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_partner->add($data);
+				} else if ($action == 'edit') {
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+					$this->m_partner->update($data, ['id' => $id]);
+				}
+				
+				redirect(site_url("syslog/partners"), "back");
+			}
+			if($action == 'add'){
+				$view_data = array();
+				$view_data['partners'] = $partners;
+				$view_data['title'] =' Thêm Đối Tác';
+
+				$tmpl_partner = array();
+				$tmpl_partner["content"] = $this->load->view("admin/partner/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_partner);
+			}
+			else if($action == 'edit'){
+				$view_data = array();
+				$view_data['partners'] = $partners;
+				$view_data['title'] ='Chỉnh Sửa Đối Tác';
+
+				$tmpl_partner = array();
+				$tmpl_partner["content"] = $this->load->view("admin/partner/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_partner);
+			}
+			else if ($action == 'delete') {
+				$this->m_partner->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/partners"), "back");
+			}
+		} else {
 		$partners = $this->m_partner->items();
 		$view_data = array();
-		$view_data["partner"] = $partners;
+		$view_data["partners"] = $partners;
 		$view_data["title"] = 'Danh Sách Đối Tác';
 
-		$tmpl_content = array();
-		$tmpl_content["content"] = $this->load->view("admin/partner/index", $view_data, true);
-		$this->load->view("layout/admin/main", $tmpl_content);
-
+		$tmpl_partner = array();
+		$tmpl_partner["content"] = $this->load->view("admin/partner/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_partner);
+		
 	}
+<<<<<<< HEAD
+	}
+
+
+
+
+=======
 	
+>>>>>>> 567fa6824a6e2ed80bea9fa4df3beca14a0b8145
 	public function products(){
 		$product = $this->m_product->items();
 		$view_data =array();
@@ -2073,6 +2140,21 @@ class Syslog extends CI_Controller {
 	// 		$view_data["breadcrumb"] 	= $this->_breadcrumb;
 	// 		$view_data["item"]			= $item;
 			
+<<<<<<< HEAD
+			$tmpl_content = array();
+			$tmpl_content["content"] = $this->load->view("admin/contact/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_content);
+		}
+	}
+	// public function partner ($action=null, $id=null) {
+	// 	if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+	// 			$page = 1;
+	// 	}
+	// 	else {
+	// 			$page = $_GET['page'];
+	// 	}
+	// 	$offset = ($page - 1) * ADMIN_ROW_PER_PAGE;
+=======
 	// 		$tmpl_content = array();
 	// 		$tmpl_content["content"] = $this->load->view("admin/contact/edit", $view_data, true);
 	// 		$this->load->view("layout/admin/main", $tmpl_content);
@@ -2102,123 +2184,124 @@ class Syslog extends CI_Controller {
 				$page = $_GET['page'];
 		}
 		$offset = ($page - 1) * ADMIN_ROW_PER_PAGE;
+>>>>>>> 567fa6824a6e2ed80bea9fa4df3beca14a0b8145
 
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Banner đối tác" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")));
+	// 	$this->_breadcrumb = array_merge($this->_breadcrumb, array("Banner đối tác" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")));
 		
-		$task = $this->util->value($this->input->post("task"), "");
-		if (!empty($task)) {
-			if ($task == "save") {
-				$name		= $this->util->value($this->input->post("name"), "");
-				$url	= $this->util->value($this->input->post("url"), "");
-				$banner 		= !empty($_FILES['banner']['name']) ? explode('.',$_FILES['banner']['name']) : $this->m_partner->load($id)->banner;
-				$active			= $this->util->value($this->input->post("active"), 1);
+	// 	$task = $this->util->value($this->input->post("task"), "");
+	// 	if (!empty($task)) {
+	// 		if ($task == "save") {
+	// 			$name		= $this->util->value($this->input->post("name"), "");
+	// 			$url	= $this->util->value($this->input->post("url"), "");
+	// 			$banner 		= !empty($_FILES['banner']['name']) ? explode('.',$_FILES['banner']['name']) : $this->m_partner->load($id)->banner;
+	// 			$active			= $this->util->value($this->input->post("active"), 1);
 
-				$data = array (
-					"name"			=> $name,
-					"url"			=> $url,
-					"banner"		=> $banner,
-					"active"		=> $active,
-				);
-				if (!empty($_FILES['banner']['name'])){
-					$data['banner'] = BASE_URL."/files/upload/image/new/{$this->util->slug($banner[0])}.{$banner[1]}";
-				}
-				$file_deleted = '';
-				if ($action == "add") {
-					$this->m_partner->add($data);
-					$this->session->set_flashdata("success", "Tạo thành công");
-				}
-				else if ($action == "edit") {
-					$where = array("id" => $id);
-					$this->m_partner->update($data, $where);
-					$this->session->set_flashdata("success", "Cập nhật thành công");
-				}
-				$path = "./files/upload/image/new";
-				if (!file_exists($path)) {
-					mkdir($path, 0755, true);
-				}
-				$allow_type = 'gif|jpg|jpeg|png';
-				$this->util->upload_file($path,'banner',$file_deleted,$allow_type);
-				redirect(site_url("syslog/partner"));
-			}
-			else if ($task == "cancel") {
-				redirect(site_url("syslog/partner"));
-			}
-			else if ($task == "publish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 1);
-					$where = array("id" => $id);
-					$this->m_partner->update($data, $where);
-				}
-				redirect(site_url("syslog/partner"));
-			}
-			else if ($task == "unpublish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 0);
-					$where = array("id" => $id);
-					$this->m_partner->update($data, $where);
-				}
-				redirect(site_url("syslog/partner"));
-			}
-			else if ($task == "delete") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$where = array("id" => $id);
-					$this->m_partner->delete($where);
-				}
-				$this->session->set_flashdata("success", "Xóa thành công");
-				redirect(site_url("syslog/partner"));
-			}
-		}
+	// 			$data = array (
+	// 				"name"			=> $name,
+	// 				"url"			=> $url,
+	// 				"banner"		=> $banner,
+	// 				"active"		=> $active,
+	// 			);
+	// 			if (!empty($_FILES['banner']['name'])){
+	// 				$data['banner'] = BASE_URL."/files/upload/image/new/{$this->util->slug($banner[0])}.{$banner[1]}";
+	// 			}
+	// 			$file_deleted = '';
+	// 			if ($action == "add") {
+	// 				$this->m_partner->add($data);
+	// 				$this->session->set_flashdata("success", "Tạo thành công");
+	// 			}
+	// 			else if ($action == "edit") {
+	// 				$where = array("id" => $id);
+	// 				$this->m_partner->update($data, $where);
+	// 				$this->session->set_flashdata("success", "Cập nhật thành công");
+	// 			}
+	// 			$path = "./files/upload/image/new";
+	// 			if (!file_exists($path)) {
+	// 				mkdir($path, 0755, true);
+	// 			}
+	// 			$allow_type = 'gif|jpg|jpeg|png';
+	// 			$this->util->upload_file($path,'banner',$file_deleted,$allow_type);
+	// 			redirect(site_url("syslog/partner"));
+	// 		}
+	// 		else if ($task == "cancel") {
+	// 			redirect(site_url("syslog/partner"));
+	// 		}
+	// 		else if ($task == "publish") {
+	// 			$ids = $this->util->value($this->input->post("cid"), array());
+	// 			foreach ($ids as $id) {
+	// 				$data = array("active" => 1);
+	// 				$where = array("id" => $id);
+	// 				$this->m_partner->update($data, $where);
+	// 			}
+	// 			redirect(site_url("syslog/partner"));
+	// 		}
+	// 		else if ($task == "unpublish") {
+	// 			$ids = $this->util->value($this->input->post("cid"), array());
+	// 			foreach ($ids as $id) {
+	// 				$data = array("active" => 0);
+	// 				$where = array("id" => $id);
+	// 				$this->m_partner->update($data, $where);
+	// 			}
+	// 			redirect(site_url("syslog/partner"));
+	// 		}
+	// 		else if ($task == "delete") {
+	// 			$ids = $this->util->value($this->input->post("cid"), array());
+	// 			foreach ($ids as $id) {
+	// 				$where = array("id" => $id);
+	// 				$this->m_partner->delete($where);
+	// 			}
+	// 			$this->session->set_flashdata("success", "Xóa thành công");
+	// 			redirect(site_url("syslog/partner"));
+	// 		}
+	// 	}
 		
-		if ($action == "add") {
-			$item = $this->m_partner->instance();
-			$this->_breadcrumb = array_merge($this->_breadcrumb, array("Tạo mới" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")));
+	// 	if ($action == "add") {
+	// 		$item = $this->m_partner->instance();
+	// 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Tạo mới" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")));
 			
-			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
-			$view_data["item"] = $item;
-			$view_data["category"] = $category;
+	// 		$view_data = array();
+	// 		$view_data["breadcrumb"] = $this->_breadcrumb;
+	// 		$view_data["item"] = $item;
+	// 		$view_data["category"] = $category;
 			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/partner/edit", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-		else if ($action == "edit") {
-			$item = $this->m_partner->load($id);
-			$this->_breadcrumb = array_merge($this->_breadcrumb, array("{$item->question}" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")));
-			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
-			$view_data["item"] = $item;
-			$view_data["category"] = $category;
+	// 		$tmpl_content = array();
+	// 		$tmpl_content["content"] = $this->load->view("admin/partner/edit", $view_data, true);
+	// 		$this->load->view("layout/admin/main", $tmpl_content);
+	// 	}
+	// 	else if ($action == "edit") {
+	// 		$item = $this->m_partner->load($id);
+	// 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("{$item->question}" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")));
+	// 		$view_data = array();
+	// 		$view_data["breadcrumb"] = $this->_breadcrumb;
+	// 		$view_data["item"] = $item;
+	// 		$view_data["category"] = $category;
 			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/partner/edit", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-		else {
-			$info = new stdClass();
-			$info->category_id = $category->id;
+	// 		$tmpl_content = array();
+	// 		$tmpl_content["content"] = $this->load->view("admin/partner/edit", $view_data, true);
+	// 		$this->load->view("layout/admin/main", $tmpl_content);
+	// 	}
+	// 	else {
+	// 		$info = new stdClass();
+	// 		$info->category_id = $category->id;
 
-			$total = count($this->m_partner->items($info, null, null, null));
-			$items = $this->m_partner->items($info, null, ADMIN_ROW_PER_PAGE, $offset);
+	// 		$total = count($this->m_partner->items($info, null, null, null));
+	// 		$items = $this->m_partner->items($info, null, ADMIN_ROW_PER_PAGE, $offset);
 
-			$pagination = $this->util->pagination(site_url('syslog/partner/'.$category->alias). "?$_SERVER[QUERY_STRING]", $total, ADMIN_ROW_PER_PAGE);
+	// 		$pagination = $this->util->pagination(site_url('syslog/partner/'.$category->alias). "?$_SERVER[QUERY_STRING]", $total, ADMIN_ROW_PER_PAGE);
 			
-			$view_data = array();
-			$view_data["breadcrumb"] 	= $this->_breadcrumb;
-			$view_data["offset"]		= $offset;
-			$view_data["pagination"]	= $pagination;
-			$view_data["totalitems"]	= sizeof($this->m_faq->items($info));
-			$view_data["items"]			= $items;
-			$view_data["category"]		= $category;
+	// 		$view_data = array();
+	// 		$view_data["breadcrumb"] 	= $this->_breadcrumb;
+	// 		$view_data["offset"]		= $offset;
+	// 		$view_data["pagination"]	= $pagination;
+	// 		$view_data["totalitems"]	= sizeof($this->m_faq->items($info));
+	// 		$view_data["items"]			= $items;
+	// 		$view_data["category"]		= $category;
 			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/partner/index", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-	}
+	// 		$tmpl_content = array();
+	// 		$tmpl_content["content"] = $this->load->view("admin/partner/index", $view_data, true);
+	// 		$this->load->view("layout/admin/main", $tmpl_content);
+	// 	}
+	// }
 }
 
 ?>
