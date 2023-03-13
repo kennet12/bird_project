@@ -293,8 +293,23 @@ class Syslog extends CI_Controller {
 				$data = array();
 				$data['name'] 	 = $_POST['name'];
 				$data['url']	 = $_POST['url'];
-				$data['banner']	 = $_POST['banner'];
 				$data['active']  = $_POST['active'];
+				
+				if (!empty($_FILES['banner']['name'])){
+					$path = "./files/upload/image/partner/{$id}";
+					if (!file_exists($path)) {
+						mkdir($path, 0755, true);
+					}
+					// code tao thư mục
+	
+					$allow_type = 'jpg|jpeg|png';
+					$this->util->upload_file($path,'banner','',$allow_type);
+					// upload ảnh lên server
+	
+					$banner = explode('.',$_FILES['banner']['name']) ;
+					$data['banner'] = $path."/{$this->util->slug($banner[0])}.{$banner[1]}";
+					// add url hinh ảnh vào database
+				}
 				if ($action == 'add') {
 					$this->session->set_flashdata("success", "Thêm thành công");
 					$this->m_partner->add($data);
@@ -315,7 +330,8 @@ class Syslog extends CI_Controller {
 				$this->load->view("layout/admin/main", $tmpl_partner);
 			}
 			else if($action == 'edit'){
-				$view_data = array();
+				$partners = $this->m_partner->load($id);
+				$view_data = array();	
 				$view_data['partners'] = $partners;
 				$view_data['title'] ='Chỉnh Sửa Đối Tác';
 
