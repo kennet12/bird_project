@@ -60,7 +60,7 @@
 											<label class="wrap-upload-banner" <?=!empty($user->avatar) ? 'style="background: url('.BASE_URL. $user->avatar.')"' : ''?>') no-repeat">
 												<input type="file" name="avatar" id="file-upload" value="<?=!empty($user->fullname) ? $user->fullname : ''?>">
 												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-											</label>
+											</label> 
 										</div>
 									</div>
 									<div class="text-center">

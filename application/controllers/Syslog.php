@@ -183,7 +183,7 @@ class Syslog extends CI_Controller {
 
 					$allow_type = 'jpg|jpeg|png';
 					$this->util->upload_file($path,'avatar','',$allow_type);
-					// upload ảnh lên server
+					// upload ảnh lên server 
 
 					$avatar = !empty($_FILES['avatar']['name']) ? explode('.',$_FILES['avatar']['name']) : $this->m_user->load($id)->avatar;
 					$data['avatar'] = $path."/{$this->util->slug($avatar[0])}.{$avatar[1]}";

@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <? foreach($users as $user) { ?>
+                            <? foreach($users as $user) {  ?>
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
