@@ -6,7 +6,7 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
 				<div class="form-box">
-					<form id="form-post" action="" method="POST">
+					<form id="form-post" action="" method="POST" enctype="multipart/form-data">
 						<input type="hidden" name="task" id="task" class="form-control" value="">
 						<div class="row">
 							<div class="col-md-6">
@@ -16,45 +16,51 @@
 										<input type="text" name="fullname" value="<?=!empty($user->fullname)? $user->fullname :''?>" class="form-control">
 									</div>
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Mật Khẩu</span>
-										<input type="text" name="gender" value="<?=!empty($user->password)? $user->password :''?>" class="form-control">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Email</span>
-										<input type="text" name="gender" value="<?=!empty($user->email)? $user->email :''?>" class="form-control">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Giới Tính</span>
-										<input type="text" name="Password" value="<?=!empty($user->gender)? $user->gender :''?>" class="form-control">
-									</div>
-									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Số Điện Thoại</span>
-										<input type="text" name="Password_text" value="<?=!empty($user->phone)? $user->phone  :''?>" class="form-control">
+										<input type="text" name="phone" value="<?=!empty($user->phone)? $user->phone  :''?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Địa Chỉ</span>
-										<input type="text" name="Password_text" value="<?=!empty($user->address)? $user->address  :''?>" class="form-control">
+										<input type="text" name="address" value="<?=!empty($user->address)? $user->address  :''?>" class="form-control">
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div>Giới tính </div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="gender" id="input" value="1" <?=!empty($user->gender) ? 'checked="checked"' : ''?>>
+													Nam
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="gender" id="input" value="0" <?=empty($user->gender) ? 'checked="checked"' : ''?>>
+													Nữ
+												</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div>Trạng thái</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="1" <?=!empty($user->active) ? 'checked="checked"' : ''?>>
+													Hoạt động
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="0" <?=empty($user->active) ? 'checked="checked"' : ''?>>
+													Khóa
+												</label>
+											</div>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-6">
-											<label class="wrap-upload-banner" <?=!empty($user->avatar) ? 'style="background: url('. $user->avatar.')"' : ''?>') no-repeat">
+											<label class="wrap-upload-banner" <?=!empty($user->avatar) ? 'style="background: url('.BASE_URL. $user->avatar.')"' : ''?>') no-repeat">
 												<input type="file" name="avatar" id="file-upload" value="<?=!empty($user->fullname) ? $user->fullname : ''?>">
 												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
 											</label>
-										</div>
-										<div class="col-6">
-											<div class="radio">
-												<label>
-													<input type="radio" name="active" id="input" value="1" <?=!empty($parnerts->active) ? 'checked="checked"' : ''?>>
-													Hiện
-												</label>
-											</div>
-											<div class="radio">
-												<label>
-													<input type="radio" name="active" id="input" value="0" <?=empty($parnerts->active) ? 'checked="checked"' : ''?>>
-													Ẩn
-												</label>
-											</div>
 										</div>
 									</div>
 									<div class="text-center">
@@ -74,7 +80,7 @@ $(document).ready(function() {
 	$("#file-upload").change(function() {
 		readURL(this);
 	});
-	
+
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();

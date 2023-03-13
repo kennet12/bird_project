@@ -164,10 +164,43 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 	public function users($action = null , $id = null){
 		if(!empty($action)){
-			$users = $this->m_user->users(null,1);
+
+			if (!empty($_POST)) {
+
+				$data = [];
+				$data['fullname'] 			= $_POST['fullname'];
+				$data['phone'] 			= $_POST['phone'];
+				$data['address'] 	= $_POST['address'];
+				$data['gender'] 	= $_POST['gender'];
+				$data['active'] 		= $_POST['active'];
+
+				if (!empty($_FILES['avatar']['name'])){
+					$path = "./files/upload/image/user/{$id}";
+					if (!file_exists($path)) {
+						mkdir($path, 0755, true);
+					}
+					// code tao thư mục
+
+					$allow_type = 'jpg|jpeg|png';
+					$this->util->upload_file($path,'avatar','',$allow_type);
+					// upload ảnh lên server
+
+					$avatar = !empty($_FILES['avatar']['name']) ? explode('.',$_FILES['avatar']['name']) : $this->m_user->load($id)->avatar;
+					$data['avatar'] = $path."/{$this->util->slug($avatar[0])}.{$avatar[1]}";
+					// add url hinh ảnh vào database
+				}
+
+				if ($action == 'edit') {
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+					$this->m_user->update($data, ['id' => $id]);
+				}
+				
+				redirect(site_url("syslog/users"), "back");
+			}
+			
 			if($action == 'edit'){
 				$view_data = array();
-				$view_data['users'] = $users;
+				$view_data['user'] = $this->m_user->load($id);
 				$view_data['title'] = 'Chỉnh Sửa User';
 
 				$tmpl_content = array();
