@@ -13,11 +13,11 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Tên Người Dùng</span>
-										<input type="text" name="fullname" value="<?=!empty($user->fullname)? $user->fullname :''?>" class="form-control">
+										<input type="text" id="fullname" name="fullname" value="<?=!empty($user->fullname)? $user->fullname :''?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Số Điện Thoại</span>
-										<input type="text" name="phone" value="<?=!empty($user->phone)? $user->phone  :''?>" class="form-control">
+										<input type="text" id="phone" name="phone" value="<?=!empty($user->phone)? $user->phone  :''?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Địa Chỉ</span>
@@ -96,8 +96,23 @@ $(document).ready(function() {
 		}
 	}
 	$(".btn-save").click(function(){
-		$("#task").val('save');
-		$('#form-post').submit();
+		var error = [];
+
+		if ($('#fullname').val() == '') {
+			error.push('Vui lòng nhập tên.')
+		}
+
+		if ($('#phone').val() == '') {
+			error.push('Vui lòng nhập số điện thoại.')
+		}
+
+		if (error.length == 0) {
+			$("#task").val('save');
+			$('#form-post').submit();
+		} else {
+			messageBox('error','Đã xảy ra lỗi',error);
+		}
+		
 	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");

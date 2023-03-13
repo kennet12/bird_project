@@ -63,3 +63,15 @@ body.login {
 .input-group input {
 	text-indent: 10px;
 }
+.error .modal-header {
+	background: #f44336;
+}
+.modal .modal-title {
+	color: #fff;
+}
+.error #message-list li {
+	color: #f44336;
+}
+.success .modal-header {
+	background: #4caf50;
+}
