@@ -184,7 +184,7 @@ class Syslog extends CI_Controller {
 				$data['description'] 	= $_POST['description'];
 				$data['thumbnail'] 		= $_POST['thumbnail'];
 				$data['active'] 		= $_POST['active'];
-				$data['content'] 		= $_POST['content'];
+				$data['content'] 		= $_POST['content']; 
 				
 				if ($action == 'add') {
 					$this->session->set_flashdata("success", "Thêm thành công");
