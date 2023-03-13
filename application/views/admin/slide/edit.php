@@ -1,57 +1,135 @@
-<div class="cluster">
-	<div class="container-fluid">
-		<h1 class="page-title">TẠO SLIDE</h1>
-		<form id="frm-admin" name="adminForm" action="" method="POST" enctype="multipart/form-data">
-			<input type="hidden" id="task" name="task" value="">
-			<table class="table table-bordered">
-				<tr>
-					<td class="table-head text-right" width="10%">Tiêu đề</td>
-					<td><input type="text" id="title" name="title" class="form-control" value="<?=!empty($item->title) ? $item->title : ''?>"></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">Hình ảnh</td>
-					<td>
-						<label class="wrap-upload-banner" style="background: url('<?=!empty($item->thumbnail) ? $item->thumbnail : ''?>') no-repeat">
-							<input type="file" name="thumbnail" id="file-upload" value="<?=!empty($item->name) ? $item->name : ''?>">
-							<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">URL (đường dẫn)</td>
-					<td><input type="text" id="link" name="link" class="form-control" value="<?=!empty($item->link) ? $item->link : ''?>"></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">Miêu tả</td>
-					<td><textarea name="description" id="description" class="form-control" rows="3" required="required"><?=!empty($item->description) ? $item->description : ''?></textarea></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right">Trạng thái</td>
-					<td>
-						<select id="active" name="active" class="form-control">
-							<option value="1">Hiện</option>
-							<option value="0">Ẩn</option>
-						</select>
-						<script type="text/javascript">
-							$("#active").val("<?=!empty($item->active) ? $item->active : 1 ?>");
-						</script>
-					</td>
-				</tr>
-			</table>
-			<div class="pull-right">
-				<button class="btn btn-sm btn-primary btn-save">Lưu</button>
-				<button class="btn btn-sm btn-default btn-cancel">Huỷ</button>
-			</div>
-		</form>
-	</div>
-</div>
 
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6><?=$title;?></h6>
+            </div> 
+            <div class="card-body px-0 pt-0 pb-2">
+				<div class="form-box">
+					<form id="form-post" action="" method="POST">
+						<input type="hidden" name="task" id="task" class="form-control" value="">
+						<div class="row">
+						<div class="col-md-1">
+						</div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<div class="input-group invalid">
+										<span class="input-group-text" id="basic-addon1">Tiêu đề</span>
+										<input type="text" name="title" id="title" value="<?=!empty($slider_chuyen_item->title)? $slider_chuyen_item->title :''?>" class="form-control">
+										<span class="form-message"></span>
+									</div>
+									
+
+									<div class="input-group">
+										<span class="input-group-text" id="basic-addon1">link liên kết</span>
+										<input type="text" name="link" value="<?=!empty($slider_chuyen_item->link)? $slider_chuyen_item->link:'' ?>" class="form-control">
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+											<textarea class="form-control" name="description" placeholder="Mô tả" rows="5"><?=!empty($slider_chuyen_item->description)? $slider_chuyen_item->description :''?></textarea>
+										</div>
+									</div>
+									
+									
+									<div class="row">
+									<div class="col-6">
+									<label class="wrap-upload-banner" <?=!empty($slider_chuyen_item->thumbnail) ? 'style="background: url('. $slider_chuyen_item->thumbnail.')"' : ''?>') no-repeat">
+												<input type="file" name="thumbnail" id="file-upload" value="<?=!empty($slider_chuyen_item->title) ? $slider_chuyen_item->title : ''?>">
+												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+											</label>
+										</div>
+										<div class="col-2"></div>
+										<div class="col-4">
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="1" <?=!empty($slider_chuyen_item->active)? 'checked="checked"':' ' ?>>
+													Hiện
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="0" <?=empty($slider_chuyen_item->active)? 'checked="checked"':' ' ?> >
+													Ẩn
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+						</div>
+						<div class="text-center">
+							<button type="button" id="btn-save" class="btn-save btn bg-gradient-success">Cập nhật</button>
+						</div>
+					</form>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+	// định nghĩa rules cho từng isrequid
+	//khi lỗi trả ra messeage lỗi
+	// khi không có lỗi trẩ về undifend
+validator.isRequired = function(selector)
+{
+	return{
+		selector: selector,
+		test: function(value){
+			return value.trim() ? undefined  : " Vui lòng nhập dũ liệu ";
+		}
+	};
+}
+// đối tượng validators
+function validator(options)
+{
+	function validate(inputElement,rule)
+	{
+		
+		var errorElemment = inputElement.parentElement.querySelector('.form-message');
+		var errormess = rule.test(inputElement.value);
+
+			// console.log(errormess);
+			if(errormess)
+			{
+			errorElemment.innerText = errormess;
+			}
+			else{
+			errorElemment.innerText ='';
+			}
+	}
+
+	var formElement =document.querySelector(options.form);
+	if(formElement)
+	{
+		options.rules.forEach(function (rule)	
+		{
+			var inputElement = formElement.querySelector(rule.selector);
+			if(inputElement)
+			{
+				inputElement.onblur = function()
+				{
+					validate(inputElement,rule);
+				}
+			}
+		});
+	}
+}
+
+validator(
+	{
+	form:'#form-post',
+	rules:[
+		validator.isRequired('#title')
+	]
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////////////
+
 $(document).ready(function() {
-	$("#file-upload").change(function() {
-		readURL(this);
-	});
-	
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -66,42 +144,12 @@ $(document).ready(function() {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	$(".btn-save").click(function(){
+		$("#task").val('save');
+		$('#form-post').submit();
+	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");
 	});
-	$(".btn-save").click(function(e) {
-		e.preventDefault();
-		
-		var err = 0;
-		var msg = [];
-		
-		clearFormError();
-		
-		if ($("#title").val() == "") {
-			$("#title").addClass("error");
-			err++;
-			msg.push("Tiêu đề không được trống.");
-		} else {
-			$("#title").removeClass("error");
-		}
-
-		if ($("#file-upload").val() == "") {
-			err++;
-			msg.push("Vui lòng chọn file.");
-		}
-		
-		if ($("#content").val() == "") {
-			err++;
-			msg.push("Nội dung không được để trống.");
-		}
-		
-		if (!err) {
-			$("#task").val("save");
-			$("#frm-admin").submit();
-		} else {
-			showErrorMessage(msg);
-		}
-	});
 });
-</script>
 </script>
