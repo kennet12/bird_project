@@ -24,7 +24,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="<?=$partner->banner?>" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="<?=BASE_URL.$partner->banner?>" class="avatar avatar-sm me-3" alt="user1">  
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?=$partner->name?></h6>
@@ -36,9 +36,9 @@
                       </td>
                       <td class="align-middle text-center text-sm">
                       <? if ($partner->active == 1)  { ?>
-                        <span class="badge badge-sm bg-gradient-success">Hoạt động</span>
+                        <span class="badge badge-sm bg-gradient-success">Hiện</span>
                       <? } else { ?>
-                        <span class="badge badge-sm bg-gradient-secondary">Khóa</span>
+                        <span class="badge badge-sm bg-gradient-secondary">Ẩn</span>
                       <? } ?>
                       </td>
                       <td class="align-middle text-center">
