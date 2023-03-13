@@ -295,25 +295,18 @@ class Syslog extends CI_Controller {
 				redirect(site_url("syslog/partners"), "back");
 			}
 		} else {
-		$partners = $this->m_partner->items();
-		$view_data = array();
-		$view_data["partners"] = $partners;
-		$view_data["title"] = 'Danh Sách Đối Tác';
+			$partners = $this->m_partner->items();
+			$view_data = array();
+			$view_data["partners"] = $partners;
+			$view_data["title"] = 'Danh Sách Đối Tác';
 
-		$tmpl_partner = array();
-		$tmpl_partner["content"] = $this->load->view("admin/partner/index", $view_data, true);
-		$this->load->view("layout/admin/main", $tmpl_partner);
+			$tmpl_partner = array();
+			$tmpl_partner["content"] = $this->load->view("admin/partner/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_partner);
 		
+		}
 	}
-<<<<<<< HEAD
-	}
 
-
-
-
-=======
-	
->>>>>>> 567fa6824a6e2ed80bea9fa4df3beca14a0b8145
 	public function products(){
 		$product = $this->m_product->items();
 		$view_data =array();
@@ -2140,21 +2133,6 @@ class Syslog extends CI_Controller {
 	// 		$view_data["breadcrumb"] 	= $this->_breadcrumb;
 	// 		$view_data["item"]			= $item;
 			
-<<<<<<< HEAD
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/contact/index", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-	}
-	// public function partner ($action=null, $id=null) {
-	// 	if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
-	// 			$page = 1;
-	// 	}
-	// 	else {
-	// 			$page = $_GET['page'];
-	// 	}
-	// 	$offset = ($page - 1) * ADMIN_ROW_PER_PAGE;
-=======
 	// 		$tmpl_content = array();
 	// 		$tmpl_content["content"] = $this->load->view("admin/contact/edit", $view_data, true);
 	// 		$this->load->view("layout/admin/main", $tmpl_content);
@@ -2176,15 +2154,14 @@ class Syslog extends CI_Controller {
 	// 	}
 	// }
 
-	public function partner ($action=null, $id=null) {
-		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
-				$page = 1;
-		}
-		else {
-				$page = $_GET['page'];
-		}
-		$offset = ($page - 1) * ADMIN_ROW_PER_PAGE;
->>>>>>> 567fa6824a6e2ed80bea9fa4df3beca14a0b8145
+	// public function partner ($action=null, $id=null) {
+	// 	if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+	// 			$page = 1;
+	// 	}
+	// 	else {
+	// 			$page = $_GET['page'];
+	// 	}
+	// 	$offset = ($page - 1) * ADMIN_ROW_PER_PAGE;
 
 	// 	$this->_breadcrumb = array_merge($this->_breadcrumb, array("Banner đối tác" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")));
 		
