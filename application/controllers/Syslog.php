@@ -287,8 +287,9 @@ class Syslog extends CI_Controller {
 	}
 	public function partners($action=null,$id=null){
 		if(!empty($action)){
-				$partners = $this->m_partner->items(null,1);
+				
 			if(!empty($_POST)){
+				$partners = $this->m_partner->view($id);
 				$data = array();
 				$data['name'] 	 = $_POST['name'];
 				$data['url']	 = $_POST['url'];
@@ -435,8 +436,25 @@ class Syslog extends CI_Controller {
 				$receive_data['title'] 		 = $_POST['title'];
 				$receive_data['link']		 = $_POST['link'];
 				$receive_data['description'] = $_POST['description'];
-				$receive_data['thumbnail']   = $_POST['thumbnail'];
 				$receive_data['active'] 	 = $_POST['active'];
+
+				if (!empty($_FILES['thumbnail']['name'])){
+					$path = "./files/upload/image/slider/{$id}";
+					if (!file_exists($path)) {
+						mkdir($path, 0755, true);
+					}
+					// code tao thư mục
+
+					$allow_type = 'jpg|jpeg|png';
+					$this->util->upload_file($path,'thumbnail','',$allow_type);
+					// upload ảnh lên server
+
+					$thumbnail = explode('.',$_FILES['thumbnail']['name']);
+					$receive_data['thumbnail'] = $path."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+					// add url hinh ảnh vào database
+				}
+
+
 				if($action == 'add')
 				{
 					$this->session->set_flashdata("success", "Thêm thành công");
