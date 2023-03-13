@@ -307,7 +307,7 @@ class Syslog extends CI_Controller {
 		}
 	}
 
-	public function products(){
+	public function products() {
 		$product = $this->m_product->items();
 		$view_data =array();
 		$view_data['products']=$product;
