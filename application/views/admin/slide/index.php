@@ -3,7 +3,7 @@
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h6><?=$titles?></h6>
-
+                <a href="<?=site_url('syslog/sliders/add')?>"><span class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-plus"></i> Thêm</span></a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
@@ -29,7 +29,6 @@
                             <?php  foreach($slider_chuyen as $slider_foreach)
 							{
 								?>
-								
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
@@ -69,13 +68,13 @@
                                     <span class="text-secondary text-xs font-weight-bold"><?= $slider_foreach->updated_date;?></span>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                        data-toggle="tooltip" data-original-title="Edit user">
-                                        Edit
-                                    </a>
+                                    <ul class="action">
+                                            <li><a href="<?=site_url("syslog/sliders/edit/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                                            <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                                    </ul>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            <?php }?>
                         </tbody>
                     </table>
                 </div>
@@ -83,3 +82,10 @@
         </div>
     </div>
 </div>
+<script>
+    $('.btn-delete').click(function(){
+        if (confirm('Bạn có chắc muốn xóa không?') == true) {
+            window.location.href = $(this).attr('linkHref');
+        }
+    })
+</script>
