@@ -246,6 +246,7 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 
 	}
+	
 	public function products(){
 		$product = $this->m_product->items();
 		$view_data =array();
@@ -253,10 +254,83 @@ class Syslog extends CI_Controller {
 		$view_data['title'] = 'Danh Sách Sản Phẩm';
 
 		$tmpl_product = array();
-		$tmpl_product['content']=$this->load->view('admin/product/category/index',$view_data, true);
+		$tmpl_product['content']=$this->load->view('admin/product/index',$view_data, true);
 		$this->load->view('layout/admin/main',$tmpl_product);
 	}
 	
+	public function product_category($action=null, $id=null)
+	{
+		if(!empty($action))
+		{
+			if(!empty($_POST))
+			{
+				$receive_data=[];
+				$receive_data['name']=$_POST['title'];
+				$receive_data['active']=$_POST['active'];
+
+				if($action =='add')
+				{
+					if ($action == "add") {
+						$this->m_product_categories->add($receive_data);
+						$this->session->set_flashdata("success", "Thêm danh mục thành công");
+					}
+
+				}
+				if($action=='edit')
+				{
+					$this->m_product_categories->update($receive_data,['id'=>$id]);
+					$this->session->set_flashdata("success", "Cập nhật danh mục thành công");
+
+				}
+				redirect(site_url("syslog/product_category"), "back");
+
+
+			}
+
+
+			if($action =='add')
+			{
+				$view_data = array();
+				$view_data["title"] = 'Thêm Danh Mục';
+
+				$tmpl_product_categories = array();
+				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_product_categories);
+			}
+			else if($action =='edit')
+			{
+				$kq_product_category = $this->m_product_categories->load($id);
+				$view_data = array();
+				$view_data["title"] = 'Cập Nhật Danh Mục';
+				$view_data["product_category_chuyen"] = $kq_product_category;
+
+
+				$tmpl_product_categories = array();
+				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_product_categories);
+			}
+			else if($action=='delete'){
+
+				$this->m_product_categories->remove(['id' => $id]);
+				
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/product_category"), "back");
+
+			}
+		}
+		else{
+			$kq_product_category = $this->m_product_categories->items();
+			$view_data = array();
+			$view_data["product_category_chuyen"] = $kq_product_category;
+			$view_data["title"] = 'Danh sách Danh Mục';
+
+			$tmpl_product_categories = array();
+			$tmpl_product_categories["content"] = $this->load->view("admin/product/category/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_product_categories);
+		}
+
+		
+	}
 
 
 	public function sliders($action=null, $id=null){

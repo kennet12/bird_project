@@ -37,6 +37,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link <?=($method == 'product_category') ? 'active' : ''?>" href="<?=site_url("syslog/product_category")?>">
+          <i class="fa-solid fa-list"></i>
+            <span class="nav-link-text ms-1">Danh Mục Sản Phẩm</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link <?=($method == 'sliders') ? 'active' : ''?>" href="<?=site_url("syslog/sliders")?>">
           <i class="fa-solid fa-image"></i>
             <span class="nav-link-text ms-1">Slider</span>
@@ -46,6 +52,12 @@
           <a class="nav-link <?=($method == 'contacts') ? 'active' : ''?>" href="<?=site_url("syslog/contacts")?>">
           <i class="fa-solid fa-address-card"></i>
             <span class="nav-link-text ms-1">Liên hệ</span>
+          </a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link <?=($method == 'product_category') ? 'active' : ''?>" href="<?=site_url("syslog/product_category")?>">
+          <i class="fa-solid fa-list"></i>
+            <span class="nav-link-text ms-1">Danh Mục Sản Phẩm</span>
           </a>
         </li>
       </ul>
