@@ -28,7 +28,9 @@
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?= $for_product_category->name?></h6>
                           </div>
-                        </div>
+                          
+                        </div>  
+
                       </td>
                       
                       <td class="align-middle text-center text-sm">
