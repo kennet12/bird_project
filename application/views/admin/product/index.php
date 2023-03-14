@@ -3,7 +3,7 @@
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h6><?=$title?></h6>
-			  <a href="<?=site_url('syslog/product/add')?>"><span class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-plus"></i> Thêm</span></a>
+			  <a href="<?=site_url('syslog/products/add')?>"><span class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-plus"></i> Thêm</span></a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -23,7 +23,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="<?=$product->thumbnail?>" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="<?=BASE_URL.$product->thumbnail?>" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?=$product->title?></h6>
@@ -49,8 +49,8 @@
                       </td>
                       <td class="align-middle text-center">
 					              <ul class="action">
-                            <li><a href=""><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                            <li><a class="btn-delete" linkHref=""><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                            <li><a href="<?=site_url("syslog/products/edit/{$product->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                            <li><a class="btn-delete" linkHref="<?=site_url("syslog/products/delete/{$product->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                         </ul>
                       </td>
                     </tr>
@@ -62,3 +62,10 @@
           </div>
         </div>
       </div>
+      <script>
+    $('.btn-delete').click(function(){
+        if (confirm('Bạn có chắc muốn xóa không?') == true) {
+            window.location.href = $(this).attr('linkHref');
+        }
+    })
+</script>
