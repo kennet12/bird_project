@@ -16,7 +16,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Tên Danh Mục</span>
-										<input type="text" name="title" value="<?=!empty($product_category_chuyen->name)? $product_category_chuyen->name :''?>" class="form-control">
+										<input type="text" id="title" name="title" value="<?=!empty($product_category_chuyen->name)? $product_category_chuyen->name :''?>" class="form-control">
 									</div>
 									
 									<div class="input-group">
@@ -68,8 +68,19 @@ $(document).ready(function() {
 		}
 	}
 	$(".btn-save").click(function(){
-		$("#task").val('save');
-		$('#form-post').submit();
+		var error = [];
+
+			if ($('#title').val() == '') {
+				error.push('Vui lòng nhập tên tiêu đề.')
+			}
+
+			if (error.length == 0) {
+				$("#task").val('save');
+				$('#form-post').submit();
+			} else {
+				messageBox('error','Đã xảy ra lỗi',error);
+			}
+
 	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");
