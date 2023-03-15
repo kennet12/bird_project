@@ -293,10 +293,29 @@ class Syslog extends CI_Controller {
 			}
 
 		} else {
-			$contents = $this->m_contents->items();
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_contents->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
 			$view_data = array();
-			$view_data["contents"] = $contents;
+			$view_data["contents"] = $this->m_contents->items(null, null, $pagi, $offset);
 			$view_data["title"] = 'Danh sách bài viết';
+			$view_data["offset"]		= $offset;
+			$view_data["pagination"]	= $pagination;
 
 			$tmpl_content = array();
 			$tmpl_content["content"] = $this->load->view("admin/content/index", $view_data, true);
