@@ -312,7 +312,7 @@ class Syslog extends CI_Controller {
 			);
 
 			$view_data = array();
-			$view_data["contents"] = $this->m_contents->items(null, null, $pagi, $offset);
+			$view_data["contents"] = $this->m_contents->items(null, null, $page_num, $offset);
 			$view_data["title"] = 'Danh sách bài viết';
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
