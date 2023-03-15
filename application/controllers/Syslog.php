@@ -305,8 +305,9 @@ class Syslog extends CI_Controller {
 	}
 	public function partners($action=null,$id=null){
 		if(!empty($action)){
+				
 			if(!empty($_POST)){
-				// $partners = $this->m_partner->view($id);
+				$partners = $this->m_partner->view($id);
 				$data = array();
 				$data['name'] 	 = $_POST['name'];
 				$data['url']	 = $_POST['url'];
@@ -549,7 +550,6 @@ class Syslog extends CI_Controller {
 				$receive_data['link']		 = $_POST['link'];
 				$receive_data['description'] = $_POST['description'];
 				$receive_data['active'] 	 = $_POST['active'];
-				
 				if (!empty($_FILES['thumbnail']['name'])){
 					$path = "./files/upload/image/slider/{$id}";
 					if (!file_exists($path)) {
