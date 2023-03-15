@@ -166,13 +166,31 @@ class Syslog extends CI_Controller {
 		if(!empty($action)){
 
 			if (!empty($_POST)) {
-
 				$data = [];
-				$data['fullname'] 			= $_POST['fullname'];
-				$data['phone'] 			= $_POST['phone'];
+				$data['fullname'] 	= $_POST['fullname'];
+				$data['phone'] 		= $_POST['phone'];
 				$data['address'] 	= $_POST['address'];
 				$data['gender'] 	= $_POST['gender'];
-				$data['active'] 		= $_POST['active'];
+				$data['active'] 	= $_POST['active'];
+
+				if (empty($_POST['fullname'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập tên.");
+					redirect(site_url("syslog/users"), "back");
+				}
+
+				if (empty($_POST['phone'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập số điện thoại.");
+					redirect(site_url("syslog/users"), "back");
+				} else {
+					$info = new stdClass();
+					$info->phone = $_POST['phone'];
+					$get_phone = $this->m_user->users($info);
+
+					if ($this->m_user->load($id)->phone != $_POST['phone'] && !empty($get_phone)) {
+						$this->session->set_flashdata("error", "Số điện thoai đã bị trùng vui lòng nhập lại.");
+						redirect(site_url("syslog/users"), "back");
+					}	
+				}
 
 				if (!empty($_FILES['avatar']['name'])){
 					$path = "./files/upload/image/user/{$id}";
@@ -229,7 +247,7 @@ class Syslog extends CI_Controller {
 			if (!empty($_POST)) {
 				$data = [];
 				$data['title'] 			= $_POST['title'];
-				$data['alias'] 			= $_POST['alias'];
+				$data['alias'] 			= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
 				$data['category_id'] 	= $_POST['category_id'];
 				$data['description'] 	= $_POST['description'];
 				$data['thumbnail'] 		= $_POST['thumbnail'];

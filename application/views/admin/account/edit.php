@@ -110,7 +110,7 @@ $(document).ready(function() {
 			$("#task").val('save');
 			$('#form-post').submit();
 		} else {
-			messageBox('error','Đã xảy ra lỗi',error);
+			messageBox('error','Đã xảy ra lỗi',error); // success
 		}
 		
 	});

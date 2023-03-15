@@ -266,12 +266,12 @@ class Util {
     public function upload_file($file_path=null,$file_name=null,$file_deleted=null,$allow_type='rar|zip|pdf|doc|docx|PDF|DOC|DOCX|xls|xlsx|csv'){
 
         $this->config =  array(
-                  'upload_path'     => $file_path,
-                  'upload_url'      => base_url().str_replace('./','',$file_path),
-                  'allowed_types'   => $allow_type,
+                  'upload_path'     => $file_path, // duong dan path
+                  'upload_url'      => base_url().str_replace('./','',$file_path), // duong dan hinh anh
+                  'allowed_types'   => $allow_type, // dinh dang file
 
                   'overwrite'       => TRUE,
-                  'max_size'        => 8000,
+                  'max_size'        => 8000, // dung luong anh khong qua 8M
                 );
         $this->ci->load->library("upload", $this->config);
         if (!empty($file_name)){
@@ -282,8 +282,9 @@ class Util {
                 $file_data = $this->ci->upload->data();
                 $temp = explode('.',$_FILES[$file_name]["name"]);
                 rename($file_data['full_path'],$file_data['file_path'].$this->slug($temp[0]).'.'.$temp[1]);
+				return $file_data;
             }
-            return $file_data;
+            return false;
         }else{
             return false;
         }
