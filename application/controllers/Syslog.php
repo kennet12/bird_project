@@ -254,6 +254,11 @@ class Syslog extends CI_Controller {
 				$data['active'] 		= $_POST['active'];
 				$data['content'] 		= $_POST['content']; 
 				
+				if(empty($_POST['title'])){
+					$this->session->set_flashdata("error", "Ban vui lòng đặt tiêu đề bài viết");
+					redirect(site_url("syslog/contents"), "back");
+				}
+				
 				if ($action == 'add') {
 					$this->session->set_flashdata("success", "Thêm thành công");
 					$this->m_contents->add($data);
@@ -326,11 +331,20 @@ class Syslog extends CI_Controller {
 		if(!empty($action)){
 				
 			if(!empty($_POST)){
-				$partners = $this->m_partner->view($id);
+				$partners = $this->m_partner->load($id);
 				$data = array();
 				$data['name'] 	 = $_POST['name'];
 				$data['url']	 = $_POST['url'];
 				$data['active']  = $_POST['active'];
+
+				if(empty($_POST['name'])){
+					$this->session->set_flashdata("error", "Vui lòng nhập tên");
+					redirect(site_url("syslog/partners"), "back");
+				}
+				if(empty($_POST['url'])){
+					$this->session->set_flashdata("error", "Vui lòng nhập url");
+					redirect(site_url("syslog/partners"), "back");
+				}
 				
 				if (!empty($_FILES['banner']['name'])){
 					$path = "./files/upload/image/partner/{$id}";
@@ -358,6 +372,7 @@ class Syslog extends CI_Controller {
 				redirect(site_url("syslog/partners"), "back");
 			}
 			if($action == 'add'){
+				$partners = $this->m_partner->items();
 				$view_data = array();
 				$view_data['partners'] = $partners;
 				$view_data['title'] =' Thêm Đối Tác';
@@ -382,10 +397,29 @@ class Syslog extends CI_Controller {
 				redirect(site_url("syslog/partners"), "back");
 			}
 		} else {
-			$partners = $this->m_partner->items();
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_partner->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+			$partners = $this->m_partner->items(null,null, $page_num,$offset);
 			$view_data = array();
 			$view_data["partners"] = $partners;
 			$view_data["title"] = 'Danh Sách Đối Tác';
+			$view_data["page_num"] = $page_num;
+			$view_data["pagination"] = $pagination;
 
 			$tmpl_partner = array();
 			$tmpl_partner["content"] = $this->load->view("admin/partner/index", $view_data, true);
@@ -580,6 +614,23 @@ class Syslog extends CI_Controller {
 				$receive_data['email']=$_POST['email'];
 				$receive_data['phone']=$_POST['phone'];
 				$receive_data['content']=$_POST['content'];
+				
+				if(empty($_POST['title'])){
+					$this->session->set_flashdata("error", "vui lòng nhập họ và tên");
+					redirect(site_url("syslog/contacts"), "back");
+				}
+				if(empty($_POST['email'])){
+					$this->session->set_flashdata("error", "vui lòng nhập email");
+					redirect(site_url("syslog/contacts"), "back");
+				}
+				if(empty($_POST['phone'])){
+					$this->session->set_flashdata("error", "vui lòng nhập số điện");
+					redirect(site_url("syslog/contacts"), "back");
+				}
+				if(empty($_POST['content'])){
+					$this->session->set_flashdata("error", "vui lòng nhập nội dung");
+					redirect(site_url("syslog/contacts"), "back");
+				}
 
 				if($action=='add')
 				{
