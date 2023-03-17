@@ -448,22 +448,41 @@ class Syslog extends CI_Controller {
 					$receive_data['active'] 	 	= $_POST['active'];
 					$receive_data['category_id'] 	= $_POST['category_id'];
 
+					$count_image = count($_FILES);
+					// xoa hinh anh cu~
 
-					if (!empty($_FILES['thumbnail']['name'])){
-						$path = "./files/upload/image/product/{$id}";
-						if (!file_exists($path)) {
-							mkdir($path, 0755, true);
+					for ($i=0; $i < $count_image; $i++) {
+						if ($_POST["type_edit_{$i}"] == 1) {
+							$this->m_product_gallery->remove([
+								'product_id' => $id,
+								'stt' => $i
+							]);
 						}
-						// code tao thư mục
-						$allow_type = 'jpg|jpeg|png';
-						$this->util->upload_file($path,'thumbnail','',$allow_type);
-						// upload ảnh lên server
-	
-						$thumbnail = explode('.',$_FILES['thumbnail']['name']);
-						$receive_data['thumbnail'] = $path."{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
-						// add url hinh ảnh vào database
-						
 					}
+
+					// them hinh anh moi'
+					for ($i=0; $i < $count_image; $i++) { 
+						if (!empty($_FILES["thumbnail_{$i}"]['name'])) {
+							$path = "./files/upload/image/product/{$id}";
+							if (!file_exists($path)) {
+								mkdir($path, 0755, true);
+							}
+							// code tao thư mục
+							$allow_type = 'jpg|jpeg|png';
+							$this->util->upload_file($path,"thumbnail_{$i}",'',$allow_type);
+							// upload ảnh lên server
+		
+							$thumbnail = explode('.',$_FILES["thumbnail_{$i}"]['name']);
+
+							$data_gallery = [];
+							$data_gallery['product_id'] = $id;
+							$data_gallery['stt'] = $i;
+							$data_gallery["thumbnail"] = str_replace('./','/',$path)."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+
+							$this->m_product_gallery->add($data_gallery);
+						}
+					}
+
 					if($action=='add')
 					{
 						$this->session->set_flashdata("success", "Thêm thành công");
@@ -474,7 +493,7 @@ class Syslog extends CI_Controller {
 						$this->session->set_flashdata("success", "Cập Nhật thành công");
 						$this->m_product->update($receive_data,['id'=>$id]);
 					}
-					redirect(site_url("syslog/product"), "back");
+					redirect(site_url("syslog/products"), "back");
 					
 				}
 
@@ -492,6 +511,7 @@ class Syslog extends CI_Controller {
 			else if($action=='edit')
 			{
 				$kq_product_item = $this->m_product->load($id);
+
 				$view_data = array();
 				$view_data["kq_product_item"] = $kq_product_item;
 				$view_data["title"] = 'Cập nhật Product';

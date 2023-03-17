@@ -150,6 +150,7 @@ $autoload['model'] = array(
 	'm_contact',
 	'm_product_categories',
 	'm_product',
+	'm_product_gallery',
 	'm_partner'
 );
 
