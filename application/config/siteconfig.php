@@ -23,7 +23,7 @@ define("ADMIN_IMG_URL",		ADMIN_TPL_URL."images/");
 define("ADMIN_CSS_URL",		ADMIN_TPL_URL."css/");
 define("ADMIN_JS_URL",		ADMIN_TPL_URL."js/");
 define("ADMIN_AGENT_ID",	"BASA_MK");
-define("ADMIN_ROW_PER_PAGE",15);
+define("ADMIN_ROW_PER_PAGE",10);
 
 define("CACHE_TIME",		30);
 define("CACHE_RAND",		date("YmdH"));

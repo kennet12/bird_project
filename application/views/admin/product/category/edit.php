@@ -1,46 +1,86 @@
-<div class="cluster">
-	<div class="container-fluid">
-		<h1 class="page-title"><?=!empty($item->name) ? 'Chỉnh sửa danh mục' : 'Tạo danh mục'?></h1>
-		<form id="frm-admin" name="adminForm" action="" method="POST">
-			<input type="hidden" id="task" name="task" value="">
-			<table class="table table-bordered">
-				<tr>
-					<td class="table-head text-right" width="10%">Tên danh mục</td>
-					<td><input type="text" id="name" name="name" class="form-control" value="<?=!empty($item->name) ? $item->name : ''?>"></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">URL alias</td>
-					<td><input type="text" id="alias" name="alias" class="form-control" value="<?=!empty($item->alias) ? $item->alias : ''?>"></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">Mô tả</td>
-					<td><textarea id="description" name="description" class=" form-control" rows="5"><?=!empty($item->description) ? $item->description : ''?></textarea></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right">Trạng thái</td>
-					<td>
-						<select id="active" name="active" class="form-control">
-							<option value="1">Hiển thị</option>
-							<option value="0">Ẩn</option>
-						</select>
-						<script type="text/javascript">
-							$("#active").val("<?=$item->active?>");
-						</script>
-					</td>
-				</tr>
-			</table>
-			<div class="text-right">
-				<button class="btn btn-sm btn-primary btn-save">Lưu</button>
-				<button class="btn btn-sm btn-default btn-cancel">Hủy</button>
-			</div>
-		</form>
-	</div>
-</div>
 
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6><?=$title?></h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+				<div class="form-box">
+					<form id="form-post" action="" method="POST">
+						<input type="hidden" name="task" id="task" class="form-control" value="">
+						<div class="row">
+						<div class="col-md-1">
+						</div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-text" id="basic-addon1">Tên Danh Mục</span>
+										<input type="text" id="title" name="title" value="<?=!empty($product_category_chuyen->name)? $product_category_chuyen->name :''?>" class="form-control">
+									</div>
+									
+									<div class="input-group">
+									<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="1" checked="checked" <?=!empty($iteproduct_category_chuyenm->active) ? 'checked="checked"' : ''?>>
+													Hiện
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="0" <?=empty($product_category_chuyen->active) ? : ''?>>
+													Ẩn
+												</label>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+						</div>
+						<div class="text-center">
+							<button type="button" class="btn-save btn bg-gradient-success">Cập nhật</button>
+						</div>
+					</form>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function() {
+	$("#file-upload").change(function() {
+		readURL(this);
+	});
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('.wrap-upload-banner').css({
+					"background-image": "url('"+e.target.result+"')"
+				});
+				$('.wrap-upload-banner > i').css({
+					"color": "rgba(52, 73, 94, 0.38)"
+				});
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 	$(".btn-save").click(function(){
-		submitButton("save");
+		var error = [];
+
+			if ($('#title').val() == '') {
+				error.push('Vui lòng nhập tên tiêu đề.')
+			}
+
+			if (error.length == 0) {
+				$("#task").val('save');
+				$('#form-post').submit();
+			} else {
+				messageBox('error','Đã xảy ra lỗi',error);
+			}
+
 	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");

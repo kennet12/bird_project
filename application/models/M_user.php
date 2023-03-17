@@ -46,6 +46,9 @@ class M_user extends M_db
 			if (!empty($info->user_type)) {
 				$sql .= " AND {$this->_table}.user_type = '{$info->user_type}'";
 			}
+			if (!empty($info->phone)) {
+				$sql .= " AND {$this->_table}.phone = '{$info->phone}'";
+			}
 			if (!empty($info->user_types)) {
 				$sql .= " AND {$this->_table}.user_type IN (".implode(",", $info->user_types).")";
 			}

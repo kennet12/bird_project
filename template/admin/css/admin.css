@@ -63,3 +63,38 @@ body.login {
 .input-group input {
 	text-indent: 10px;
 }
+.error .modal-header {
+	background: #f44336;
+}
+.modal .modal-title {
+	color: #fff;
+}
+.error #message-list li {
+	color: #f44336;
+}
+.success .modal-header {
+	background: #4caf50;
+}
+.pagination {
+	display: inline-flex !important;
+}
+.pagination li {
+	margin: 0 5px;
+}
+.pagination li.active a {
+	background: #606bdf !important;
+    color: #fff;
+}
+.pagination li a {
+	width: 40px;
+    display: inline-block;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    padding: 7px;
+}
+.pagination li a:hover {
+	background: #606bdf70;
+    color: #fff;
+}

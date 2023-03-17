@@ -27,11 +27,6 @@ class Bieu_phi_dich_vu extends CI_Controller {
 		$info->id = 40;
 		$items = $this->m_product->getItems($info,1);
 
-		// var_dump($kiet);
-		// var_dump($bach);
-		// $data = [];
-		// $data['items'] = $items;
-		// $data['title'] = 'Hello Nguyen thi bich tram';
 
 		// $this->load->view("kiet/bachdit", $data);
 	}

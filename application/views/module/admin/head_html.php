@@ -20,3 +20,4 @@ Argon Dashboard 2 by Creative Tim
 <link id="pagestyle" href="<?=TPL_URL_ADMIN?>css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 <script src="https://cdn.tiny.cloud/1/kygw5r5d544vvdrv2sn3gmmteddov4syc2sgzkcrvflcrmf0/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="<?=TPL_URL_ADMIN?>js/admin.js"></script>

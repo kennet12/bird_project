@@ -9,7 +9,8 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tài khoản
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tài
+                                    khoản
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Số điện thoại</th>
@@ -23,13 +24,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                          <? foreach($users as $user) { ?>
+                            <? foreach($users as $user) {  ?>
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="<?=$user->avatar?>" class="avatar avatar-sm me-3"
-                                                alt="user1">
+                                            <img src="<?=BASE_URL.$user->avatar?>" class="avatar avatar-sm me-3" alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm"><?=$user->fullname?></h6>
@@ -40,7 +40,7 @@
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0"><?=$user->phone?></p>
                                     <p class="text-xs text-secondary mb-0">
-                                      <?
+                                        <?
                                         $array_gender = [
                                           '1' => 'Nam',
                                           '2' => 'Nữ',
@@ -57,16 +57,20 @@
                                     <? } ?>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold"><?=date('d/m/Y',strtotime($user->birthday))?></span>
+                                    <span
+                                        class="text-secondary text-xs font-weight-bold"><?=date('d/m/Y',strtotime($user->birthday))?></span>
                                 </td>
-                                <td class="align-middle text-center">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                        data-toggle="tooltip" data-original-title="Edit user">
-                                        Cập nhật
-                                    </a>
+                                <td class="text-center align-middle">
+                                    <ul class="action">
+                                        <li><a href="<?=site_url("syslog/users/edit/{$user -> id}")?>"><span
+                                                    class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                                        <li><a class="btn-delete"
+                                                linkHref="<?=site_url("syslog/users/delete/{$user -> id}")?>"><span
+                                                    class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                                    </ul>
                                 </td>
                             </tr>
-                          <? } ?>
+                            <? } ?>
                         </tbody>
                     </table>
                 </div>
@@ -74,3 +78,10 @@
         </div>
     </div>
 </div>
+<script>
+    $('.btn-delete').click(function(){
+        if (confirm('Bạn có chắc muốn xóa không?') == true) {
+            window.location.href = $(this).attr('linkHref');
+        }
+    })
+</script>

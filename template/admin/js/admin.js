@@ -87,4 +87,22 @@ function font_file(data){
 		csv : 2,pdf : 3};
 	return font[allow[data]];
 }
+function messageBox(type, title, messageList){
+	$('#myNotify').addClass(type)
+	
+	$('#title-modal').html(title)
+	
+	var myModal = new bootstrap.Modal($('#myNotify'), {keyboard: false})
+
+	var list = '<ul>';
+	for (let i = 0; i < messageList.length; i++) {
+		list += '<li>'+messageList[i]+'</li>';
+	}
+	list += '</ul>';
+
+	$('#message-list').html(list);
+
+	myModal.show()
+
+}
 
