@@ -29,13 +29,13 @@
 										<div class="col-6">
 											<div class="radio">
 												<label>
-													<input type="radio" name="active" id="input" value="1" <?=!empty($parnerts->active) ? 'checked="checked"' : ''?>>
+													<input type="radio" name="active" id="input" value="1" <?=!empty($partners->active) ? 'checked="checked"' : ''?>>
 													Hiện
 												</label>
 											</div>
 											<div class="radio">
 												<label>
-													<input type="radio" name="active" id="input" value="0" <?=empty($parnerts->active) ? 'checked="checked"' : ''?>>
+													<input type="radio" name="active" id="input" value="0" <?=empty($partners->active) ? 'checked="checked"' : ''?>>
 													Ẩn
 												</label>
 											</div>

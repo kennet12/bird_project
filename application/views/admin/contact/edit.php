@@ -15,12 +15,12 @@
 							<div class="col-md-10">
 								<div class="form-group">
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Họ và Tên  </span>
+										<span  class="input-group-text" name = "title" id="basic-addon1">Họ và Tên  </span>
 										<input type="text" id="title" name="title" value="<?=!empty($contact_chuyen_item->name)? $contact_chuyen_item->name :''?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Email</span>
-										<input type="text" id="email" name="email" value="<?=!empty($contact_chuyen_item->email)? $contact_chuyen_item->email:'' ?>" class="form-control">
+										<input type="text" id="email" name="email"	 value="<?=!empty($contact_chuyen_item->email)? $contact_chuyen_item->email:'' ?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Phone</span>
