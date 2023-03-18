@@ -19,9 +19,12 @@
 										<option value="">Loại sản phẩm</option>
 										<? foreach($product_categories as $product_categories_value )
 										{
-										?>
-											<option value="<?=$product_categories_value->id?>"><?=$product_categories_value->name?></option>
-										<?
+											if($product_categories_value->active==1)
+											{
+												?>
+												<option value="<?=$product_categories_value->id?>"><?=$product_categories_value->name?></option>
+											<?
+											}
 										}
 										?>
 										<script type="text/javascript">

@@ -16,7 +16,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Tiêu đề</span>
-										<input type="text" name="title" value="<?=!empty($slider_chuyen_item->title)? $slider_chuyen_item->title :''?>" class="form-control">
+										<input type="text" name="title" id="title" value="<?=!empty($slider_chuyen_item->title)? $slider_chuyen_item->title :''?>" class="form-control">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">link liên kết</span>
@@ -24,7 +24,7 @@
 									</div>
 									<div class="form-group">
 										<div class="input-group">
-											<textarea class="form-control" name="description" placeholder="Mô tả" rows="5"><?=!empty($slider_chuyen_item->description)? $slider_chuyen_item->description :''?></textarea>
+											<textarea class="form-control" id="description" name="description" placeholder="Mô tả" rows="5"><?=!empty($slider_chuyen_item->description)? $slider_chuyen_item->description :''?></textarea>
 										</div>
 									</div>
 									
@@ -67,64 +67,7 @@
     </div>
 </div>
 <script>
-	// định nghĩa rules cho từng isrequid
-	//khi lỗi trả ra messeage lỗi
-	// khi không có lỗi trẩ về undifend
-validator.isRequired = function(selector)
-{
-	return{
-		selector: selector,
-		test: function(value){
-			return value.trim() ? undefined  : " Vui lòng nhập dũ liệu ";
-		}
-	};
-}
-// đối tượng validators
-function validator(options)
-{
-	function validate(inputElement,rule)
-	{
-		
-		var errorElemment = inputElement.parentElement.querySelector('.form-message');
-		var errormess = rule.test(inputElement.value);
 
-			// console.log(errormess);
-			if(errormess)
-			{
-			errorElemment.innerText = errormess;
-			}
-			else{
-			errorElemment.innerText ='';
-			}
-	}
-
-	var formElement =document.querySelector(options.form);
-	if(formElement)
-	{
-		options.rules.forEach(function (rule)	
-		{
-			var inputElement = formElement.querySelector(rule.selector);
-			if(inputElement)
-			{
-				inputElement.onblur = function()
-				{
-					validate(inputElement,rule);
-				}
-			}
-		});
-	}
-}
-
-validator(
-	{
-	form:'#form-post',
-	rules:[
-		validator.isRequired('#title')
-	]
-});
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
 	$("#file-upload").change(function() {
 		readURL(this);
@@ -145,8 +88,22 @@ $(document).ready(function() {
 		}
 	}
 	$(".btn-save").click(function(){
-		$("#task").val('save');
-		$('#form-post').submit();
+		var error = [];
+
+			if ($('#title').val() == '') {
+				error.push('Vui lòng nhập tên tiêu đề.')
+			}
+			if ($('#description').val() == '') {
+				error.push('Vui lòng nhập mô tả.')
+			}
+
+
+			if (error.length == 0) {
+				$("#task").val('save');
+				$('#form-post').submit();
+			} else {
+				messageBox('error','Đã xảy ra lỗi',error);
+			}
 	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");
