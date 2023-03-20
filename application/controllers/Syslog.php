@@ -23,7 +23,9 @@ class Syslog extends CI_Controller {
 			}
 		}
 		
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Quản Lý" => site_url($this->util->slug($this->router->fetch_class()))));
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Quản trị" => site_url($this->util->slug($this->router->fetch_class()))
+		]);
 	}
 	
 	public function index()
@@ -164,6 +166,9 @@ class Syslog extends CI_Controller {
 	// Users
 	//------------------------------------------------------------------------------
 	public function users($action = null , $id = null){
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Thành viên" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
 		if(!empty($action)){
 
 			if (!empty($_POST)) {
@@ -218,7 +223,12 @@ class Syslog extends CI_Controller {
 			}
 			
 			if($action == 'edit'){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Chỉnh sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);
+
 				$view_data = array();
+				$view_data["breadcrumb"] = $this->_breadcrumb;
 				$view_data['user'] = $this->m_user->load($id);
 				$view_data['title'] = 'Chỉnh Sửa User';
 
@@ -235,6 +245,7 @@ class Syslog extends CI_Controller {
 		$users = $this->m_user->users();
 		$view_data = array();	
 		$view_data["users"] = $users;
+		$view_data["breadcrumb"] = $this->_breadcrumb;
 		$view_data["title"] = 'Danh sách thành viên';
 		
 		$tmpl_content = array();
