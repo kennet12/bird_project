@@ -36,6 +36,7 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
 	
+	
 	//------------------------------------------------------------------------------
 	// Login
 	//------------------------------------------------------------------------------
@@ -241,6 +242,7 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function contents($action=null, $id=null){
 		if (!empty($action)) {
 			$categories = $this->m_content_categories->items(null,1);
@@ -327,6 +329,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function partners($action=null,$id=null){
 		if(!empty($action)){
 				
@@ -445,12 +448,29 @@ class Syslog extends CI_Controller {
 					$receive_data['description'] 	= $_POST['description'];
 					$receive_data['check_bold'] 	= $_POST['check_bold'];
 					$receive_data['active'] 	 	= $_POST['active'];
-					$receive_data['active'] 	 	= $_POST['active'];
 					$receive_data['category_id'] 	= $_POST['category_id'];
+
+					if (empty($_POST['title'])) {
+						$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
+						redirect(site_url("syslog/sliders"), "back");
+					}
+					if (empty($_POST['price'])) {
+						$this->session->set_flashdata("error", "Vui lòng nhập giá.");
+						redirect(site_url("syslog/sliders"), "back");
+					}
+					// if (empty($_POST['content'])) {
+					// 	$this->session->set_flashdata("error", "Vui lòng nhập nội dung.");
+					// 	redirect(site_url("syslog/sliders"), "back");
+					// }
+					if (empty($_POST['description'])) {
+						$this->session->set_flashdata("error", "Vui lòng nhập  mô tả.");
+						redirect(site_url("syslog/sliders"), "back");
+					}
+
 
 					$count_image = count($_FILES);
 					// xoa hinh anh cu~
-
+					
 					for ($i=0; $i < $count_image; $i++) {
 						if ($_POST["type_edit_{$i}"] == 1) {
 							$this->m_product_gallery->remove([
@@ -500,7 +520,7 @@ class Syslog extends CI_Controller {
 			if($action=='add')
 			{
 				$product_kq = $this->m_product->items();
-				$product_chuyen =array();
+				$view_data =array();
 				$view_data['products']=$product_kq;
 				$view_data['title'] = 'Thêm Sản Phẩm';
 		
@@ -529,9 +549,30 @@ class Syslog extends CI_Controller {
 		}
 		else
 		{
-			$product = $this->m_product->items();
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_contents->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
+
+			$product = $this->m_product->items(null, null, $page_num, $offset);
 			$view_data =array();
-			$view_data['products']=$product;
+			$view_data['products']		=$product;
+			$view_data["offset"]		= $offset;
+			$view_data["pagination"]	= $pagination;
 			$view_data['title'] = 'Danh Sách Sản Phẩm';
 	
 			$tmpl_product = array();
@@ -551,6 +592,16 @@ class Syslog extends CI_Controller {
 				$receive_data['link']		 = $_POST['link'];
 				$receive_data['description'] = $_POST['description'];
 				$receive_data['active'] 	 = $_POST['active'];
+
+				if (empty($_POST['title'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
+					redirect(site_url("syslog/sliders"), "back");
+				}
+				if (empty($_POST['description'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập mô tả.");
+					redirect(site_url("syslog/sliders"), "back");
+				}
+
 				if (!empty($_FILES['thumbnail']['name'])){
 					$path = "./files/upload/image/slider/{$id}";
 					if (!file_exists($path)) {
@@ -611,9 +662,29 @@ class Syslog extends CI_Controller {
 		}
 		else
 		{
-			$kq_slider = $this->m_slide->items();
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_contents->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
+			$kq_slider = $this->m_slide->items(null, null, $page_num, $offset);
 			$view_data = array();
 			$view_data["slider_chuyen"] = $kq_slider;
+			$view_data["offset"]		= $offset;
+			$view_data["pagination"]	= $pagination;
 			$view_data["titles"] = 'Danh sách Slider';
 
 			$tmpl_content = array();
@@ -700,6 +771,7 @@ class Syslog extends CI_Controller {
 		}
 		else
 			{
+		
 				$kq_contact = $this->m_contact->items();
 				$view_data = array();
 				$view_data["contact_chuyen"] = $kq_contact;
@@ -856,124 +928,103 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 	// product
 	//------------------------------------------------------------------------------
-	public function product_categories ($action=null, $id=null){
-		$config_row_page = ADMIN_ROW_PER_PAGE;
-		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
-		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
-			$page = 1;
-		}
-		else {
-			$page = $_GET['page'];
-		}
-		$offset = ($page - 1) * $pagi;
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Danh mục sản phẩm & dịch vụ" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")));
-		
-		$task = $this->util->value($this->input->post("task"), "");
-		if (!empty($task)) {
-			if ($task == "save") {
-				$name			= $this->util->value($this->input->post("name"), "");
-				$alias			= $this->util->value($this->input->post("alias"), "");
-				$description	= $this->util->value($this->input->post("description"), "");
-				$active			= $this->util->value($this->input->post("active"), 1);
+	public function product_category($action=null, $id=null)
+	{
+		if(!empty($action))
+		{
+			if(!empty($_POST))
+			{
+				$receive_data=[];
+				$receive_data['name']=$_POST['title'];
+				$receive_data['active']=$_POST['active'];
+
+				if (empty($_POST['title'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề");
+					redirect(site_url("syslog/product_category"), "back");
+				}
+
+				if($action =='add')
+				{
+					if ($action == "add") {
+						$this->m_product_categories->add($receive_data);
+						$this->session->set_flashdata("success", "Thêm danh mục thành công");
+					}
+
+				}
+				if($action=='edit')
+				{
+					$this->m_product_categories->update($receive_data,['id'=>$id]);
+					$this->session->set_flashdata("success", "Cập nhật danh mục thành công");
+
+				}
+				redirect(site_url("syslog/product_category"), "back");
+
+			}
+
+			if($action =='add')
+			{
+				$view_data = array();
+				$view_data["title"] = 'Thêm Danh Mục';
+
+				$tmpl_product_categories = array();
+				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_product_categories);
+			}
+			else if($action =='edit')
+			{
+				$kq_product_category = $this->m_product_categories->load($id);
+				$view_data = array();
+				$view_data["title"] = 'Cập Nhật Danh Mục';
+				$view_data["product_category_chuyen"] = $kq_product_category;
+
+
+				$tmpl_product_categories = array();
+				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_product_categories);
+			}
+			else if($action=='delete'){
+
+				$this->m_product_categories->remove(['id' => $id]);
 				
-				if (empty($alias)) {
-					$alias = $this->util->slug($name);
-				}
-				
-				$data = array (
-					"name"			=> $name,
-					"alias"			=> $alias,
-					"description"	=> $description,
-					"active"		=> $active
-				);
-				
-				if ($action == "add") {
-					$this->m_product_categories->add($data);
-					$this->session->set_flashdata("success", "Tạo thành công");
-				}
-				else if ($action == "edit") {
-					$where = array("id" => $id);
-					$this->m_product_categories->update($data, $where);
-				}
-				$this->session->set_flashdata("success", "Cập nhật thành công");
-				redirect(site_url("syslog/product-categories"));
-			}
-			else if ($task == "cancel") {
-				redirect(site_url("syslog/product-categories"));
-			}
-			else if ($task == "publish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 1);
-					$where = array("id" => $id);
-					$this->m_product_categories->update($data, $where);
-				}
-				redirect(site_url("syslog/product-categories"));
-			}
-			else if ($task == "unpublish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 0);
-					$where = array("id" => $id);
-					$this->m_product_categories->update($data, $where);
-				}
-				redirect(site_url("syslog/product-categories"));
-			}
-			else if ($task == "delete") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$where = array("id" => $id);
-					$this->m_product_categories->delete($where);
-				}
 				$this->session->set_flashdata("success", "Xóa thành công");
-				redirect(site_url("syslog/product-categories"));
+				redirect(site_url("syslog/product_category"), "back");
+
 			}
 		}
-		
-		if ($action == "add") {
-			$this->_breadcrumb = array_merge($this->_breadcrumb, array("Tạo danh mục" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")));
-			
-			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
-			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-		else if ($action == "edit") {
-			$item = $this->m_product_categories->load($id);
-			$this->_breadcrumb = array_merge($this->_breadcrumb, array("{$item->name}" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")));
-			
-			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
-			$view_data["item"] = $item;
-			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-		else {
-			$total = count($this->m_product_categories->items());
-			if (!isset($_GET['pagi'])){
-				$pagination = $this->util->pagination(site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?pagi=$config_row_page"."$_SERVER[QUERY_STRING]", $total, $pagi);
-			}else{
-				$pagination = $this->util->pagination(site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]", $total, $pagi);
+		else{
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
 			}
-			$items = $this->m_product_categories->items(null,null,$pagi,$offset);
-			
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_contents->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
+			$kq_product_category = $this->m_product_categories->items(null, null, $page_num, $offset);
 			$view_data = array();
-			$view_data["breadcrumb"]	= $this->_breadcrumb;
+			$view_data["product_category_chuyen"] = $kq_product_category;
 			$view_data["offset"]		= $offset;
-			$view_data["title"]			= 'Danh mục sản phẩm';
 			$view_data["pagination"]	= $pagination;
-			$view_data["totalitems"]	= sizeof($this->m_product_categories->items());
-			$view_data["items"]			= $items;
-			
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/product/category/index", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
+			$view_data["title"] = 'Danh sách Danh Mục';
+
+			$tmpl_product_categories = array();
+			$tmpl_product_categories["content"] = $this->load->view("admin/product/category/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_product_categories);
 		}
+
+		
 	}
+	
 	public function product ($category_id, $action=null, $id=null) {
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
@@ -1335,6 +1386,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	private function document_type($type){
 		$arr_file = array("file_excel","file_word","file_pdf","file_rar","file_zip");
 		$arr_type = array(
@@ -1344,6 +1396,7 @@ class Syslog extends CI_Controller {
 			);
 		return $arr_file[$arr_type[$type]];
 	}
+
 	public function about ($action=null, $id=null) {
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Danh sách các bài viết đơn" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->router->fetch_method()}")));
 		$item = $this->m_post->items();
@@ -1383,6 +1436,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function posts_categories ($action=null, $id=null){
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
@@ -1501,6 +1555,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function posts ($category_id, $action=null, $id=null) {
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
@@ -1651,6 +1706,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function slide ($action=null, $id=null) {
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;
@@ -1776,6 +1832,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function faq_categories ($action=null, $id=null){
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 			$page = 1;
@@ -1888,6 +1945,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+	
 	public function faq ($category_id, $action=null, $id=null) {
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;

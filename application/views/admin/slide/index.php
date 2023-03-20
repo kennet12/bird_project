@@ -78,6 +78,7 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="text-center"><?=$pagination?></div>
             </div>
         </div>
     </div>
