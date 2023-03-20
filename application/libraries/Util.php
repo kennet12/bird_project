@@ -316,5 +316,8 @@ class Util {
         $result = ((date('Y-m-d', $date_time) == date('Y-m-d')) ? 'Hôm nay' : $vn_days[($day)]).' - '.date('H:i d/m/Y', $date_time);
         return $result;
     }
+	public function getCode($string, $id) {
+		return $string.date('Ymdhis').$id;
+	}
 }
 ?>

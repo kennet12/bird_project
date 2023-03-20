@@ -103,10 +103,12 @@
 						<strong>Ảnh Sản Phẩm</strong>
 						<div class="row">
 							<? for ($i=0; $i < 4; $i++) { 
-								$info = new stdClass();
-								$info->product_id = $kq_product_item->id;
-								$info->stt = $i;
-								$image = $this->m_product_gallery->items($info);
+								if (!empty($kq_product_item->id)) {
+									$info = new stdClass();
+									$info->product_id = $kq_product_item->id;
+									$info->stt = $i;
+									$image = $this->m_product_gallery->items($info);
+								}
 							?>
 							<div class="col-md-3">
 								<div class="box-file-upload">
@@ -150,7 +152,7 @@ $(document).ready(function() {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	$('.fa-trash-can').click(function (e) {
+	$('.fa-trash-can').click(function () {
 		$(this).parents('.box-file-upload').find('.wrap-upload-banner').css({"background-image": "none"});
 		$(this).parents('.box-file-upload').find('.file-upload').val('');
 		$(this).parents('.box-file-upload').find('.type-edit').val(1);

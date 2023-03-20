@@ -434,88 +434,97 @@ class Syslog extends CI_Controller {
 	public function products($action = null , $id = null) {
 		if(!empty($action))
 		{
-			
-				if(!empty($_POST))
-				{
-					$product_categories = $this->m_product_categories->items();
+			if (
+				$action == 'edit' && empty($id) ||
+				$action == 'add' && !empty($id) ||
+				!in_array($action, ['edit','add']) ||
+				$action == 'edit' && empty($this->m_product->load($id))
+			) {
+				redirect("error404", "location");
+			}
 
-					$receive_data=[];
-					$receive_data['title']	 		= $_POST['title'];
-					$receive_data['price'] 	 		= $_POST['price'];
-					$receive_data['alias']	 		= $_POST['alias'];
-					$receive_data['content'] 		= $_POST['content'];
-					$receive_data['view_num'] 		= $_POST['view_num'];
-					$receive_data['description'] 	= $_POST['description'];
-					$receive_data['check_bold'] 	= $_POST['check_bold'];
-					$receive_data['active'] 	 	= $_POST['active'];
-					$receive_data['category_id'] 	= $_POST['category_id'];
+			if(!empty($_POST))
+			{
+				$product_categories = $this->m_product_categories->items();
 
-					if (empty($_POST['title'])) {
-						$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
-						redirect(site_url("syslog/sliders"), "back");
-					}
-					if (empty($_POST['price'])) {
-						$this->session->set_flashdata("error", "Vui lòng nhập giá.");
-						redirect(site_url("syslog/sliders"), "back");
-					}
-					// if (empty($_POST['content'])) {
-					// 	$this->session->set_flashdata("error", "Vui lòng nhập nội dung.");
-					// 	redirect(site_url("syslog/sliders"), "back");
-					// }
-					if (empty($_POST['description'])) {
-						$this->session->set_flashdata("error", "Vui lòng nhập  mô tả.");
-						redirect(site_url("syslog/sliders"), "back");
-					}
+				$receive_data=[];
+				$receive_data['title']	 		= $_POST['title'];
+				$receive_data['price'] 	 		= $_POST['price'];
+				$receive_data['alias']	 		= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
+				$receive_data['content'] 		= $_POST['content'];
+				$receive_data['view_num'] 		= $_POST['view_num'];
+				$receive_data['description'] 	= $_POST['description'];
+				$receive_data['check_bold'] 	= $_POST['check_bold'];
+				$receive_data['active'] 	 	= $_POST['active'];
+				$receive_data['category_id'] 	= $_POST['category_id'];
 
-
-					$count_image = count($_FILES);
-					// xoa hinh anh cu~
-					
-					for ($i=0; $i < $count_image; $i++) {
-						if ($_POST["type_edit_{$i}"] == 1) {
-							$this->m_product_gallery->remove([
-								'product_id' => $id,
-								'stt' => $i
-							]);
-						}
-					}
-
-					// them hinh anh moi'
-					for ($i=0; $i < $count_image; $i++) { 
-						if (!empty($_FILES["thumbnail_{$i}"]['name'])) {
-							$path = "./files/upload/image/product/{$id}";
-							if (!file_exists($path)) {
-								mkdir($path, 0755, true);
-							}
-							// code tao thư mục
-							$allow_type = 'jpg|jpeg|png';
-							$this->util->upload_file($path,"thumbnail_{$i}",'',$allow_type);
-							// upload ảnh lên server
-		
-							$thumbnail = explode('.',$_FILES["thumbnail_{$i}"]['name']);
-
-							$data_gallery = [];
-							$data_gallery['product_id'] = $id;
-							$data_gallery['stt'] = $i;
-							$data_gallery["thumbnail"] = str_replace('./','/',$path)."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
-
-							$this->m_product_gallery->add($data_gallery);
-						}
-					}
-
-					if($action=='add')
-					{
-						$this->session->set_flashdata("success", "Thêm thành công");
-						$this->m_product->add($receive_data);
-					}
-					elseif($action=='edit')
-					{
-						$this->session->set_flashdata("success", "Cập Nhật thành công");
-						$this->m_product->update($receive_data,['id'=>$id]);
-					}
+				if (empty($_POST['title'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
 					redirect(site_url("syslog/products"), "back");
-					
 				}
+				if (empty($_POST['price'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập giá.");
+					redirect(site_url("syslog/products"), "back");
+				}
+				// if (empty($_POST['content'])) {
+				// 	$this->session->set_flashdata("error", "Vui lòng nhập nội dung.");
+				// 	redirect(site_url("syslog/products"), "back");
+				// }
+				if (empty($_POST['description'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập  mô tả.");
+					redirect(site_url("syslog/products"), "back");
+				}
+
+				$count_image = count($_FILES);
+				$id = !empty($id) ? $id : $this->m_product->get_next_value();
+
+				// them hinh anh moi'
+				for ($i=0; $i < $count_image; $i++) {
+					if ($_POST["type_edit_{$i}"] == 1) {
+						$this->m_product_gallery->remove([
+							'product_id' => $id,
+							'stt' => $i
+						]);
+					}
+				}
+
+				for ($i=0; $i < $count_image; $i++) { 
+					if (!empty($_FILES["thumbnail_{$i}"]['name'])) {
+						$path = "./files/upload/image/product/{$id}";
+						if (!file_exists($path)) {
+							mkdir($path, 0755, true);
+						}
+						// code tao thư mục
+						$allow_type = 'jpg|jpeg|png';
+						$this->util->upload_file($path,"thumbnail_{$i}",'',$allow_type);
+						// upload ảnh lên server
+	
+						$thumbnail = explode('.',$_FILES["thumbnail_{$i}"]['name']);
+
+						$data_gallery = [];
+						$data_gallery['product_id'] = $id;
+						$data_gallery['stt'] = $i;
+						$data_gallery["thumbnail"] = str_replace('./','/',$path)."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+
+						$this->m_product_gallery->add($data_gallery);
+					}
+				}
+
+				if($action=='add')
+				{
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_product->add($receive_data);
+				}
+				elseif($action=='edit')
+				{
+
+					$this->session->set_flashdata("success", "Cập Nhật thành công");
+					$this->m_product->update($receive_data,['id'=>$id]);
+				}
+
+				redirect(site_url("syslog/products"), "back");
+				
+			}
 
 			if($action=='add')
 			{
