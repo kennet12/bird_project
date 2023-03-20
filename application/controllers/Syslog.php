@@ -35,6 +35,7 @@ class Syslog extends CI_Controller {
 		$tmpl_content["content"] = $this->load->view("admin/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
+	//-----------------
 	
 	//------------------------------------------------------------------------------
 	// Login
@@ -772,7 +773,6 @@ class Syslog extends CI_Controller {
 				$kq_contact = $this->m_contact->items();
 				$view_data = array();
 				$view_data["contact_chuyen"] = $kq_contact;
-			
 				$view_data["title"] = 'Danh sách Contact';
 		
 				$tmpl_contact = array();
