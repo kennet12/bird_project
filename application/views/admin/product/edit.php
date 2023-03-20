@@ -142,8 +142,8 @@ $(document).ready(function() {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				let stt = $(input).attr('stt');
-
+				let stt = $(input).attr('stt');	
+				
 				$('.image-'+stt).css({
 					"background-image": "url('"+e.target.result+"')"
 				});

@@ -140,6 +140,7 @@ $autoload['model'] = array(
 	'm_setting',
 	'm_content_categories',
 	'm_contents',
+	'm_content_gallery',
 	'm_document',
 	'm_post',
 	'm_posts_categories',

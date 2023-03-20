@@ -252,9 +252,40 @@ class Syslog extends CI_Controller {
 				$data['alias'] 			= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
 				$data['category_id'] 	= $_POST['category_id'];
 				$data['description'] 	= $_POST['description'];
-				$data['thumbnail'] 		= $_POST['thumbnail'];
 				$data['active'] 		= $_POST['active'];
 				$data['content'] 		= $_POST['content']; 
+
+				$count_image = count($_FILES);
+				// xoa hinh anh cu~
+				for ($i=0; $i < $count_image; $i++) {
+					if ($_POST["type_edit_{$i}"] == 1) {
+						$this->m_content_gallery->remove([
+							'content_id' => $id,
+							'stt' => $i
+						]);
+					}
+				}
+				for ($i=0; $i < $count_image; $i++) { 
+					if (!empty($_FILES["thumbnail_{$i}"]['name'])) {
+						$path = "./files/upload/image/content/{$id}";
+						if (!file_exists($path)) {
+							mkdir($path, 0755, true);
+						}
+						// code tao thư mục
+						$allow_type = 'jpg|jpeg|png';
+						$this->util->upload_file($path,"thumbnail_{$i}",'',$allow_type);
+						// upload ảnh lên server
+	
+						$thumbnail = explode('.',$_FILES["thumbnail_{$i}"]['name']);
+
+						$data_gallery = [];
+						$data_gallery['content_id'] = $id;		
+						$data_gallery['stt'] = $i;
+						$data_gallery["thumbnail"] = str_replace('./','/',$path)."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+
+						$this->m_content_gallery->add($data_gallery);
+					}
+				}
 				
 				if(empty($_POST['title'])){
 					$this->session->set_flashdata("error", "Ban vui lòng đặt tiêu đề bài viết");
