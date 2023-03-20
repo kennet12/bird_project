@@ -19,9 +19,12 @@
 										<option value="">Loại sản phẩm</option>
 										<? foreach($product_categories as $product_categories_value )
 										{
-										?>
-											<option value="<?=$product_categories_value->id?>"><?=$product_categories_value->name?></option>
-										<?
+											if($product_categories_value->active==1)
+											{
+												?>
+												<option value="<?=$product_categories_value->id?>"><?=$product_categories_value->name?></option>
+											<?
+											}
 										}
 										?>
 										<script type="text/javascript">
@@ -100,10 +103,12 @@
 						<strong>Ảnh Sản Phẩm</strong>
 						<div class="row">
 							<? for ($i=0; $i < 4; $i++) { 
-								$info = new stdClass();
-								$info->product_id = $kq_product_item->id;
-								$info->stt = $i;
-								$image = $this->m_product_gallery->items($info);
+								if (!empty($kq_product_item->id)) {
+									$info = new stdClass();
+									$info->product_id = $kq_product_item->id;
+									$info->stt = $i;
+									$image = $this->m_product_gallery->items($info);
+								}
 							?>
 							<div class="col-md-3">
 								<div class="box-file-upload">
@@ -147,7 +152,7 @@ $(document).ready(function() {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	$('.fa-trash-can').click(function (e) {
+	$('.fa-trash-can').click(function () {
 		$(this).parents('.box-file-upload').find('.wrap-upload-banner').css({"background-image": "none"});
 		$(this).parents('.box-file-upload').find('.file-upload').val('');
 		$(this).parents('.box-file-upload').find('.type-edit').val(1);
@@ -155,23 +160,20 @@ $(document).ready(function() {
 	$(".btn-save").click(function(){
 		var error = [];
 
-			// if ($('#title').val() == '') {
-			// 	error.push('Vui lòng nhập tên tiêu đề.')
-			// }
+			if ($('#title').val() == '') {
+				error.push('Vui lòng nhập tên tiêu đề.')
+			}
 
-			// if ($('#link').val() == '') {
-			// 	error.push('Vui lòng nhập Link')
-			// }
-			// if ($('#description').val() == '') {
-			// 	error.push('Vui lòng nhập nội dung.')
-			// }
+			if ($('#link').val() == '') {
+				error.push('Vui lòng nhập Link')
+			}
 
-			// if (error.length == 0) {
+			if (error.length == 0) {
 				$("#task").val('save');
 				$('#form-post').submit();
-			// } else {
-			// 	messageBox('error','Đã xảy ra lỗi',error);
-			// }
+			} else {
+				messageBox('error','Đã xảy ra lỗi',error);
+			}
 
 			});
 	$(".btn-cancel").click(function(){
