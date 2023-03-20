@@ -35,7 +35,7 @@ class Syslog extends CI_Controller {
 		$tmpl_content["content"] = $this->load->view("admin/index", $view_data, true);
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
-	//-----------------
+	
 	
 	//------------------------------------------------------------------------------
 	// Login
@@ -242,6 +242,7 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function contents($action=null, $id=null){
 		if (!empty($action)) {
 			$categories = $this->m_content_categories->items(null,1);
@@ -328,6 +329,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function partners($action=null,$id=null){
 		if(!empty($action)){
 				
@@ -1384,6 +1386,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	private function document_type($type){
 		$arr_file = array("file_excel","file_word","file_pdf","file_rar","file_zip");
 		$arr_type = array(
@@ -1393,6 +1396,7 @@ class Syslog extends CI_Controller {
 			);
 		return $arr_file[$arr_type[$type]];
 	}
+
 	public function about ($action=null, $id=null) {
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Danh sách các bài viết đơn" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->router->fetch_method()}")));
 		$item = $this->m_post->items();
@@ -1432,6 +1436,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function posts_categories ($action=null, $id=null){
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
@@ -1550,6 +1555,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function posts ($category_id, $action=null, $id=null) {
 		$config_row_page = ADMIN_ROW_PER_PAGE;
 		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
@@ -1700,6 +1706,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function slide ($action=null, $id=null) {
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;
@@ -1825,6 +1832,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+
 	public function faq_categories ($action=null, $id=null){
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 			$page = 1;
@@ -1937,6 +1945,7 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+	
 	public function faq ($category_id, $action=null, $id=null) {
 		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;
