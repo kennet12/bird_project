@@ -15,20 +15,23 @@
 							<div class="col-md-6">
 							<div class="form-group">
 									<div class="input-group invalid">
-									<select id="category_id" name="category_id" class="form-control">
-										<option value="">Loại sản phẩm</option>
+									<select id="category_id" name="category_id"  class="form-control">
+										<option value="" id="type_product">Loại sản phẩm</option>
+										
 										<? foreach($product_categories as $product_categories_value )
-										{
+										{	
 											if($product_categories_value->active==1)
 											{
-												?>
+											?>
 												<option value="<?=$product_categories_value->id?>"><?=$product_categories_value->name?></option>
 											<?
 											}
+											
 										}
 										?>
 										<script type="text/javascript">
 											$("#category_id").val("<?=$kq_product_item->category_id?>");
+											
 										</script>
 										
 									</select>
@@ -39,24 +42,21 @@
 									</div>
 
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Giá</span>
-										<input type="text" id="price" name="price" value="<?=!empty($kq_product_item->price)? $kq_product_item->price :''?>" class="form-control">
-									</div>
-
-									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Alias</span>
 										<input type="text" id="alias" name="alias" value="<?=!empty($kq_product_item->alias)? $kq_product_item->alias :''?>" class="form-control">
 									</div>
 
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Nội Dung</span>
-										<input type="text" id="content" name="content" value="<?=!empty($kq_product_item->content)? $kq_product_item->content :''?>" class="form-control">
+										<span class="input-group-text" id="basic-addon1">Giá</span>
+										<input type="text" id="price" name="price" value="<?=!empty($kq_product_item->price)? $kq_product_item->price :''?>" class="form-control">
 									</div>
 
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Lượt Xem</span>
-										<input type="text" id="view_num" name="view_num" value="<?=!empty($kq_product_item->view_num)? $kq_product_item->view_num :''?>" class="form-control">
+										<span class="input-group-text" id="basic-addon1">Chi Tiết Sản Phẩm</span>
+										<input type="text" id="description" name="description" value="<?=!empty($kq_product_item->description)? $kq_product_item->description :''?>" class="form-control">
 									</div>
+
+									
 									<div class="row">
 										<div class="col-6">
 										<strong >Sản Phẩm nổi bật</strong>
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<textarea class="form-control tinymce" id="description" name="description"  placeholder="Chi tiết sản phẩm" rows="5"></textarea>
+								<textarea class="form-control tinymce" id="content" name="content"  placeholder="Nhập Nội Dung Sản Phẩm" rows="5"></textarea>
 							</div>
 						</div>
 						<br>
@@ -164,8 +164,12 @@ $(document).ready(function() {
 				error.push('Vui lòng nhập tên tiêu đề.')
 			}
 
-			if ($('#link').val() == '') {
-				error.push('Vui lòng nhập Link')
+			if ($('#price').val() == '') {
+				error.push('Vui lòng nhập giá')
+			}
+			if ($("#category_id").val() =='')
+			{
+				error.push('Vui lòng nhập lòng chọn lọai sản phẩm');
 			}
 
 			if (error.length == 0) {

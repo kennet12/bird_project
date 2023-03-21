@@ -10,6 +10,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Danh Mục</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
@@ -17,11 +18,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php 
+                    <?php   $i=1+$offset;
                       foreach ($product_category_chuyen as $for_product_category)
                       {
                         ?>
                     <tr>
+                    <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           
@@ -37,12 +39,12 @@
                         <?php  
                           if($for_product_category->active == 1)
                           {?>
-                             <span class="badge badge-sm bg-gradient-success">Hiện</span>
+                             <span class="badge badge-sm bg-gradient-success " >Hiện</span>
                             <?php
                           }
                           else
                           {?>
-                            <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
+                            <span class="badge badge-sm bg-gradient-danger hide">Ẩn</span>
                             <?php
                           }
                         ?>
@@ -58,7 +60,7 @@
                       </ul>
                       </td>
                     </tr>
-                    <?php } ?>
+                    <?php $i++; } ?>
                   </tbody>
                 </table>
               </div>
@@ -73,5 +75,6 @@
             window.location.href = $(this).attr('linkHref');
         }
     })
+  
 </script>
      

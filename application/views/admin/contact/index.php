@@ -11,7 +11,7 @@
                 <div class="table-responsive p-0">
                     <table class="table align-items-center mb-0">
                         <thead>
-                            <tr>
+                            <tr><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và
                                     Tên</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -30,12 +30,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php  
+                            <?php  $i=1;
                           foreach($contact_chuyen as $contact_for) 
                           {
                           ?>
 
                             <tr>
+                            <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
                                 <td>
                                     <div class="d-flex px-2 py-1">
 
@@ -74,7 +75,7 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            <?php $i++; } ?>
                         </tbody>
                     </table>
                 </div>
