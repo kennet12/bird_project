@@ -800,7 +800,7 @@ class Syslog extends CI_Controller {
 			}
 			$offset = ($page - 1) * $page_num;
 
-			$total = count($this->m_contents->items());
+			$total = count($this->m_slide->items());
 
 			$pagination = $this->util->pagination(
 				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
