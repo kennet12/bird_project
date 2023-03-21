@@ -16,6 +16,14 @@ body.login {
 	width: 100%;
 	height: 100%;
 }
+.updated-date {
+	display: block;
+    font-size: 12px;
+}
+.updated-by {
+	font-size: 14px;
+    display: block;
+}
 .action {
 	padding: 0;
 	margin: 0;
@@ -23,6 +31,7 @@ body.login {
 .action li {
 	list-style: none;
 	margin: 2px 0;
+	display: inline-block;
 }
 .action li span {
 	font-size: 10px;

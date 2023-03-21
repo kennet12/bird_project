@@ -53,13 +53,14 @@ class Syslog extends CI_Controller {
 			
 			if (strtoupper($agent_id) == ADMIN_AGENT_ID) {
 				if ($this->m_user->login($email, $password, "admin") == false) {
-					$this->session->set_flashdata("error", "Invalid email or password.");
+					$this->session->set_flashdata("error", "Email hoặc password sai.");
 					redirect(site_url("syslog/login"), "back");
 				} else {
+					$this->session->set_flashdata("success", "Đăng nhập thành công");
 					redirect(site_url("syslog"));
 				}
 			} else {
-				$this->session->set_flashdata("error", "Invalid Agent ID.");
+				$this->session->set_flashdata("error", "Agent ID không hợp lệ.");
 				redirect(site_url("syslog/login"), "back");
 			}
 		}
@@ -242,9 +243,13 @@ class Syslog extends CI_Controller {
 				redirect(site_url("syslog/users"), "back");
 			}
 		} else {
-		$users = $this->m_user->users();
+		$info = new stdClass();
+		$info->search = !empty($_GET['search'])?$_GET['search']:'';
+
+		$users = $this->m_user->users($info);
 		$view_data = array();	
 		$view_data["users"] = $users;
+		$view_data["search"] = !empty($_GET['search'])?$_GET['search']:'';
 		$view_data["breadcrumb"] = $this->_breadcrumb;
 		$view_data["title"] = 'Danh sách thành viên';
 		
@@ -659,16 +664,24 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
-
 			
-			$product = $this->m_product->items(null, null, $page_num, $offset);
+			$products = $this->m_product->items(null, null, $page_num, $offset);
+			foreach($products as $product) {
+				$info = new stdClass();
+				$info->product_id = $product->id;
+				$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
+
+				$product->updated_by = $this->m_user->load($product->updated_by);
+				$product->product_category = $this->m_product_categories->load($product->category_id);
+				$product->image = !empty($gallery[0]->thumbnail) ? $gallery[0]->thumbnail : null;
+			}
+
 			$view_data =array();
-			$view_data['products']		= $product;
+			$view_data['products']		= $products;
 			$view_data["breadcrumb"] 	= $this->_breadcrumb;
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
 			$view_data['title'] 		= 'Danh Sách Sản Phẩm';
-			// var_dump($_GET);
 	
 			$tmpl_product = array();
 			$tmpl_product['content']=$this->load->view('admin/product/index',$view_data, true);

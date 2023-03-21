@@ -52,9 +52,9 @@ class M_user extends M_db
 			if (!empty($info->user_types)) {
 				$sql .= " AND {$this->_table}.user_type IN (".implode(",", $info->user_types).")";
 			}
-			if (!empty($info->search_text)) {
-				$info->search_text = strtoupper(trim($info->search_text));
-				$sql .= " AND (UPPER({$this->_table}.email) = '{$info->search_text}' OR UPPER({$this->_table}.fullname) LIKE '%{$info->search_text}%')";
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND ({$this->_table}.phone LIKE '%{$info->search}%' OR {$this->_table}.email = '{$info->search}' OR {$this->_table}.fullname LIKE '%{$info->search}%')";
 			}
 		}
 		if (!is_null($active)) {
@@ -69,7 +69,6 @@ class M_user extends M_db
 		if (!is_null($limit)) {
 			$sql .= " OFFSET {$offset}";
 		}
-		
 		$query = $this->db->query($sql);
 		return $query->result();
 	}

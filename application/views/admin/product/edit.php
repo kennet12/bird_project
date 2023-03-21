@@ -52,7 +52,7 @@
 									</div>
 
 									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">Chi Tiết Sản Phẩm</span>
+										<span class="input-group-text" id="basic-addon1">Mô tả</span>
 										<input type="text" id="description" name="description" value="<?=!empty($kq_product_item->description)? $kq_product_item->description :''?>" class="form-control">
 									</div>
 

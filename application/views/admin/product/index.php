@@ -21,8 +21,6 @@
                   <tbody>
                  
 					  <? $i=1+$offset;  foreach($products as $product){ 
-              // $check_img = $this->m_product_gallery->load($product->id='product_id');
-              // var_dump($check_img);
             ?>     
                     <tr>
                       <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
@@ -30,7 +28,7 @@
                         <div class="d-flex px-2 py-1">
                           <div>
                           
-                            <img src="<?=BASE_URL.$product->thumbnail?>" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="<?=BASE_URL.$product->image?>" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?=$product->title?></h6>
@@ -40,26 +38,25 @@
                       </td>
 
                       <td>
-                <? 
-                $category = $this->m_product_categories->load($product->category_id)
-                ?>
-                        <p class="text-xs font-weight-bold mb-0"><?=$category->name?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?=$product->product_category->name?></p>
                       </td>
                       <td class="align-middle text-center text-sm">
                       <?php if ($product->active == 1)  { ?>
-                                    <span class="badge badge-sm bg-gradient-success">Còn Hàng</span>
-                                    <?php } else { ?>
-                                    <span class="badge badge-sm bg-gradient-danger">Hết Hàng</span>
-                                    <?php } ?>
+                        <span class="badge badge-sm bg-gradient-success">Còn Hàng</span>
+                      <?php } else { ?>
+                        <span class="badge badge-sm bg-gradient-danger">Hết Hàng</span>
+                      <?php } ?>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold"><i class="fa-solid fa-eye"></i> <?=$product->view_num?></span>
                       </td>
                       <td class="align-middle text-center">
-					              <ul class="action">
-                            <li><a href="<?=site_url("syslog/products/edit/{$product->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                            <li><a class="btn-delete" linkHref="<?=site_url("syslog/logout/delete/{$product->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                        <ul class="action">
+                          <li><a href="<?=site_url("syslog/products/edit/{$product->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                          <li><a class="btn-delete" linkHref="<?=site_url("syslog/logout/delete/{$product->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                         </ul>
+                        <i class="updated-date"><?=$this->util->to_vn_date($product->updated_date)?></i>
+                        <strong class="updated-by"><?=$product->updated_by->fullname?></strong>
                       </td>
                     </tr>
 					<?$i++;}?>	

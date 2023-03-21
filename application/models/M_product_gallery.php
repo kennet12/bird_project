@@ -15,7 +15,7 @@ class M_product_gallery extends M_db
 			if (!empty($info->product_id)) {
 				$sql .= " AND product_id = '{$info->product_id}'";
 			}
-			if (!is_null($info->stt)) {
+			if (isset($info->stt) && !is_null($info->stt)) {
 				$sql .= " AND stt = '{$info->stt}'";
 			}
 		}
