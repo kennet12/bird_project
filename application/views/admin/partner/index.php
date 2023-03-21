@@ -10,6 +10,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Đối Tác</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ngày Hợp Tác</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
@@ -18,9 +19,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?
-                      foreach($partners as $partner) {?>
+                    <? $i = 1; foreach($partners as $partner) {?>
                   <tr>
+                    <td>
+                      <div class="text-center">
+                        <span><?=$offset+$i?></span>
+                      </div>
+                    </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
@@ -51,7 +56,7 @@
                        </ul>
                       </td>
                     </tr>
-                    <?}?>
+                    <?$i++ ;}?>
                   </tbody>
                 </table>
               </div>
