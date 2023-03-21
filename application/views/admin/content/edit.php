@@ -56,10 +56,12 @@
                                     <div class="row">
                                         <?	
 										for ($i=0; $i <2 ; $i++) { 
+                                          if(!empty( $item->id)){
 											$info = new stdClass();
 											$info->content_id = $item->id;
 											$info->stt = $i;
 											$image = $this->m_content_gallery->items($info);
+                                          }
 									?>
                                         <div class="col-md-6">
                                             <div class="box-file-upload">

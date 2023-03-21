@@ -255,8 +255,20 @@ class Syslog extends CI_Controller {
 	}
 
 	public function contents($action=null, $id=null){
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Sách Bài Viết" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
 		if (!empty($action)) {
 			$categories = $this->m_content_categories->items(null,1);
+			if (
+				$action == 'edit' && empty($id) ||
+				$action == 'add' && !empty($id) ||
+				!in_array($action, ['edit','add']) ||
+				$action == 'edit' && empty($this->m_contents->load($id))
+			)
+			{
+				redirect("error404", "location");
+			}
 			if (!empty($_POST)) {
 				$data = [];
 				$data['title'] 			= $_POST['title'];
@@ -267,6 +279,8 @@ class Syslog extends CI_Controller {
 				$data['content'] 		= $_POST['content']; 
 
 				$count_image = count($_FILES);
+				
+				$id = !empty($id) ? $id : $this->contents->get_next_value();
 				// xoa hinh anh cu~
 				for ($i=0; $i < $count_image; $i++) {
 					if ($_POST["type_edit_{$i}"] == 1) {
@@ -315,8 +329,11 @@ class Syslog extends CI_Controller {
 			}
 			
 			if ($action == 'add') {
-
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")
+				]);
 				$view_data = array();
+				$view_data['breadcrumb'] = $this->_breadcrumb;
 				$view_data["categories"] = $categories;
 				$view_data["title"] = 'Thêm bài viết';
 	
@@ -325,9 +342,12 @@ class Syslog extends CI_Controller {
 				$this->load->view("layout/admin/main", $tmpl_content);
 
 			} else if ($action == 'edit') {
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);
 				$item = $this->m_contents->load($id);
-
 				$view_data = array();
+				$view_data['breadcrumb'] = $this->_breadcrumb;
 				$view_data["item"] = $item;
 				$view_data["categories"] = $categories;
 				$view_data["title"] = 'Chỉnh sửa bài viết';
@@ -361,6 +381,7 @@ class Syslog extends CI_Controller {
 			);
 
 			$view_data = array();
+			$view_data['breadcrumb'] = $this->_breadcrumb;
 			$view_data["contents"] = $this->m_contents->items(null, null, $page_num, $offset);
 			$view_data["title"] = 'Danh sách bài viết';
 			$view_data["offset"]		= $offset;
@@ -373,6 +394,9 @@ class Syslog extends CI_Controller {
 	}
 
 	public function partners($action=null,$id=null){
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Sách Đối Tác" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
 		if(!empty($action)){
 				
 			if(!empty($_POST)){
@@ -417,20 +441,28 @@ class Syslog extends CI_Controller {
 				redirect(site_url("syslog/partners"), "back");
 			}
 			if($action == 'add'){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")
+				]);
 				$partners = $this->m_partner->items();
 				$view_data = array();
 				$view_data['partners'] = $partners;
 				$view_data['title'] =' Thêm Đối Tác';
+				$view_data['breadcrumb'] = $this->_breadcrumb;
 
 				$tmpl_partner = array();
 				$tmpl_partner["content"] = $this->load->view("admin/partner/edit", $view_data, true);
 				$this->load->view("layout/admin/main", $tmpl_partner);
 			}
 			else if($action == 'edit'){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);
 				$partners = $this->m_partner->load($id);
 				$view_data = array();	
 				$view_data['partners'] = $partners;
 				$view_data['title'] ='Chỉnh Sửa Đối Tác';
+				$view_data['breadcrumb'] = $this->_breadcrumb;
 
 				$tmpl_partner = array();
 				$tmpl_partner["content"] = $this->load->view("admin/partner/edit", $view_data, true);
@@ -461,9 +493,10 @@ class Syslog extends CI_Controller {
 			);
 			$partners = $this->m_partner->items(null,null, $page_num,$offset);
 			$view_data = array();
+			$view_data['breadcrumb'] = $this->_breadcrumb;
 			$view_data["partners"] = $partners;
 			$view_data["title"] = 'Danh Sách Đối Tác';
-			$view_data["page_num"] = $page_num;
+			$view_data["offset"] = $offset;
 			$view_data["pagination"] = $pagination;
 
 			$tmpl_partner = array();
