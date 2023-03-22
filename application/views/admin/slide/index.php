@@ -10,18 +10,18 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">STT
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chi Tiết</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Link Liên Kết</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Trạng Thái</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Ngày Cập Nhật</th>
-                                <th class="text-secondary opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Slide
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mô Tả
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Link
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng Thái
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cập Nhật Slide
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,19 +30,20 @@
 							{
 								?>
                             <tr>
-                            <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
+                                <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
+                               
                                 <td>
-                                    <div class="d-flex px-2 py-1">
+                                    <div class="d-flex px-2">
                                         <div>
-                                            <img src="<?=BASE_URL.$slider_foreach->thumbnail; ?>" class="avatar avatar-sm me-3"
-                                                alt="user1">
+                                            <img src="<?=BASE_URL.$slider_foreach->thumbnail; ?>"
+                                                class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
+                                        <div class="my-auto">
                                             <h6 class="mb-0 text-sm"><?=$slider_foreach->title; ?></h6>
-                                            <!-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> -->
                                         </div>
                                     </div>
                                 </td>
+
                                 <td>
                                     <p class="text-xs text-secondary mb-0"><?=$slider_foreach->description; ?></p>
                                 </td>
@@ -65,15 +66,15 @@
 									?>
                                     
                                 </td>
-                                <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold"><?= $slider_foreach->updated_date;?></span>
-                                </td>
-                                <td class="align-middle">
-                                <ul class="action">
-                                            <li><a href="<?=site_url("syslog/sliders/edit/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                                            <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                                <td >
+                                    <ul class="action">
+                                        <li><a href="<?=site_url("syslog/sliders/edit/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                                        <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
+                                    <i class="updated-date"><?=$this->util->to_vn_date($slider_foreach->updated_date)?></i>
+                                     <strong class="updated-by"><?=$slider_foreach->updated_by->fullname?></strong>
                                 </td>
+                              
                             </tr>
                             <?php $i++; }?>
                         </tbody>

@@ -12,7 +12,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Danh Mục</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
                       <th class="text-center text-uppercase  opacity-7">Cập Nhật Sản Phẩm</th>
                     </tr>
@@ -50,14 +50,16 @@
                         ?>
                       
                       </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><?=date("d-m-Y", strtotime($for_product_category->updated_date));  ?></span>
+                      <td class="align-middle text-center text-sm " >
+                        <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($for_product_category->updated_date)?></span>
                       </td>
-                      <td class="align-middle text-center">
-                      <ul class="action" >
-                        <li><a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                         <li><a class="btn-delete" linkHref="<?=site_url("syslog/product_category/delete/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
-                      </ul>
+                      <td style="text-align: center;">
+                          <ul class="action">
+                              <li><a href="<?=site_url("syslog/sliders/edit/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                              <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                          </ul>
+                       
+                            <strong class="updated-by"><?=$for_product_category->updated_by->fullname?></strong>
                       </td>
                     </tr>
                     <?php $i++; } ?>

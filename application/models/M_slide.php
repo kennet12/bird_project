@@ -15,6 +15,10 @@ class M_slide extends M_db
 			if (!empty($info->type)) {
 				$sql .= " AND {$this->_table}.type = '{$info->type}'";
 			}
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND ({$this->_table}.title LIKE '%{$info->search}%')";
+			}
 		}
 		if (!is_null($active)) {
 			$sql .= " AND {$this->_table}.active = '{$active}'";
@@ -31,6 +35,7 @@ class M_slide extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
+
 		$query = $this->db->query($sql);
 		return $query->result();
 	}

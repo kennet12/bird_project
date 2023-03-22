@@ -12,9 +12,11 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Sản Phẩm</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh Mục Sản Phẩm</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái Sản Phẩm</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lượt Xem</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nổi Bật</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
                       <th class="text-center text-secondary opacity-7">Cập Nhật Sản Phẩm</th>
                     </tr>
                   </thead>
@@ -27,7 +29,6 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                          
                             <img src="<?=BASE_URL.$product->image?>" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
@@ -36,19 +37,37 @@
                           </div>
                         </div>
                       </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?=$product->price?></p>
+                      </td>
 
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?=$product->product_category->name?></p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                      <?php if ($product->active == 1)  { ?>
+                      <?php if ($product->qty > 0)  { ?>
+                        <p class="text-xs text-secondary mb-0">Số Lượng : <strong style="color:#f5365c ;"><?=$product->qty?></strong></p>
                         <span class="badge badge-sm bg-gradient-success">Còn Hàng</span>
+                        
                       <?php } else { ?>
                         <span class="badge badge-sm bg-gradient-danger">Hết Hàng</span>
                       <?php } ?>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><i class="fa-solid fa-eye"></i> <?=$product->view_num?></span>
+                      <?php if ($product->check_bold == 1)  { ?>
+                        <span class="badge badge-sm bg-gradient-success">Hiển Thị </span>
+                        
+                      <?php } else { ?>
+                        <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
+                      <?php } ?>
+                      </td>
+                      <td class="align-middle text-center">
+                      <?php if ($product->active == 1)  { ?>
+                        <span class="badge badge-sm bg-gradient-success">Hiển Thị</span>
+                        
+                      <?php } else { ?>
+                        <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
+                      <?php } ?>
                       </td>
                       <td class="align-middle text-center">
                         <ul class="action">

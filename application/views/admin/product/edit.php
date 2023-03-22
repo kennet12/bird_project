@@ -52,6 +52,11 @@
 									</div>
 
 									<div class="input-group">
+										<span class="input-group-text" id="basic-addon1">Nhập Số Lượng</span>
+										<input type="text" id="qty" name="qty" value="<?=!empty($kq_product_item->qty)? $kq_product_item->qty :0?>" class="form-control">
+									</div>
+
+									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">Mô tả</span>
 										<input type="text" id="description" name="description" value="<?=!empty($kq_product_item->description)? $kq_product_item->description :''?>" class="form-control">
 									</div>
@@ -63,13 +68,13 @@
 											<div class="check_bold1">
 												<div class="radio">
 													<label>
-														<input type="radio" name="check_bold" checked="checked" id="input" value="1" <?=!empty($kq_product_item->check_bold)? 'checked="checked"':' ' ?> >
+														<input type="radio" name="check_bold"  id="input" value="1" <?=!empty($kq_product_item->check_bold)? 'checked="checked"':' ' ?> >
 														Hiện
 													</label>
 												</div>
 												<div class="radio">
 													<label>
-														<input type="radio" name="check_bold" id="input" value="0" <?=empty($kq_product_item->active)? 'checked="checked"':' ' ?> >
+														<input type="radio" name="check_bold" id="input"  value="0" <?=empty($kq_product_item->check_bold)? 'checked="checked"':'' ?> >
 														Ẩn
 													</label>
 												</div>
@@ -79,7 +84,7 @@
 											<div class="check_active">
 												<div class="radio">
 													<label>
-														<input type="radio" name="active" checked="checked" id="input" value="1" <?=!empty($kq_product_item->active)? 'checked="checked"':' ' ?>>
+														<input type="radio" name="active" id="input" value="1" <?=!empty($kq_product_item->active)? 'checked="checked"':' ' ?>>
 														Hiện
 													</label>
 												</div>
@@ -166,6 +171,9 @@ $(document).ready(function() {
 
 			if ($('#price').val() == '') {
 				error.push('Vui lòng nhập giá')
+			}
+			if ($('#qty').val() == '') {
+				error.push('Vui lòng nhập Số lưọng')
 			}
 			if ($("#category_id").val() =='')
 			{
