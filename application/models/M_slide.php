@@ -35,8 +35,9 @@ class M_slide extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
-
+		
 		$query = $this->db->query($sql);
+		
 		return $query->result();
 	}
 }

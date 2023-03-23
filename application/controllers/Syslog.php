@@ -617,6 +617,9 @@ class Syslog extends CI_Controller {
 
 			if($action=='add')
 			{
+
+
+				
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
 					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")
 				]);
@@ -672,8 +675,12 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
-			
-			$products = $this->m_product->items(null, null, $page_num, $offset);
+			$info = new stdClass();
+				$info->search = !empty($_GET['search'])?$_GET['search']:'';
+
+				// thêm ngày tháng , tên người sửa
+			$products = $this->m_product->items($info, null, $page_num, $offset);
+			// $products = $this->m_product->items(null, null, $page_num, $offset);
 			foreach($products as $product) {
 				$info = new stdClass();
 				$info->product_id = $product->id;
@@ -687,6 +694,7 @@ class Syslog extends CI_Controller {
 			$view_data =array();
 			$view_data['products']		= $products;
 			$view_data["breadcrumb"] 	= $this->_breadcrumb;
+			$view_data["search"] = !empty($_GET['search'])?$_GET['search']:'';
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
 			$view_data['title'] 		= 'Danh Sách Sản Phẩm';
