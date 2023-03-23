@@ -19,9 +19,7 @@ class M_contact extends M_db
 				$sql .= " AND ({$this->_table}.phone LIKE '%{$info->search}%' OR {$this->_table}.email = '{$info->search}' OR {$this->_table}. name LIKE '%{$info->search}%')";
 			}
 		}
-		if (!is_null($active)) {
-			$sql .= " AND {$this->_table}.active = '{$active}'";
-		}
+
 		$sql .= " AND {$this->_table}.deleted = '0'";
 		if (!empty($order_by)) {
 			$sql .= " ORDER BY {$this->_table}.{$order_by} {$sort_by}";

@@ -1,5 +1,6 @@
 <?
   $method = $this->router->fetch_method();
+  $admin = $this->session->userdata('admin');
 ?>
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
@@ -19,15 +20,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'contents') ? 'active' : ''?>" href="<?=site_url("syslog/contents")?>">
-            <i class="fa-solid fa-book-open"></i>
-            <span class="nav-link-text ms-1">Bài Viết</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?=($method == 'partners') ? 'active' : ''?>" href="<?=site_url("syslog/partners")?>">
-          <i class="fa-solid fa-handshake-simple"></i>
-            <span class="nav-link-text ms-1">Đối Tác</span>
+          <a class="nav-link <?=($method == 'product_category') ? 'active' : ''?>" href="<?=site_url("syslog/product_category")?>">
+          <i class="fa-solid fa-list"></i>
+            <span class="nav-link-text ms-1">Danh Mục Sản Phẩm</span>
           </a>
         </li>
         <li class="nav-item">
@@ -37,9 +32,34 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'product_category') ? 'active' : ''?>" href="<?=site_url("syslog/product_category")?>">
+          <a class="nav-link <?=($method == 'content_category') ? 'active' : ''?>" href="<?=site_url("syslog/content_category")?>">
           <i class="fa-solid fa-list"></i>
-            <span class="nav-link-text ms-1">Danh Mục Sản Phẩm</span>
+            <span class="nav-link-text ms-1">Danh mục tin tức</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?=($method == 'contents') ? 'active' : ''?>" href="<?=site_url("syslog/contents")?>">
+            <i class="fa-solid fa-book-open"></i>
+            <span class="nav-link-text ms-1">Tin tức</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?=($method == 'faq_categories') ? 'active' : ''?>" href="<?=site_url("syslog/faq_categories")?>">
+          <i class="fa-solid fa-list"></i>
+            <span class="nav-link-text ms-1">Danh mục hỏi đáp</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?=($method == 'faq') ? 'active' : ''?>" href="<?=site_url("syslog/faq")?>">
+          <i class="fa-solid fa-address-card"></i>
+            <span class="nav-link-text ms-1">Hỏi đáp</span>
+          </a>
+        </li>
+        <? if (in_array($admin->user_type, [USR_ADMIN, USR_SUPPER_ADMIN])) { ?>
+        <li class="nav-item">
+          <a class="nav-link <?=($method == 'partners') ? 'active' : ''?>" href="<?=site_url("syslog/partners")?>">
+          <i class="fa-solid fa-handshake-simple"></i>
+            <span class="nav-link-text ms-1">Đối Tác</span>
           </a>
         </li>
         <li class="nav-item">
@@ -54,7 +74,15 @@
             <span class="nav-link-text ms-1">Liên hệ</span>
           </a>
         </li>
-         
+        <? } ?>
+        <? if (in_array($admin->user_type, [USR_SUPPER_ADMIN])) { ?>
+        <li class="nav-item">
+          <a class="nav-link <?=($method == 'setting') ? 'active' : ''?>" href="<?=site_url("syslog/setting")?>">
+          <i class="fa-solid fa-address-card"></i>
+            <span class="nav-link-text ms-1">Cài đặt</span>
+          </a>
+        </li>
+        <? } ?>
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
