@@ -15,7 +15,7 @@ class M_content_gallery extends M_db
 			if (!empty($info->content_id)) {
 				$sql .= " AND content_id = '{$info->content_id}'";
 			}
-			if (!is_null($info->stt)) {
+			if (isset($info->stt) && !is_null($info->stt)) {
 				$sql .= " AND stt = '{$info->stt}'";
 			}
 		}

@@ -386,10 +386,25 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
+			$info = new stdClass();
+			$info->search = !empty($_GET['search'])?$_GET['search']:'';
 
+			$contents = $this->m_contents->items($info, null, $page_num, $offset);
+
+			foreach($contents as $content){
+				$info = new stdClass;
+				$info->content_id = $content->id;
+				$gallery = $this->m_content_gallery->items($info, null , null ,'stt','ASC');
+
+				 $content->updated_by = $this->m_user->load($content->updated_by);
+				$content->content_category = $this->m_content_categories->load($content->category_id);
+				$content->image = !empty($gallery[0]->thumbnail) ? $gallery[0]->thumbnail : null;
+			}
+			
 			$view_data = array();
+			$view_data['search'] = !empty($_GET['search'])?$_GET['search']:'';
 			$view_data['breadcrumb'] = $this->_breadcrumb;
-			$view_data["contents"] = $this->m_contents->items(null, null, $page_num, $offset);
+			$view_data["contents"] = $contents;
 			$view_data["title"] = 'Danh sách bài viết';
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
@@ -410,15 +425,11 @@ class Syslog extends CI_Controller {
 				$partners = $this->m_partner->load($id);
 				$data = array();
 				$data['name'] 	 = $_POST['name'];
-				$data['url']	 = $_POST['url'];
+				$data['url']	 = !empty($_POST['url'])? $_POST['url']: $this->util->slug($_POST['name']);
 				$data['active']  = $_POST['active'];
 
 				if(empty($_POST['name'])){
 					$this->session->set_flashdata("error", "Vui lòng nhập tên");
-					redirect(site_url("syslog/partners"), "back");
-				}
-				if(empty($_POST['url'])){
-					$this->session->set_flashdata("error", "Vui lòng nhập url");
 					redirect(site_url("syslog/partners"), "back");
 				}
 				
@@ -462,6 +473,7 @@ class Syslog extends CI_Controller {
 				$this->load->view("layout/admin/main", $tmpl_partner);
 			}
 			else if($action == 'edit'){
+				
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
 					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
 				]);
@@ -498,8 +510,17 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
-			$partners = $this->m_partner->items(null,null, $page_num,$offset);
+
+			///tim kiem
+			$info = new stdClass();
+			$info->search = !empty($_GET['search'])?$_GET['search']:'';
+			
+			$partners = $this->m_partner->items($info,null, $page_num,$offset);
+			foreach ($partners as $partner){
+			$partner->updated_by = $this->m_user->load($partner->updated_by);
+			}
 			$view_data = array();
+			$view_data['search'] = !empty($_GET['search'])?$_GET['search']:'';
 			$view_data['breadcrumb'] = $this->_breadcrumb;
 			$view_data["partners"] = $partners;
 			$view_data["title"] = 'Danh Sách Đối Tác';
