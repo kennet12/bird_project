@@ -55,15 +55,15 @@
                       </td>
                       <td class="align-middle text-center">
                       <?php if ($product->check_bold == 1)  { ?>
-                        <span class="badge badge-sm bg-gradient-success">Hiển Thị </span>
+                        <span class="badge badge-sm bg-gradient-success">Bật</span>
                         
                       <?php } else { ?>
-                        <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
+                        <span class="badge badge-sm bg-gradient-danger">Tắt</span>
                       <?php } ?>
                       </td>
                       <td class="align-middle text-center">
                       <?php if ($product->active == 1)  { ?>
-                        <span class="badge badge-sm bg-gradient-success">Hiển Thị</span>
+                        <span class="badge badge-sm bg-gradient-success">Hiện</span>
                         
                       <?php } else { ?>
                         <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
