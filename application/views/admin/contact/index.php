@@ -22,11 +22,9 @@
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Nội dung</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Ngày Gửi</th>
+                             
 
-                                <th class="text-secondary opacity-7"></th>
+                                <th class="text-secondary opacity-7">Cập Nhật</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,28 +55,21 @@
                                     <textarea style="border: none;" name="" id="" cols="30"
                                         rows="3"><?=$contact_for->content; ?></textarea>
                                 </td>
+                              
                                 <td class="align-middle text-center">
-                                    <span
-                                        class="text-secondary text-xs font-weight-bold"><?= date("d-m-Y",strtotime($contact_for->created_date))?></span>
-                                </td>
-                                <td class="align-middle">
                                     <ul class="action">
-                                        <li>
-                                            <a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><span
-                                                    class="badge badge-sm bg-gradient-info">Sửa</span></a>
-                                        </li>
-
-                                        <li><a class="btn-delete"
-                                                linkHref="<?=site_url("syslog/contacts/delete/{$contact_for->id}")?>"><span
-                                                    class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
-
+                                    <li><a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                                    <li><a class="btn-delete" linkHref="<?=site_url("syslog/contacts/delete/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
+                                    <i class="updated-date"><?=$this->util->to_vn_date($contact_for->updated_date)?></i>
+                                    <strong class="updated-by"><?=$contact_for->updated_by->fullname ?></strong>
                                 </td>
                             </tr>
                             <?php $i++; } ?>
                         </tbody>
                     </table>
                 </div>
+                <div class="text-center"><?=$pagination?></div>
             </div>
         </div>
     </div>

@@ -15,6 +15,10 @@ class M_product extends M_db
 			if (!empty($info->category_id)) {
 				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND (I.title LIKE '%{$info->search}%')";
+			}
 		}
 		
 		if (!is_null($active)) {
@@ -34,6 +38,7 @@ class M_product extends M_db
 		}
 
 		$query = $this->db->query($sql);
+		
 		return $query->result();
 	}
 
