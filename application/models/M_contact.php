@@ -7,8 +7,13 @@ class M_contact extends M_db
 		
 		$this->_table = "m_contact";
 	}
+<<<<<<< Updated upstream
 	
 	public function items($info=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
+=======
+	// ---
+	public function items($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
+>>>>>>> Stashed changes
 	{
 		$sql = "SELECT * FROM {$this->_table} WHERE 1 = 1";
 		if (!is_null($info)) {
