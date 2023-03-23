@@ -12,24 +12,31 @@
                     <table class="table align-items-center justify-content-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    STT
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bài Viết
                                 </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tiêu Đề
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Tiêu Đề
                                 </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Trạng Thái</th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
                                     Lượt Xem</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Hành Động</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?$i = 1; foreach ($contents as $content) { ?>
+                            <?$i = 1; foreach ($contents as $content) { 
+                                ?>
                             <tr>
                                 <td>
                                     <div class="text-center">
@@ -39,8 +46,8 @@
                                 <td>
                                     <div class="d-flex px-2">
                                         <div>
-                                            <img src="<?=TPL_URL_ADMIN?>images/small-logos/logo-spotify.svg"
-                                                class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                            <img src="<?=BASE_URL.$content->image?>" class="avatar avatar-sm me-3"
+                                                alt="user1">
                                         </div>
                                         <div class="my-auto">
                                             <h6 class="mb-0 text-sm"><a
@@ -50,10 +57,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <?
-										$category = $this->m_content_categories->load($content->category_id);
-									?>
-                                    <p class="text-center text-sm font-weight-bold mb-0"><?=$category->name?></p>
+                                    <p class="text-center text-sm font-weight-bold mb-0">
+                                        <?=$content->content_category->name?></p>
                                 </td>
                                 <td class="align-middle text-center">
                                     <? if ($content->active == 1)  { ?>
@@ -64,18 +69,20 @@
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                    <span class="text-xs font-weight-bold"><i class="fa-solid fa-eye"></i>
-                                        <?=$content->view_num?></span>
+                                        <span class="text-xs font-weight-bold"><i class="fa-solid fa-eye"></i>
+                                            <?=$content->view_num?></span>
                                     </div>
                                 </td>
-                                <td class="align-middle">
-                                    <ul class="text-center action">
+                                <td class="align-middle text-center">
+                                    <ul class="action">
                                         <li><a href="<?=site_url("syslog/contents/edit/{$content->id}")?>"><span
                                                     class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                                         <li><a class="btn-delete"
                                                 linkHref="<?=site_url("syslog/contents/delete/{$content->id}")?>"><span
                                                     class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
+                                    <i class="updated-date"><?=$this->util->to_vn_date($content->updated_date)?></i>
+                                    <strong class="updated-by"><?=$content->updated_by->fullname?></strong>
                                 </td>
                             </tr>
                             <?$i++ ;}?>
