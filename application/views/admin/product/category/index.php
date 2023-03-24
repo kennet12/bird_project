@@ -28,7 +28,7 @@
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?= $for_product_category->name?></h6>
+                          <a href="<?=site_url("syslog/sliders/edit/{$for_product_category->id}")?>"><h6 class="mb-0 text-sm"><?= $for_product_category->name?></h6></a>
                           </div>
                           
                         </div>  

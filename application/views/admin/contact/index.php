@@ -12,24 +12,16 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và
-                                    Tên</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Email</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Phone</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Nội dung</th>
-                             
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và Tên</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
 
-                                <th class="text-secondary opacity-7">Cập Nhật</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cập Nhật</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php  $i=1;
-                          foreach($contact_chuyen as $contact_for) 
+                          foreach($contact_chuyen as $contact_for)  
                           {
                           ?>
 
@@ -40,21 +32,17 @@
 
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm"></h6>
-                                            <p class="text-xs text-secondary mb-0"><?= $contact_for->name;?></p>
+                                           <a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><p class="text-xs text-secondary mb-0"><?= $contact_for->name;?></p></a> 
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0"><?=$contact_for->email; ?></p>
+                                   <a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><p class="text-xs font-weight-bold mb-0"><?=$contact_for->email; ?></p></a> 
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0"><?=$contact_for->phone; ?></p>
+                                <a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><p class="text-xs text-secondary mb-0"><?=$contact_for->phone; ?></p></a>
                                 </td>
-
-                                <td>
-                                    <textarea style="border: none;" name="" id="" cols="30"
-                                        rows="3"><?=$contact_for->content; ?></textarea>
-                                </td>
+                                
                                 <td class="align-middle text-center">
                                     <ul class="action">
                                     <li><a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>

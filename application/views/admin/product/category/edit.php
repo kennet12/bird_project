@@ -18,6 +18,10 @@
 										<span class="input-group-text" id="basic-addon1">Tên Danh Mục</span>
 										<input type="text" id="title" name="title" value="<?=!empty($product_category_chuyen->name)? $product_category_chuyen->name :''?>" class="form-control">
 									</div>
+									<div class="input-group">
+										<span class="input-group-text" id="basic-addon1">Alias</span>
+										<input type="text" id="alias" name="alias" value="<?=!empty($product_category_chuyen->alias)? $product_category_chuyen->alias :''?>" class="form-control">
+									</div>
 									
 									<div class="input-group">
 									<div class="radio">
