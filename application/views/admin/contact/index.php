@@ -55,14 +55,13 @@
                                     <textarea style="border: none;" name="" id="" cols="30"
                                         rows="3"><?=$contact_for->content; ?></textarea>
                                 </td>
-                              
                                 <td class="align-middle text-center">
                                     <ul class="action">
                                     <li><a href="<?=site_url("syslog/contacts/edit/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                                     <li><a class="btn-delete" linkHref="<?=site_url("syslog/contacts/delete/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
                                     <i class="updated-date"><?=$this->util->to_vn_date($contact_for->updated_date)?></i>
-                                    <strong class="updated-by"><?=$contact_for->updated_by->fullname ?></strong>
+                                    <strong class="updated-by"><?=$contact_for->updated_by_user->fullname ?></strong>
                                 </td>
                             </tr>
                             <?php $i++; } ?>
