@@ -7,7 +7,7 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
 				<div class="form-box">
-					<form id="form-post" action="" method="POST">
+					<form id="form-post" action="" method="POST" enctype="multipart/form-data">
 						<input type="hidden" name="task" id="task" class="form-control" value="">
 						<div class="row">
 						<div class="col-md-1">
@@ -31,13 +31,14 @@
 									
 									<div class="row">
 									<div class="col-6">
-											<label class="wrap-upload-banner" <?=!empty($slider_chuyen_item->thumbnail) ? 'style="background: url('. $slider_chuyen_item->thumbnail.')"' : ''?>') no-repeat">
+											<label class="wrap-upload-banner" <?=!empty($slider_chuyen_item->thumbnail) ? 'style="background: url('.BASE_URL. $slider_chuyen_item->thumbnail.')"' : ''?>') no-repeat">
 												<input type="file" name="thumbnail" id="file-upload" value="<?=!empty($slider_chuyen_item->title) ? $slider_chuyen_item->title : ''?>">
 												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
 											</label>
 										</div>
 										<div class="col-2"></div>
 										<div class="col-4">
+											
 											<div class="radio">
 												<label>
 													<input type="radio" name="active" id="input" value="1" <?=!empty($slider_chuyen_item->active)? 'checked="checked"':' ' ?>>

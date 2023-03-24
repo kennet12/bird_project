@@ -12,7 +12,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Sản Phẩm</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh Mục Sản Phẩm</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái Sản Phẩm</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nổi Bật</th>
@@ -29,10 +29,12 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="<?=BASE_URL.$product->image?>" class="avatar avatar-sm me-3" alt="user1">
+                            <a href="<?=site_url("syslog/products/edit/{$product->id}")?>">
+                              <img src="<?=BASE_URL.$product->image?>" class="avatar avatar-sm me-3" alt="user1">
+                            </a>
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?=$product->title?></h6>
+                          <a href="<?=site_url("syslog/products/edit/{$product->id}")?>"> <h6 class="mb-0 text-sm"><?=$product->title?></h6></a>
                             <p class="text-xs text-secondary mb-0"><?=$product->alias?></p>
                           </div>
                         </div>
@@ -55,15 +57,15 @@
                       </td>
                       <td class="align-middle text-center">
                       <?php if ($product->check_bold == 1)  { ?>
-                        <span class="badge badge-sm bg-gradient-success">Hiển Thị </span>
+                        <span class="badge badge-sm bg-gradient-success">Bật</span>
                         
                       <?php } else { ?>
-                        <span class="badge badge-sm bg-gradient-danger">Ẩn</span>
+                        <span class="badge badge-sm bg-gradient-danger">Tắt</span>
                       <?php } ?>
                       </td>
                       <td class="align-middle text-center">
                       <?php if ($product->active == 1)  { ?>
-                        <span class="badge badge-sm bg-gradient-success">Hiển Thị</span>
+                        <span class="badge badge-sm bg-gradient-success">Hiện</span>
                         
                       <?php } else { ?>
                         <span class="badge badge-sm bg-gradient-danger">Ẩn</span>

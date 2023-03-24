@@ -12,6 +12,10 @@ class M_post extends M_db
 	{
 		$sql = "SELECT * FROM m_post WHERE 1 = 1";
 		if (!is_null($info)) {
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND ({$this->_table}.title LIKE '%{$info->search}%')";
+			}
 			
 		}
 		if (!is_null($active)) {
