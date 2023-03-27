@@ -1,6 +1,7 @@
 <?
   $method = $this->router->fetch_method();
   $admin = $this->session->userdata('admin');
+  $kq_setting = $this->m_setting->load(1);
 ?>
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
