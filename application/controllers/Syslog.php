@@ -292,7 +292,7 @@ class Syslog extends CI_Controller {
 
 	public function contents($action=null, $id=null){
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
-			"Danh Sách Bài Viết" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+			"Danh Sách Tin Tức" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
 		]);
 		if (!empty($action)) {
 			$categories = $this->m_content_categories->items(null,1);
@@ -316,7 +316,7 @@ class Syslog extends CI_Controller {
 
 				$count_image = count($_FILES);
 				
-				$id = !empty($id) ? $id : $this->contents->get_next_value();
+				$id = !empty($id) ? $id : $this->m_contents->get_next_value();
 				// xoa hinh anh cu~
 				for ($i=0; $i < $count_image; $i++) {
 					if ($_POST["type_edit_{$i}"] == 1) {
@@ -371,7 +371,7 @@ class Syslog extends CI_Controller {
 				$view_data = array();
 				$view_data['breadcrumb'] = $this->_breadcrumb;
 				$view_data["categories"] = $categories;
-				$view_data["title"] = 'Thêm bài viết';
+				$view_data["title"] = 'Thêm tin tức';
 	
 				$tmpl_content = array();
 				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
@@ -434,7 +434,7 @@ class Syslog extends CI_Controller {
 			$view_data['search'] = !empty($_GET['search'])?$_GET['search']:'';
 			$view_data['breadcrumb'] = $this->_breadcrumb;
 			$view_data["contents"] = $contents;
-			$view_data["title"] = 'Danh sách bài viết';
+			$view_data["title"] = 'Danh sách tin tức';
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
 
@@ -443,10 +443,363 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
-	//------------------------------------------------------------------------------
-	// partners
-	//------------------------------------------------------------------------------
+	public function content_category($action=null, $id=null)
+	{
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Mục Tin Tức" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
+		
+		if(!empty($action))
+		{
+			// kiểm tra trang
+			// if (
+			// 	$action == 'edit' && empty($id) ||
+			// 	$action == 'add' && !empty($id) ||
+			// 	!in_array($action, ['edit','add','delete']) ||
+			// 	$action == 'edit' && empty($this->m_content_categories->load($id))
+			// ) {
+			// 	redirect("error404", "location");
+			// }
+			
+			if(!empty($_POST))
+			{
+				
+				$data=[];
+				$data['name']=$_POST['title'];
+				$data['active']=$_POST['active'];
+				$data ['alias']=  !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
+				
+				if (empty($_POST['title'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề tin tức");
+					redirect(site_url("syslog/content_category"), "back");
+				}
 
+				
+				
+				if ($action == "add") {
+				
+					$this->m_content_categories->add($data);
+			
+					$this->session->set_flashdata("success", "Thêm thành công");
+				}
+
+				if($action=='edit')
+				{
+					$this->m_content_categories->update($data,['id'=>$id]);
+					$this->session->set_flashdata("success", "Cập nhật thành công");
+
+				}
+				redirect(site_url("syslog/content_category"), "back");
+
+			}
+			
+			if($action =='add')
+			{
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);	
+				$view_data = array();
+				$view_data["breadcrumb"] = $this->_breadcrumb;
+				$view_data["title"] = 'Thêm Danh Mục';
+
+				$tmpl_content_categories = array();
+				$tmpl_content_categories["content"] = $this->load->view("admin/content/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content_categories);
+			}
+			else if($action =='edit')
+			{
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);
+				$content_category = $this->m_content_categories->load($id);
+				
+				$view_data = array();
+				$view_data["breadcrumb"] = $this->_breadcrumb;
+				$view_data["title"] = 'Cập Nhật Danh Mục';
+				$view_data["content_category"] = $content_category;
+
+
+				$tmpl_content_categories = array();
+				$tmpl_content_categories["content"] = $this->load->view("admin/content/category/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_content_categories);
+			}
+			else if($action=='delete'){
+
+				$this->m_content_categories->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/content_category"), "back");
+
+			}
+			
+		}
+		else{
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_content_categories->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+			// tìm kiếm
+			$info = new stdClass();
+			$info->search = !empty($_GET['search'])?$_GET['search']:'';
+
+			$content_category = $this->m_content_categories->items($info, null, $page_num, $offset);
+			// thêm ngày tháng , tên người sửa
+				// lấy đúng giá trị của dong của ID
+				foreach($content_category as $categories) {
+					$info = new stdClass();
+					$info->updated_by = $categories->id;
+					$categories->updated_by = $this->m_user->load($categories->updated_by);
+					
+				}
+			
+			$view_data = array();
+			$view_data["content_category"] 	= $content_category;
+			$view_data['search'] 			=!empty($_GET['search'])?$_GET['search']:'';
+			$view_data["offset"]			= $offset;
+			$view_data["breadcrumb"] 		= $this->_breadcrumb;
+			$view_data["pagination"]		= $pagination;
+			$view_data["title"] 			= 'Danh mục tin tức';
+
+			$tmpl_content_categories = array();
+			$tmpl_content_categories["content"] = $this->load->view("admin/content/category/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_content_categories);
+		}
+	}
+
+	public function faq($action=null,$id=null){
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Mục" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
+		if(!empty($action)){
+			$categories = $this->m_faq_categories->items(null,1);	
+			if(!empty($_POST)){
+				$data = [];
+				$data['question'] = $_POST['question'];
+				$data['alias_question'] = !empty($_POST['alias_question'])?$_POST['alias_question']:$this->util->slug($_POST['question']);
+				$data['active'] = $_POST['active'];
+				$data['content'] = $_POST['content'];
+				$data['category_id'] = $_POST['category_id'];
+
+				if(empty($_POST['question'])){
+					$this->session->set_Flashdata("error", "Vui Lòng Nhập Câu Hỏi");
+					redirect(site_url("syslog/faq") , "back");
+				}
+				if(empty($_POST['content'])){
+					$this->session->set_Flashdata("error", "Vui Lòng Nhập Câu Trả Lời");
+					redirect(site_url("syslog/faq") , "back");
+				}
+
+				if ($action == 'add') {
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_faq->add($data);
+				} else if ($action == 'edit') {
+					$this->session->set_flashdata("success", "Sửa thành công");
+					$this->m_faq->update($data, ['id' => $id]);
+				}
+				redirect(site_url("syslog/faq"), "back");
+				
+			}
+			if($action == 'add'){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")
+				]);
+				$item = $this->m_faq->items();
+				$view_data = array();
+				$view_data["categories"] = $categories;
+				$view_data['item']= $item;
+				$view_data['title'] = 'Thêm Câu Hỏi';
+				$view_data['breadcrumb']=$this->_breadcrumb;
+				
+				$tmpl_faq = array();
+				$tmpl_faq['content'] = $this->load->view("admin/faq/edit",$view_data,true);
+				$this->load->view('layout/admin/main',$tmpl_faq);	
+			}
+			else if($action == "edit"){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);
+				$item = $this->m_faq->load($id);
+				$view_data = array();
+				$view_data['item']= $item;
+				$view_data["categories"] = $categories;
+				$view_data['breadcrumb']=$this->_breadcrumb;
+				$view_data['title'] = 'Chinh Sửa Câu Hỏi';
+				
+				$tmpl_faq = array();
+				$tmpl_faq['content'] = $this->load->view("admin/faq/edit",$view_data,true);
+				$this->load->view('layout/admin/main',$tmpl_faq);
+			}
+			else if($action == 'delete'){
+				$this->m_faq->remove(['id'=>$id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/faq"), "back");
+
+			}
+		}
+		else{
+			$config_row_page = ADMIN_ROW_PER_PAGE;
+			$page_num = isset($_GET['page_num'])?$_GET['page_num']:$config_row_page;
+			if(!isset($_GET['page'])||($_GET['page'])<1){
+				$page = 1;
+			}
+			else{
+				$page = $_GET['page'];
+			}
+			$offset = ($page -1) * $page_num;	
+			$total = count($this->m_faq->items());
+			
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+		
+		$info = new stdClass;
+		$info->search = !empty($_GET['search'])?$_GET['search']:'';
+		$faqs = $this->m_faq->items($info,null,$page_num,$offset);
+		 foreach($faqs as $faq){
+			$info = new stdClass;
+			$info->updated_by = $faq->id;
+			$faq->updated_by = $this->m_user->load($faq->updated_by);
+		 }
+
+		$view_data = array();
+		$view_data['faqs'] = $faqs;
+		$view_data['search'] = !empty($_GET['search'])?$_GET['search']:'';
+		$view_data['title'] = 'Danh Sách Câu Hỏi';
+		$view_data['breadcrumb']=$this->_breadcrumb;
+		$view_data['pagination'] = $pagination;
+		$view_data['offset'] = $offset;
+		
+
+		$tmpl_faq = array();
+		$tmpl_faq['content'] = $this->load->view("admin/faq/index",$view_data,true);
+		$this->load->view('layout/admin/main',$tmpl_faq);
+		}
+	}
+	public function faq_categories($action = null,$id= null){
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Mục Hỏi Đáp" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
+		if(!empty($action)){
+			
+			if(!empty($_POST)){
+				
+				$data = [];
+				$data['name']	=$_POST['name'];
+				$data['alias'] 	= (!empty($_POST['alias']))?$_POST['alias']: $this->util->slug($_POST['name']);
+				$data['active']	=$_POST['active'];
+
+				if($action == 'add'){
+					$this->session->flashdata("success","Thêm Thành Công");
+					$this->m_faq_categories->add($data);
+				}
+				
+
+				if($action =="edit"){
+					
+					$this->m_faq_categories->update($data,['id'=>$id]);
+					$this->session->flashdata("success","Sửa Thành Công");
+
+				}
+				redirect("syslog/faq_categories", "back");
+			}
+
+			if($action == "add"){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")]);
+				
+					$item = $this->m_faq_categories->items();
+
+					$view_data = array();
+					$view_data['title'] = 'Thêm Danh Mục';
+					$view_data['item'] = $item;
+					$view_data['breadcrumb'] = $this->_breadcrumb;
+
+				$tmpl_faq = array();
+				$tmpl_faq['content'] = $this->load->view("admin/faq/category/edit",$view_data,true);
+				$this->load->view('layout/admin/main',$tmpl_faq);
+				}
+			if($action =="edit"){
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")]);
+					
+					$item = $this->m_faq_categories->load($id);
+	
+					$view_data = array();
+					$view_data['title'] = 'Sửa Danh Mục';
+					$view_data['item'] = $item;
+					$view_data['breadcrumb'] = $this->_breadcrumb;
+	
+					$tmpl_faq = array();
+					$tmpl_faq['content'] = $this->load->view("admin/faq/category/edit",$view_data,true);
+					$this->load->view('layout/admin/main',$tmpl_faq);
+				}
+			else if($action == 'delete')
+			{
+
+				 $this->m_faq_categories->remove(['id'=>$id]);
+				$this->session->set_flashdata("success", "Xóa thành công");
+				redirect(site_url("syslog/faq_categories"), "back");
+	
+			}
+		}
+		else{
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_faq_categories->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
+			$info = new stdClass;
+			$info->search = !empty($_GET['search'])?$_GET['search']:'';
+
+		$faq_categories = $this->m_faq_categories->items($info,null,$page_num,$offset);
+
+		foreach($faq_categories as $faq_category){
+			$info = new stdClass;
+			$info->updated_by = $faq_category->id;
+
+			$faq_category->updated_by = $this->m_user->load($faq_category->updated_by);
+		}
+		
+		$view_data = array();
+		$view_data['title'] = 'Danh Mục Câu Hỏi';
+		$view_data['faq_categories'] = $faq_categories;
+		$view_data['breadcrumb'] = $this->_breadcrumb;
+		$view_data['search'] = !empty($_GET['search'])?$_GET['search']:'';
+		$view_data['pagination'] = $pagination;
+		$view_data['offset'] = $offset;
+
+		$tmpl_faq = array();
+		$tmpl_faq['content'] = $this->load->view("admin/faq/category/index",$view_data,true);
+		$this->load->view('layout/admin/main',$tmpl_faq);
+		}
+	}
 	public function partners($action=null,$id=null){
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
 			"Danh Sách Đối Tác" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
@@ -587,6 +940,7 @@ class Syslog extends CI_Controller {
 			}
 			if(!empty($_POST))
 			{
+				
 				$receive_data=[];
 				$receive_data['title'] 		 = $_POST['title'];
 				$receive_data['link']		 = $_POST['link'];
@@ -1516,16 +1870,6 @@ class Syslog extends CI_Controller {
 			$this->load->view('layout/admin/main',$tmpl_post);
 			
 		}
-		
-	}
-	//------------------------------------------------------------------------------
-	// faq
-	//------------------------------------------------------------------------------
-	public function faq_categories ($action=null, $id=null){
-		
-	}
-	
-	public function faq ($action=null, $id=null) {
 		
 	}
 	//------------------------------------------------------------------------------

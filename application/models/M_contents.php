@@ -17,7 +17,7 @@ class M_contents extends M_db
 			}
 			if (!empty($info->search)) {
 				$info->search = trim($info->search);
-				$sql .= " AND  (C.name LIKE '%{$info->search}%')";
+				$sql .= " AND  (C.name LIKE '%{$info->search}%') OR (I.title LIKE '%{$info->search}%')";
 
 			}
 			

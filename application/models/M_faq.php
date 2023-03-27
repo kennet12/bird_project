@@ -15,6 +15,10 @@ class M_faq extends M_db
 			if (!empty($info->category_id)) {
 				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND  (I.question LIKE '%{$info->search}%')";
+			}
 		}
 		if (!is_null($active)) {
 			$sql .= " AND I.active = '{$active}'";
@@ -32,6 +36,8 @@ class M_faq extends M_db
 			$sql .= " OFFSET {$offset}";
 		}
 		$query = $this->db->query($sql);
+
+		
 		return $query->result();
 	}
 
