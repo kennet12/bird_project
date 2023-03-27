@@ -89,7 +89,7 @@
 											$tags = explode(",", $kq_setting->tags);
 											foreach ($tags as $tag) {
 												?>
-												<span class="label label-primary" style="background-color: #FFFF66;"><?=trim($tag)?></span>&nbsp;
+												<span class="label label-primary" style="background-color: #2dcec7;"><?=trim($tag)?></span>&nbsp;
 												<?
 											}
 										?>
