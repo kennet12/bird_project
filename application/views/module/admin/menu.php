@@ -6,8 +6,8 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="<?=TPL_URL_ADMIN?>images/fish.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Argon Dashboard s2</span>
+        <img src="<?=BASE_URL.$kq_setting->logo; ?>" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold"><?=$kq_setting->company_name;?></span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -63,7 +63,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'sliders') ? 'active' : ''?>" href="<?=site_url("syslog/sliders")?>"style = "color :#999900;">
+          <a class="nav-link <?=($method == 'sliders') ? 'active' : ''?>" href="<?=site_url("syslog/sliders")?>"style = "color :#CC66FF;">
           <i class="fa-solid fa-sliders"></i>
             <span class="nav-link-text ms-1">Slider</span>
           </a>

@@ -299,7 +299,7 @@ class Syslog extends CI_Controller {
 			if (
 				$action == 'edit' && empty($id) ||
 				$action == 'add' && !empty($id) ||
-				!in_array($action, ['edit','add']) ||
+				!in_array($action, ['edit','add','delete']) ||
 				$action == 'edit' && empty($this->m_contents->load($id))
 			)
 			{
@@ -1073,7 +1073,7 @@ class Syslog extends CI_Controller {
 			if (
 				$action == 'edit' && empty($id) ||
 				$action == 'add' && !empty($id) ||
-				!in_array($action, ['edit','add']) ||
+				!in_array($action, ['edit','add','delete']) ||
 				$action == 'edit' && empty($this->m_product_categories->load($id))
 			) {
 				redirect("error404", "location");
@@ -1251,8 +1251,6 @@ class Syslog extends CI_Controller {
 			$receive_data['social_links']	="Social Links";
 			$receive_data['cloud']			="Cluod";
 			$receive_data["breadcrumb"] = $this->_breadcrumb;
-
-	
 			
 			$tmpl_setting = array();
 			$tmpl_setting["content"] = $this->load->view("admin/settings/edit", $receive_data, true);
@@ -1593,6 +1591,7 @@ class Syslog extends CI_Controller {
 			$view_data["loghistory_chuyen"] = $kq_loghistory;
 			$view_data["offset"]			= $offset;
 			$view_data["breadcrumb"] 		= $this->_breadcrumb;
+			$view_data["search"] = !empty($_GET['search'])?$_GET['search']:'';
 			$view_data["pagination"]		= $pagination;
 			
 			$view_data["title"] = 'Danh sách Log History';
