@@ -1,62 +1,72 @@
-<div class="cluster">
-	<div class="container-fluid">
-		<h1 class="page-title"><?=!empty($item->title) ? $item->title : ''?></h1>
-		<form id="frm-admin" name="adminForm" action="" method="POST" enctype="multipart/form-data">
-			<input type="hidden" id="task" name="task" value="">
-			<table class="table table-bordered">
-				<!-- <tr>
-					<td class="table-head text-right" width="10%">Tiêu đề</td>
-					<td><input type="text" id="title" name="title" class="form-control" value="<?=!empty($item->title) ? $item->title : ''?>"></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right" width="10%">URL alias</td>
-					<td><input type="text" id="alias" name="alias" class="form-control" value="<?=!empty($item->alias) ? $item->alias : ''?>"></td>
-				</tr> -->
-				<tr>
-					<td class="table-head text-right" width="10%">Hình ảnh</td>
-					<td>
-						<label class="wrap-upload-banner" style="background: url('<?=!empty($item->thumbnail) ? $item->thumbnail : ''?>') no-repeat">
-							<input type="file" name="thumbnail" id="file-upload" value="<?=!empty($item->title) ? $item->title : ''?>">
-							<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-						</label>
-					</td>
-				</tr>
-				<!-- <tr>
-					<td class="table-head text-right" width="10%">Mô tả</td>
-					<td><textarea id="description" name="description" class=" form-control" rows="5"><?=!empty($item->description) ? $item->description : ''?></textarea></td>
-				</tr> -->
-				<tr>
-					<td class="table-head text-right" width="10%">Nội dung</td>
-					<td><textarea id="content" name="content" class="tinymce form-control" rows="20"><?=!empty($item->content) ? $item->content : ''?></textarea></td>
-				</tr>
-				<tr>
-					<td class="table-head text-right"></td>
-					<td>
-						<select id="active" name="active" class="form-control">
-							<option value="1">Hiện</option>
-							<option value="0">Ẩn</option>
-						</select>
-						<script type="text/javascript">
-							$("#active").val("<?=$item->active?>");
-						</script>
-					</td>
-				</tr>
-			</table>
-			<div class="text-right">
-				<button class="btn btn-sm btn-primary btn-save">Lưu</button>
-				<button class="btn btn-sm btn-default btn-cancel">Hủy</button>
-			</div>
-		</form>
-		<br>
-	</div>
-</div>
 
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6><?=$title;?></h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+				<div class="form-box">
+					<form id="form-post" action="" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="task" id="task" class="form-control" value="">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-text" id="basic-addon1">Tiêu đề</span>
+										<input type="text" name="title" id="title" value="<?=!empty($post_chuyen->title)? $post_chuyen->title :''?>" class="form-control">
+									</div><div class="input-group">
+										<span class="input-group-text" id="basic-addon1">Alias</span>
+										<input type="text" name="alias" id="alias" value="<?=!empty($post_chuyen->title)? $post_chuyen->title :''?>" class="form-control">
+									</div>
+									
+									<div class="row">
+									<div class="col-6">
+											<label class="wrap-upload-banner" <?=!empty($post_chuyen->thumbnail) ? 'style="background: url('.BASE_URL. $post_chuyen->thumbnail.')"' : ''?>') no-repeat">
+												<input type="file" name="thumbnail" id="file-upload" value="<?=!empty($post_chuyen->title) ? $post_chuyen->title : ''?>">
+												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+											</label>
+											
+										</div>
+										<div class="col-6">
+										<strong>Hiển thị Bài Viết</strong>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="1" <?=!empty($post_chuyen->active)? 'checked="checked"':' ' ?>>
+													Hiện
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" name="active" id="input" value="0" <?=empty($post_chuyen->active)? 'checked="checked"':' ' ?> >
+													Ẩn
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<textarea class="form-control tinymce" id="content" name="content"  placeholder="Nhập Nội Dung " rows="5"><?=!empty($post_chuyen->title) ? $post_chuyen->title : ''?></textarea>
+							</div>
+								
+						</div>
+						<div class="text-center">
+							<button type="button" class="btn-save btn bg-gradient-success">Cập nhật</button>
+						</div>
+					</form>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+
 $(document).ready(function() {
 	$("#file-upload").change(function() {
 		readURL(this);
 	});
-	
+
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -72,7 +82,19 @@ $(document).ready(function() {
 		}
 	}
 	$(".btn-save").click(function(){
-		submitButton("save");
+		var error = [];
+
+			if ($('#title').val() == '') {
+				error.push('Vui lòng nhập tên tiêu đề.')
+			}
+
+
+			if (error.length == 0) {
+				$("#task").val('save');
+				$('#form-post').submit();
+			} else {
+				messageBox('error','Đã xảy ra lỗi',error);
+			}
 	});
 	$(".btn-cancel").click(function(){
 		submitButton("cancel");

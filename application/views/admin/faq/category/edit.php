@@ -26,7 +26,7 @@
 									<div class="input-group">
 									<div class="radio">
 												<label>
-													<input type="radio" name="active" id="input"  value="1"<?=!($item->active) ? 'checked="checked"' : ''?>>
+													<input type="radio" name="active" id="input"  value="1"<?=!empty($item->active) ? 'checked="checked"' : ''?>>
 													Hiện
 												</label>
 											</div>	
