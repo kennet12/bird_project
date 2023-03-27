@@ -74,7 +74,7 @@
                       <td class="align-middle text-center">
                         <ul class="action">
                           <li><a href="<?=site_url("syslog/products/edit/{$product->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                          <li><a class="btn-delete" linkHref="<?=site_url("syslog/logout/delete/{$product->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                          <li><a class="btn-delete" linkHref="<?=site_url("syslog/products/delete/{$product->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                         </ul>
                         <i class="updated-date"><?=$this->util->to_vn_date($product->updated_date)?></i>
                         <strong class="updated-by"><?=$product->updated_by->fullname?></strong>

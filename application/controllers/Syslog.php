@@ -39,7 +39,6 @@ class Syslog extends CI_Controller {
 		$this->load->view("layout/admin/main", $tmpl_content);
 	}
 	
-	
 	//------------------------------------------------------------------------------
 	// Login
 	//------------------------------------------------------------------------------
@@ -287,6 +286,9 @@ class Syslog extends CI_Controller {
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------
+	// contents
+	//------------------------------------------------------------------------------
 
 	public function contents($action=null, $id=null){
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
@@ -441,6 +443,9 @@ class Syslog extends CI_Controller {
 			$this->load->view("layout/admin/main", $tmpl_content);
 		}
 	}
+	//------------------------------------------------------------------------------
+	// partners
+	//------------------------------------------------------------------------------
 
 	public function partners($action=null,$id=null){
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
@@ -565,6 +570,7 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 
 	public function sliders($action=null, $id=null){
+		 $check=null;
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
 			"Slide" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
 		]);
@@ -574,7 +580,7 @@ class Syslog extends CI_Controller {
 			if (
 				$action == 'edit' && empty($id) ||
 				$action == 'add' && !empty($id) ||
-				!in_array($action, ['edit','add']) ||
+				!in_array($action, ['edit','add','delete']) ||
 				$action == 'edit' && empty($this->m_slide->load($id))
 			) {
 				redirect("error404", "location");
@@ -586,7 +592,7 @@ class Syslog extends CI_Controller {
 				$receive_data['link']		 = $_POST['link'];
 				$receive_data['description'] = $_POST['description'];
 				$receive_data['active'] 	 = $_POST['active'];
-
+				
 				if (empty($_POST['title'])) {
 					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
 					redirect(site_url("syslog/sliders"), "back");
@@ -597,7 +603,7 @@ class Syslog extends CI_Controller {
 				}
 
 				if (!empty($_FILES['thumbnail']['name'])){
-					$path = "./files/upload/image/slider/{$id}";
+					$path = "./files/upload/image/slider{$id}";
 					if (!file_exists($path)) {
 						mkdir($path, 0755, true);
 					}
@@ -611,17 +617,26 @@ class Syslog extends CI_Controller {
 					$receive_data['thumbnail'] = $path."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
 					// add url hinh ảnh vào database
 				}
-
-
+					// kiểm tra log
+					$id_slider_log = !empty($id_slider_log) ? $id_slider_log : $this->m_slide->get_next_value();	
+					$admin = $this->session->userdata("admin");
+					$add_log=[];
+					$add_log['id_slider']=$id_slider_log;
+					$add_log['item_log']='slide';
+					$add_log['previous_content']=json_encode($receive_data);
+					$add_log['id_user'] = $admin->id;
+					
 				if($action == 'add')
 				{
-					$this->session->set_flashdata("success", "Thêm thành công");
 					$this->m_slide->add($receive_data);
+					$this->session->set_flashdata("success", "Thêm thành công");
 				}
+				
 				else if($action =='edit')
 				{
 					$this->m_slide->update($receive_data,['id'=>$id]);
-					$this->session->set_flashdata("success", "Cập nhật thành công");
+					$this->m_log->add($add_log);
+					// $this->session->set_flashdata("success", "Cập nhật thành công");
 				}
 				redirect(site_url("syslog/sliders"), "back");
 
@@ -694,7 +709,6 @@ class Syslog extends CI_Controller {
 					$info = new stdClass();
 					$info->updated_by = $kq->id;
 					$kq->updated_by = $this->m_user->load($kq->updated_by);
-					
 				}
 
 			$view_data = array();
@@ -868,7 +882,7 @@ class Syslog extends CI_Controller {
 			if (
 				$action == 'edit' && empty($id) ||
 				$action == 'add' && !empty($id) ||
-				!in_array($action, ['edit','add']) ||
+				!in_array($action, ['edit','add','delete']) ||
 				$action == 'edit' && empty($this->m_product->load($id))
 			) {
 				redirect("error404", "location");
@@ -962,9 +976,6 @@ class Syslog extends CI_Controller {
 
 			if($action=='add')
 			{
-
-
-				
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
 					"Thêm" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")
 				]);
@@ -1242,7 +1253,6 @@ class Syslog extends CI_Controller {
 			$receive_data["breadcrumb"] = $this->_breadcrumb;
 
 	
-			// var_dump($receive_data);
 			
 			$tmpl_setting = array();
 			$tmpl_setting["content"] = $this->load->view("admin/settings/edit", $receive_data, true);
@@ -1510,13 +1520,87 @@ class Syslog extends CI_Controller {
 		}
 		
 	}
-
+	//------------------------------------------------------------------------------
+	// faq
+	//------------------------------------------------------------------------------
 	public function faq_categories ($action=null, $id=null){
 		
 	}
 	
 	public function faq ($action=null, $id=null) {
 		
+	}
+	//------------------------------------------------------------------------------
+	// log
+	//------------------------------------------------------------------------------
+	public function loghistory($action=null,$id=null)
+	{
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Danh Sách Log" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+		]);
+		if(!empty($action))
+		{
+			if($action == 'view')
+			{
+				$kq_loghistory = $this->m_log->items($id);
+
+				// foreach($kq_loghistory as $log_user) 
+				// {
+				// 	$log_user->list_id_user = $this->m_user->load($log_user->id_user);
+				// }
+
+				$view_data = array();
+				$view_data["loghistory_chuyen"] = $kq_loghistory;
+				// $view_data["offset"]		= $offset;
+				// $view_data["breadcrumb"] 	= $this->_breadcrumb;
+				// $view_data["pagination"]	= $pagination;
+				$view_data["title"] = 'Danh sách Log History';
+				
+
+				$tmpl_log = array();
+				$tmpl_log["content"] = $this->load->view("admin/log_his/view", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_log);
+			}
+		}
+		else
+		{
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_log->items());
+
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+
+			$kq_loghistory = $this->m_log->items(null, null, $page_num, $offset);
+
+			foreach($kq_loghistory as $log_user) 
+			{
+				$log_user->list_id_user = $this->m_user->load($log_user->id_user);
+			}
+
+			$view_data = array();
+			$view_data["loghistory_chuyen"] = $kq_loghistory;
+			$view_data["offset"]			= $offset;
+			$view_data["breadcrumb"] 		= $this->_breadcrumb;
+			$view_data["pagination"]		= $pagination;
+			
+			$view_data["title"] = 'Danh sách Log History';
+
+			$tmpl_log = array();
+			$tmpl_log["content"] = $this->load->view("admin/log_his/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_log);
+		}
 	}
 }
 

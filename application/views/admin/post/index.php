@@ -62,4 +62,3 @@
         </div>
     </div>
 </div>
-SELECT I.*, C.alias AS 'category_alias', '0' AS 'child_num' FROM m_faq AS I INNER JOIN m_faq_categories AS C ON (I.category_id = C.id) WHERE 1 = 1 AND I.deleted = '0' ORDER BY I.created_date DESC LIMIT 10 OFFSET 0
