@@ -12,7 +12,11 @@ class M_content_categories extends M_db
 	{
 		$sql = "SELECT * FROM {$this->_table} WHERE 1 = 1";
 		if (!is_null($info)) {
-			
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND  ({$this->_table}.name LIKE '%{$info->search}%')";
+
+			}
 		}
 		if (!is_null($active)) {
 			$sql .= " AND {$this->_table}.active = '{$active}'";
@@ -30,6 +34,7 @@ class M_content_categories extends M_db
 			$sql .= " OFFSET {$offset}";
 		}
 		$query = $this->db->query($sql);
+	
 		return $query->result();
 	}
 }
