@@ -63,24 +63,6 @@ class M_db extends CI_Model {
 		return $this->get_max_value($column) + 1;
 	}
 	
-	public function log($data)
-	{
-		if (strtolower($this->router->fetch_class()) == "syslog") {
-			$user = $this->session->userdata("admin");
-		} else {
-			$user = $this->session->userdata("user");
-		}
-		if (!empty($user)) {
-			if ($this->db->field_exists("updated_by", $this->_table)) {
-				$data["updated_by"] = $user->id;
-			}
-			if ($this->db->field_exists("updated_date", $this->_table)) {
-				$data["updated_date"] = date($this->config->item("log_date_format"));
-			}
-		}
-		return $data;
-	}
-	
 	public function order_up($id)
 	{
 		$item = $this->load($id);
@@ -178,18 +160,64 @@ class M_db extends CI_Model {
 		$this->db->where('id',$item->id);
 		$this->db->update($this->_table, $data);
 	}
+
+	public function log($data, $item_id, $status)
+	{
+		if (strtolower($this->router->fetch_class()) == "syslog") {
+			$user = $this->session->userdata("admin");
+		} else {
+			$user = $this->session->userdata("user");
+		}
+
+		$this->addLog($data, $item_id, $status, $user);
+		
+		if (!empty($user)) {
+			if ($this->db->field_exists("updated_by", $this->_table)) {
+				$data["updated_by"] = $user->id;
+			}
+			if ($this->db->field_exists("updated_date", $this->_table)) {
+				$data["updated_date"] = date($this->config->item("log_date_format"));
+			}
+		}
+
+		return $data;
+	}
+
+	public function addLog($data, $item_id, $status, $user) {
+		$data_log = [];
+		$data_log['status'] = $status;
+		$data_log['log_tbl'] = $this->_table;
+		
+		$data_log["updated_by"] = $user->id;
+		$data_log["created_date"] = date($this->config->item("log_date_format"));
+		$data_log["updated_date"] = date($this->config->item("log_date_format"));
+
+		if ($status == 'UPDATE' || $status == 'DELETE') {
+			$data_log['content_old'] = json_encode($this->load($item_id));
+		}
+
+		if ($status == 'UPDATE' || $status == 'ADD') {
+			$data_log['content'] = json_encode($data);
+		}
+		
+		$this->db->insert('m_log', $data_log);
+	}
 	
 	public function add($data)
 	{
 		if ($this->db->field_exists("created_date", $this->_table)) {
 			$data["created_date"] = date($this->config->item("log_date_format"));
 		}
-		return $this->db->insert($this->_table, $this->log($data));
+
+		return $this->db->insert($this->_table, $this->log($data, null, 'ADD'));
 	}
 	
 	public function update($data, $where)
 	{
-		return $this->db->update($this->_table, $this->log($data), $where);
+		return $this->db->update(
+			$this->_table, 
+			$this->log($data, $where['id'], 'UPDATE'),
+			$where);
 	}
 	public function delete($where)
 	{
@@ -199,8 +227,10 @@ class M_db extends CI_Model {
 	
 	public function remove($where)
 	{
+		$this->log(null, $where['id'], 'DELETE');
 		return $this->db->delete($this->_table, $where);
 	}
+
 	public function export_csv($filename,$arr_select,$info){
 		$this->load->dbutil();
 		$this->load->helper('file');

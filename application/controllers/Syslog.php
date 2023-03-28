@@ -392,6 +392,13 @@ class Syslog extends CI_Controller {
 				$tmpl_content["content"] = $this->load->view("admin/content/edit", $view_data, true);
 				$this->load->view("layout/admin/main", $tmpl_content);	
 			} else if ($action == 'delete') {
+				$info = new stdClass();
+				$info->content_id = $id;
+				$galleries = $this->m_content_gallery->items($info);
+				foreach($galleries as $gallery) {
+					$this->m_content_gallery->remove(['id' => $gallery->id]);
+				}
+				
 				$this->m_contents->remove(['id' => $id]);
 				$this->session->set_flashdata("success", "Xóa thành công");
 				redirect(site_url("syslog/contents"), "back");
@@ -1371,6 +1378,13 @@ class Syslog extends CI_Controller {
 			}
 			else if($action='delete')
 			{
+				$info = new stdClass();
+				$info->product_id = $id;
+				$galleries = $this->m_product_gallery->items($info);
+				foreach($galleries as $gallery) {
+					$this->m_product_gallery->remove(['id' => $gallery->id]);
+				}
+
 				$this->m_product->remove(['id' => $id]);
 				$this->session->set_flashdata("success", "Xóa thành công");
 				redirect(site_url("syslog/products"), "back");
