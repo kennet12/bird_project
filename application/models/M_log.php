@@ -14,7 +14,7 @@ class M_Log extends M_db
 		if (!is_null($info)) {
 			if (!empty($info->search)) {
 				$info->search = trim($info->search);
-				$sql .= " AND ({$this->_table}.title LIKE '%{$info->search}%' )";
+				$sql .= " AND ({$this->_table}.item_log LIKE '%{$info->search}%'OR {$this->_table}.previous_contentLIKE '%{$info->search}%' )";
 			}
 			
 		}

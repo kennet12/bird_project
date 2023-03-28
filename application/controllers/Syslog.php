@@ -946,6 +946,8 @@ class Syslog extends CI_Controller {
 				$receive_data['link']		 = $_POST['link'];
 				$receive_data['description'] = $_POST['description'];
 				$receive_data['active'] 	 = $_POST['active'];
+				$receive_data['created_date'] =date('d-m-y h:i:s');
+				
 				
 				if (empty($_POST['title'])) {
 					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề.");
@@ -971,14 +973,6 @@ class Syslog extends CI_Controller {
 					$receive_data['thumbnail'] = $path."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
 					// add url hinh ảnh vào database
 				}
-					// kiểm tra log
-					$id_slider_log = !empty($id_slider_log) ? $id_slider_log : $this->m_slide->get_next_value();	
-					$admin = $this->session->userdata("admin");
-					$add_log=[];
-					$add_log['id_slider']=$id_slider_log;
-					$add_log['item_log']='slide';
-					$add_log['previous_content']=json_encode($receive_data);
-					$add_log['id_user'] = $admin->id;
 					
 				if($action == 'add')
 				{
@@ -988,9 +982,25 @@ class Syslog extends CI_Controller {
 				
 				else if($action =='edit')
 				{
-					$this->m_slide->update($receive_data,['id'=>$id]);
+					// kiểm tra log
+					$id_log = $id;	
+					$content_previous = $this->m_slide->load($id);
+					$admin = $this->session->userdata("admin");
+					$add_log=[];
+					$add_log['id_slider']=$id_log;
+					$add_log['item_log']='slide';
+					// lấy ra trước
+					$add_log['previous_content'] = json_encode($content_previous);
+					
+					// lấy ra sau
+					$add_log['after_content']=json_encode($receive_data);
+					
+					$add_log['id_user'] = $admin->id;
 					$this->m_log->add($add_log);
-					// $this->session->set_flashdata("success", "Cập nhật thành công");
+					
+					$this->m_slide->update($receive_data,['id'=>$id]);
+				
+					$this->session->set_flashdata("success", "Cập nhật thành công");
 				}
 				redirect(site_url("syslog/sliders"), "back");
 
@@ -1385,7 +1395,7 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
-			$info = new stdClass();
+				$info = new stdClass();
 				$info->search = !empty($_GET['search'])?$_GET['search']:'';
 
 				// thêm ngày tháng , tên người sửa
@@ -1878,27 +1888,28 @@ class Syslog extends CI_Controller {
 	public function loghistory($action=null,$id=null)
 	{
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
-			"Danh Sách Log" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+			"Danh Sách Log" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
 		]);
 		if(!empty($action))
 		{
+			$this->_breadcrumb = array_merge($this->_breadcrumb, [
+				"View" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+			]);
 			if($action == 'view')
 			{
+				$content_after = $this->m_log->load($id);
+				$check1 = json_decode($content_after->previous_content);
+				$check2 = json_decode($content_after->after_content);
 				$kq_loghistory = $this->m_log->items($id);
 
-				// foreach($kq_loghistory as $log_user) 
-				// {
-				// 	$log_user->list_id_user = $this->m_user->load($log_user->id_user);
-				// }
-
 				$view_data = array();
+				$view_data["breadcrumb"] = $this->_breadcrumb;
+				$view_data["title"] = 'Danh sách View';
+				$view_data["after"] = $check2;
+				$view_data["previous"] = $check1;
 				$view_data["loghistory_chuyen"] = $kq_loghistory;
-				// $view_data["offset"]		= $offset;
-				// $view_data["breadcrumb"] 	= $this->_breadcrumb;
-				// $view_data["pagination"]	= $pagination;
-				$view_data["title"] = 'Danh sách Log History';
 				
-
+				
 				$tmpl_log = array();
 				$tmpl_log["content"] = $this->load->view("admin/log_his/view", $view_data, true);
 				$this->load->view("layout/admin/main", $tmpl_log);
@@ -1928,23 +1939,29 @@ class Syslog extends CI_Controller {
 
 			foreach($kq_loghistory as $log_user) 
 			{
+				$info = new stdClass();
+				$info->id = $log_user->id;
+
 				$log_user->list_id_user = $this->m_user->load($log_user->id_user);
+
+				$content_after = $this->m_log->load($log_user->id);
+				$log_user->list_content_after = json_decode($content_after->after_content);
+
 			}
 
 			$view_data = array();
 			$view_data["loghistory_chuyen"] = $kq_loghistory;
 			$view_data["offset"]			= $offset;
 			$view_data["breadcrumb"] 		= $this->_breadcrumb;
-			$view_data["search"] = !empty($_GET['search'])?$_GET['search']:'';
+			$view_data["search"] 			= !empty($_GET['search'])?$_GET['search']:'';
 			$view_data["pagination"]		= $pagination;
+			$view_data["title"]				= 'Danh sách Log History';	
+			// var_dump($view_data);
 			
-			$view_data["title"] = 'Danh sách Log History';
-
 			$tmpl_log = array();
 			$tmpl_log["content"] = $this->load->view("admin/log_his/index", $view_data, true);
 			$this->load->view("layout/admin/main", $tmpl_log);
 		}
 	}
 }
-
 ?>
