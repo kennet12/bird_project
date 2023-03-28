@@ -64,7 +64,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'sliders') ? 'active' : ''?>" href="<?=site_url("syslog/sliders")?>"style = "color :#CC66FF;">
+          <a class="nav-link <?=($method == 'sliders') ? 'active' : ''?>" href="<?=site_url("syslog/sliders")?>"style = "color :#FF3300;">
           <i class="fa-solid fa-sliders"></i>
             <span class="nav-link-text ms-1">Slider</span>
           </a>
@@ -90,23 +90,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'log') ? 'active' : ''?>" href="<?=site_url("syslog/loghistory")?>"style = "color :#66FF99;">
-          <i class="fa-solid fa-gear"></i>
+          <a class="nav-link <?=($method == 'log') ? 'active' : ''?>" href="<?=site_url("syslog/loghistory")?>"style = "color :#666600;">
+          <i class="fa-solid fa-clock-rotate-left"></i>
             <span class="nav-link-text ms-1">Log</span>
           </a>
         </li>
         <? } ?>
       </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
-      <div class="card card-plain shadow-none" id="sidenavCard">
-        <img class="w-50 mx-auto" src="<?=TPL_URL_ADMIN?>images/illustrations/icon-documentation.svg" alt="sidebar_illustration">
-        <div class="card-body text-center p-3 w-100 pt-0">
-          <div class="docs-info">
-            <h6 class="mb-0">Need help?</h6>
-            <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </aside>
