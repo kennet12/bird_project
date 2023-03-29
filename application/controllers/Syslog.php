@@ -1899,33 +1899,43 @@ class Syslog extends CI_Controller {
 	//------------------------------------------------------------------------------
 	// log
 	//------------------------------------------------------------------------------
-	public function loghistory($action=null,$id=null)
+	public function log($action=null,$id=null)
 	{
 		$this->_breadcrumb = array_merge($this->_breadcrumb, [
-			"Danh Sách Log" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+			"Lịch sử hoạt động" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
 		]);
 		if(!empty($action))
 		{
 			$this->_breadcrumb = array_merge($this->_breadcrumb, [
-				"View" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				"Chi tiết" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
 			]);
-			if($action == 'view')
+			if($action == 'edit')
 			{
-				$content_after = $this->m_log->load($id);
-				$check1 = json_decode($content_after->previous_content);
-				$check2 = json_decode($content_after->after_content);
-				$kq_loghistory = $this->m_log->items($id);
+				$item = $this->m_log->load($id);
+				$content_old = json_decode($item->content_old);
+				$content = json_decode($item->content);
+
+				$change_log = []; 
+				if ($item->status == 'UPDATE') {
+					$content_old_temp = [];
+					foreach($content as $key => $value) {
+						if ($content_old->$key != $value) {
+							$change_log[$key] = 1;
+						}
+						$content_old_temp[$key] = $content_old->$key;
+					}
+					$content_old = $content_old_temp;
+				}
 
 				$view_data = array();
 				$view_data["breadcrumb"] = $this->_breadcrumb;
-				$view_data["title"] = 'Danh sách View';
-				$view_data["after"] = $check2;
-				$view_data["previous"] = $check1;
-				$view_data["loghistory_chuyen"] = $kq_loghistory;
-				
+				$view_data["content_old"] = $content_old;
+				$view_data["content"] = $content;
+				$view_data["item"] = $item;
+				$view_data["change_log"] = $change_log;
 				
 				$tmpl_log = array();
-				$tmpl_log["content"] = $this->load->view("admin/log_his/view", $view_data, true);
+				$tmpl_log["content"] = $this->load->view("admin/log/view", $view_data, true);
 				$this->load->view("layout/admin/main", $tmpl_log);
 			}
 		}
@@ -1949,31 +1959,17 @@ class Syslog extends CI_Controller {
 				$page_num
 			);
 
-			$kq_loghistory = $this->m_log->items(null, null, $page_num, $offset);
-
-			foreach($kq_loghistory as $log_user) 
-			{
-				$info = new stdClass();
-				$info->id = $log_user->id;
-
-				$log_user->list_id_user = $this->m_user->load($log_user->id_user);
-
-				$content_after = $this->m_log->load($log_user->id);
-				$log_user->list_content_after = json_decode($content_after->after_content);
-
-			}
+			$items = $this->m_log->items(null, null, $page_num, $offset);
 
 			$view_data = array();
-			$view_data["loghistory_chuyen"] = $kq_loghistory;
+			$view_data["items"] = $items;
 			$view_data["offset"]			= $offset;
 			$view_data["breadcrumb"] 		= $this->_breadcrumb;
-			$view_data["search"] 			= !empty($_GET['search'])?$_GET['search']:'';
 			$view_data["pagination"]		= $pagination;
-			$view_data["title"]				= 'Danh sách Log History';	
-			// var_dump($view_data);
+			$view_data["title"]				= 'Lịch sử hoạt động';	
 			
 			$tmpl_log = array();
-			$tmpl_log["content"] = $this->load->view("admin/log_his/index", $view_data, true);
+			$tmpl_log["content"] = $this->load->view("admin/log/index", $view_data, true);
 			$this->load->view("layout/admin/main", $tmpl_log);
 		}
 	}

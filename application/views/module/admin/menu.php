@@ -12,7 +12,7 @@
       </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main" style="height:auto !important">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link <?=($method == 'users') ? 'active' : ''?>" href="<?=site_url("syslog/users")?>" style = "color :#EE0000;">
@@ -90,7 +90,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'log') ? 'active' : ''?>" href="<?=site_url("syslog/loghistory")?>"style = "color :#666600;">
+          <a class="nav-link <?=($method == 'log') ? 'active' : ''?>" href="<?=site_url("syslog/log")?>"style = "color :#666600;">
           <i class="fa-solid fa-clock-rotate-left"></i>
             <span class="nav-link-text ms-1">Log</span>
           </a>

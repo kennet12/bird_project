@@ -125,3 +125,6 @@ body.login {
 	background: #606bdf70;
     color: #fff;
 }
+.log-tbl td {
+	cursor: pointer;
+}

@@ -49,7 +49,7 @@
                                     <li><a class="btn-delete" linkHref="<?=site_url("syslog/contacts/delete/{$contact_for->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
                                     <i class="updated-date"><?=$this->util->to_vn_date($contact_for->updated_date)?></i>
-                                    <strong class="updated-by"><?=$contact_for->updated_by_user->fullname ?></strong>
+                                    <strong class="updated-by"><?=!empty($contact_for->updated_by_user)?$contact_for->updated_by_user->fullname:''?></strong>
                                 </td>
                             </tr>
                             <?php $i++; } ?>
