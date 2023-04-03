@@ -1,100 +1,81 @@
-<div class="cluster">
-	<div class="container-fluid">
-		<div class="tool-bar clearfix">
-			<h1 class="page-title">
-				<?=$title?>
-				<div class="pull-right">
-					<ul class="action-icon-list">
-						<li><a href="#" class="btn-unpublish"><i class="fa fa-eye-slash" aria-hidden="true"></i> Ẩn</a></li>
-						<li><a href="#" class="btn-publish"><i class="fa fa-eye-slash" aria-hidden="true"></i> Hiển</a></li>
-						<li><a href="#" class="btn-delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a></li>
-						<li><a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/add")?>"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</a></li>
-					</ul>
-				</div>
-			</h1>
-		</div>
-		<? if (empty($items) || !sizeof($items)) { ?>
-		<p class="help-block">Chưa có danh mục nào.</p>
-		<? } else { ?>
-		<form id="frm-admin" name="adminForm" action="" method="POST">
-			<input type="hidden" id="task" name="task" value="">
-			<input type="hidden" id="boxchecked" name="boxchecked" value="0" />
-			<table class="table table-bordered">
-				<tr>
-					<th class="text-center" width="30px">#</th>
-					<th class="text-center" width="30px">
-						<input type="checkbox" id="toggle" name="toggle" onclick="checkAll('<?=sizeof($items)?>');" />
-					</th>
-					<th>Tên danh mục</th>
-					<th width="180px">Cập nhật</th>
-				</tr>
-				<? $i=0; foreach ($items as $item) { ?>
-				<tr>
-					<td class="text-center"><?=($i+1)?></td>
-					<td class="text-center">
-						<input type="checkbox" id="cb<?=$i?>" name="cid[]" value="<?=$item->id?>" onclick="isChecked(this.checked);">
-					</td>
-					<td>
-						<a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/edit/$item->id")?>"><?=$item->name?></a>
-						<ul class="action-icon-list">
-							<li><a href="<?=site_url("syslog/{$this->util->slug($this->router->fetch_method())}/edit/$item->id")?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh sửa</a></li>
-							<li><a href="#" onclick="return confirmBox('Xóa danh mục', 'Bạn có chắc là xóa danh mục này không ?', 'itemTask', ['cb<?=$i?>', 'delete']);"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a></li>
-							<? if ($item->active) { ?>
-							<li><a href="#" onclick="return itemTask('cb<?=$i?>','unpublish');"><i class="fa fa-eye-slash" aria-hidden="true"></i> Ẩn</a></li>
-							<? } else { ?>
-							<li><a href="#" onclick="return itemTask('cb<?=$i?>','publish');"><i class="fa fa-eye-slash" aria-hidden="true"></i> Hiện</a></li>
-							<? } ?>
-						</ul>
-					</td>
-					<td>
-						<?
-							$updated_by = $this->m_user->load($item->updated_by);
-							if (!empty($updated_by)) {
-						?>
-						<strong><?=$updated_by->fullname?></strong>
-						<div class="action-icon-list"><span class="text-color-grey"><?=date("Y-m-d H:i:s", strtotime($item->updated_date))?></span></div>
-						<?
-							}
-						?>
-					</td>
-				</tr>
-				<? $i++; } ?>
-			</table>
-		</form>
-		<? } ?>
-		<div class="col-md-12 text-center"><?=$pagination?></div>
-	</div>
-</div>
+<div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <h6><?=$title?></h6>
+              <a href="<?=site_url("syslog/faq_categories/add")?>"><span class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-plus"></i> Thêm</span></a>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Danh Mục</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
+                      <th class="text-center text-uppercase  opacity-7">Thao Tác</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?$i=1;foreach ($faq_categories as $faq)
+                      {
+                        ?>
+                    <tr>
+                    <td style="font-size: 13px;text-align: center;"><?=$offset+$i; ?></td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"><?= $faq->name?></h6>
+                            <p class="text-xs text-secondary mb-0"><?=$faq->alias?></p>
+                          </div>
+                          
+                        </div>  
 
-<script>
-$(document).ready(function() {
-	jQuery.noConflict();
-	$(".btn-publish").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to publish.");
-		}
-		else {
-			submitButton("read");
-		}
-	});
-	$(".btn-unpublish").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to unpublish.");
-		}
-		else {
-			submitButton("unread");
-		}
-	});
-	$(".btn-delete").click(function(e){
-		e.preventDefault();
-		if ($("#boxchecked").val() == 0) {
-			messageBox("ERROR", "Error", "Please make a selection from the list to delete.");
-		}
-		else {
-			confirmBox("Delete items", "Are you sure you want to delete the selected items?", "submitButton", "delete");
-		}
-	});
-});
+                      </td>
+                      
+                      <td class="align-middle text-center text-sm">
+                        <?  
+                          if($faq->active == 1)
+                          {?>
+                             <span class="badge badge-sm bg-gradient-success " >Hiện</span>
+                            <?
+                          }
+                          else
+                          {?>
+                            <span class="badge badge-sm bg-gradient-secondary">Ẩn</span>
+                            <?
+                          }
+                        ?>
+                      
+                      </td>
+                      <td class="align-middle text-center text-sm " >
+                        <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($faq->updated_date)?></span>
+                        <strong class="updated-by"><?=$faq->updated_by->fullname?></strong>
+                      </td>
+                      <td style="text-align: center;">
+                          <ul class="action">
+                              <li><a href="<?=site_url("syslog/faq_categories/edit/{$faq->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                              <li><a class="btn-delete" linkHref="<?=site_url("syslog/faq_categories/delete/{$faq->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                          </ul>
+                      </td>
+                    </tr>
+                    <? $i++; } ?>
+                  </tbody>
+                </table>
+                <div class="text-center"><?=$pagination?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+    $('.btn-delete').click(function(){
+        if (confirm('Bạn có chắc muốn xóa không?') == true) {
+            window.location.href = $(this).attr('linkHref');
+        }
+    })
+  
 </script>
+     

@@ -140,6 +140,7 @@ $autoload['model'] = array(
 	'm_setting',
 	'm_content_categories',
 	'm_contents',
+	'm_content_gallery',
 	'm_document',
 	'm_post',
 	'm_posts_categories',
@@ -150,6 +151,8 @@ $autoload['model'] = array(
 	'm_contact',
 	'm_product_categories',
 	'm_product',
-	'm_partner'
+	'm_product_gallery',
+	'm_partner',
+	'm_log'
 );
 

@@ -16,6 +16,14 @@ body.login {
 	width: 100%;
 	height: 100%;
 }
+.updated-date {
+	display: block;
+    font-size: 12px;
+}
+.updated-by {
+	font-size: 14px;
+    display: block;
+}
 .action {
 	padding: 0;
 	margin: 0;
@@ -23,9 +31,13 @@ body.login {
 .action li {
 	list-style: none;
 	margin: 2px 0;
+	display: inline-block;
 }
 .action li span {
 	font-size: 10px;
+}
+.box-file-upload {
+	position: relative;
 }
 .wrap-upload-banner{
 	width: 100%;
@@ -42,9 +54,24 @@ body.login {
 .wrap-upload-banner > input[type="file"] {
 	display: none;
 }
-.wrap-upload-banner > i{
+.wrap-upload-banner > .fa-cloud-upload {
 	font-size: 100px;
 	color: #34495e;
+}
+.box-file-upload .fa-trash-can {
+	position: absolute;
+    top: 0px;
+    right: -4px;
+    color: #FF5722;
+    background: #000000b0;
+    width: 35px;
+    height: 25px;
+    font-size: 15px;
+    padding: 4px;
+    z-index: 1;
+    text-align: center;
+    border-top-right-radius: 5px;
+	cursor: pointer;
 }
 .form-box {
 	padding: 25px;
@@ -97,4 +124,7 @@ body.login {
 .pagination li a:hover {
 	background: #606bdf70;
     color: #fff;
+}
+.log-tbl td {
+	cursor: pointer;
 }

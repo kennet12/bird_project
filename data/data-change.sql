@@ -1,0 +1,1 @@
+ALTER TABLE `m_product` ADD `qty` INT(11) NOT NULL DEFAULT '3' AFTER `price`;

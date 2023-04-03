@@ -15,6 +15,11 @@ class M_faq_categories extends M_db
 			if (!empty($info->name)) {
 				$sql .= " AND {$this->_table}.name = '{$info->name}'";
 			}
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND  ({$this->_table}.name LIKE '%{$info->search}%')";
+
+			}
 		}
 		if (!is_null($active)) {
 			$sql .= " AND {$this->_table}.active = '{$active}'";

@@ -112,96 +112,6 @@ class Util {
 			}
 		}
 	}
-	
-	function requireAdminLogin($login_page=null)
-	{
-		if ($this->ci->session->userdata("agent_id") != ADMIN_AGENT_ID
-			|| !$this->ci->session->userdata("admin")
-			|| (!in_array($this->ci->session->userdata("admin")->user_type, array(USR_MOD, USR_ADMIN, USR_SUPPER_ADMIN)))) {
-			$this->ci->session->set_userdata("return_url", current_url());
-			if (!is_null($login_page)) {
-				redirect($login_page);
-			} else {
-				redirect(ADMIN_URL);
-			}
-		}
-	}
-	
-	function requireSupperAdminLogin($login_page=null)
-	{
-		if ($this->ci->session->userdata("agent_id") != ADMIN_AGENT_ID
-			|| !$this->ci->session->userdata("admin")
-			|| ($this->ci->session->userdata("admin")->user_type != USR_SUPPER_ADMIN)) {
-			$this->ci->session->set_userdata("return_url", current_url());
-			if (!is_null($login_page)) {
-				redirect($login_page);
-			} else {
-				redirect(ADMIN_URL);
-			}
-		}
-	}
-
-	function getVisaType2String($visa_type)
-	{
-		$str = "";
-		switch ($visa_type) {
-			case "1mm":
-			case "1 month multiple":
-				$str = "1 month multiple";
-				break;
-			case "3ms":
-			case "3 months single":
-				$str = "3 months single";
-				break;
-			case "3mm":
-			case "3 months multiple":
-				$str = "3 months multiple";
-				break;
-			case "6mm":
-			case "6 months multiple":
-				$str = "6 months multiple";
-				break;
-			case "1ym":
-			case "1 year multiple":
-				$str = "1 year multiple";
-				break;
-			default:
-				$str = "1 month single";
-				break;
-		}
-		return $str;
-	}
-	
-	function getVisaString2Type($str)
-	{
-		$type = "";
-		switch ($str) {
-			case "1mm":
-			case "1 month multiple":
-				$type = "1mm";
-				break;
-			case "3ms":
-			case "3 months single":
-				$type = "3ms";
-				break;
-			case "3mm":
-			case "3 months multiple":
-				$type = "3mm";
-				break;
-			case "6mm":
-			case "6 months multiple":
-				$type = "6mm";
-				break;
-			case "1ym":
-			case "1 year multiple":
-				$type = "1ym";
-				break;
-			default:
-				$type = "1ms";
-				break;
-		}
-		return $type;
-	}
 
 	function checkPageError($val)
 	{
@@ -210,37 +120,11 @@ class Util {
 		}
 	}
 
-	function vip($level)
-	{
-		$data = new stdClass();
-
-		switch ($level)
-		{
-			case 1: 	$data->level	= $level;
-						$data->name		= "Silver";
-						$data->discount	= 10;
-						break;
-			case 2: 	$data->level	= $level;
-						$data->name		= "Gold";
-						$data->discount	= 15;
-						break;
-			case 3: 	$data->level	= $level;
-						$data->name		= "Diamon";
-						$data->discount	= 20;
-						break;
-			default:	$data->level	= $level;
-						$data->name		= "Normal";
-						$data->discount	= 0;
-						break;
-		}
-
-		return $data;
-	}
 	function require_admin_login($login_page=null)
     {
         if ($this->ci->session->userdata("agent_id") != ADMIN_AGENT_ID
             || !$this->ci->session->userdata("admin")
-            || (!in_array($this->ci->session->userdata("admin")->user_type, array(USR_ADMIN, USR_SUPPER_ADMIN)))) {
+            || (!in_array($this->ci->session->userdata("admin")->user_type, array(USR_MOD, USR_ADMIN, USR_SUPPER_ADMIN)))) {
             $this->ci->session->set_userdata("return_url", current_url());
             if (!is_null($login_page)) {
                 redirect($login_page);
@@ -249,20 +133,7 @@ class Util {
             }
         }
     }
-    
-    function require_supper_admin_login($login_page=null)
-    {
-        if ($this->ci->session->userdata("agent_id") != ADMIN_AGENT_ID
-            || !$this->ci->session->userdata("admin")
-            || ($this->ci->session->userdata("admin")->user_type != USR_SUPPER_ADMIN)) {
-            $this->ci->session->set_userdata("return_url", current_url());
-            if (!is_null($login_page)) {
-                redirect($login_page);
-            } else {
-                redirect(ADMIN_URL);
-            }
-        }
-    }
+
     public function upload_file($file_path=null,$file_name=null,$file_deleted=null,$allow_type='rar|zip|pdf|doc|docx|PDF|DOC|DOCX|xls|xlsx|csv'){
 
         $this->config =  array(
@@ -289,25 +160,6 @@ class Util {
             return false;
         }
         
-    }
-    public function download_file($file_name=null,$file_path=null){
-        $this->ci->load->helper('download');
-        force_download($file_name, $file_path);
-    }
-    public function font_file($allow_type=null){
-        $arr_font = array('fa-file-archive-o', 'fa-file-word-o', 'fa-file-excel-o', 'fa-file-pdf-o');
-        $arr_allow_type = array(
-            "rar" => 0,
-            "zip" => 0,
-            "doc" => 1,
-            "docx" => 1,
-            "xls" => 2,
-            "xlsx" => 2,
-            "csv" => 2,
-            "pdf" => 3
-        );
-        $result = !empty($allow_type) ? $arr_font[$arr_allow_type[$allow_type]] : 'fa-file-o';
-        return $result;
     }
     public function to_vn_date($date) {
         $date_time = strtotime($date);
