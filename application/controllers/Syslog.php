@@ -925,6 +925,7 @@ class Syslog extends CI_Controller {
 		
 		}
 	}
+
 	//------------------------------------------------------------------------------
 	// slider
 	//------------------------------------------------------------------------------
@@ -1459,21 +1460,46 @@ class Syslog extends CI_Controller {
 			if(!empty($_POST))
 			{
 				$receive_data=[];
-				$receive_data['name']=$_POST['title'];
+				$receive_data['name']			=$_POST['title'];
+				$receive_data['description']	=$_POST['description'];
 				$receive_data['alias'] 			= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
-				$receive_data['active']=$_POST['active'];
+				$receive_data['active']			=$_POST['active'];
+
+				if (!empty($_FILES['thumbnail']['name'])){
+					$path = "./files/upload/image/product_category{$id}";
+					if (!file_exists($path)) {
+						mkdir($path, 0755, true);
+					}
+					// code tao thư mục
+
+					$allow_type = 'jpg|jpeg|png';
+					$this->util->upload_file($path,'thumbnail','',$allow_type);
+					// upload ảnh lên server
+
+					$thumbnail = explode('.',$_FILES['thumbnail']['name']);
+					$receive_data['thumbnail'] = $path."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+					// add url hinh ảnh vào database
+				}
+
 
 				if (empty($_POST['title'])) {
 					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề");
 					redirect(site_url("syslog/product_category"), "back");
 				}
 
+				if (empty($_POST['description'])) {
+					$this->session->set_flashdata("error", "Vui lòng mô tả");
+					redirect(site_url("syslog/product_category"), "back");
+				}
+				if (empty($_FILES['thumbnail']['name'])) {
+					$this->session->set_flashdata("error", "Vui lòng hình ảnh");
+					redirect(site_url("syslog/product_category"), "back");
+				}
+				
 				if($action =='add')
 				{
-					if ($action == "add") {
-						$this->m_product_categories->add($receive_data);
-						$this->session->set_flashdata("success", "Thêm danh mục thành công");
-					}
+					$this->m_product_categories->add($receive_data);
+					$this->session->set_flashdata("success", "Thêm danh mục thành công");
 				}
 				if($action=='edit')
 				{
