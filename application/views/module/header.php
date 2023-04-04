@@ -133,7 +133,7 @@
 			<div class="contentsticky_logo col-md-3">
 				<div class="h2 site-header__logo mb-0" itemscope="" itemtype="http://schema.org/Organization">
 					<a href="<?=BASE_URL?>" itemprop="url" class="site-header__logo-image">
-						<img class="js img-fluid" src="<?=$setting->logo?>" style="width:53px" alt="Giang Long">
+						<img class="js img-fluid" src="<?=$setting->logo?>" style="width:90px" alt="Giang Long">
 					</a>
 				</div>
 			</div>
