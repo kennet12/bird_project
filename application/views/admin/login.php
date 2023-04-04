@@ -29,7 +29,7 @@
 					<input type="password" name="password" class="form-control">
 				</div>
 				<div class="form-group">
-					<button type="button" class="form-control btn btn-primary btn-login" data-loading-text="Loading..." autocomplete="off">Log In</button>
+					<button type="submit" class="form-control btn btn-primary btn-login" data-loading-text="Loading..." autocomplete="off">Log In</button>
 				</div>
 			</form>
 		</div>
