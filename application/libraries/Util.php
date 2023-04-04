@@ -168,5 +168,13 @@ class Util {
         $result = ((date('Y-m-d', $date_time) == date('Y-m-d')) ? 'Hôm nay' : $vn_days[($day)]).' - '.date('H:i d/m/Y', $date_time);
         return $result;
     }
+	
+	public function detect_mobile(){
+        if(strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'mobile') || strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'android')) { 
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

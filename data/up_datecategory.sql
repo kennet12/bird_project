@@ -1,0 +1,1 @@
+ALTER TABLE `m_product_categories` ADD `thumbnail` VARCHAR(255) NOT NULL AFTER `description`;
