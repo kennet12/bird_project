@@ -17,7 +17,7 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái Sản Phẩm</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nổi Bật</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
-                      <th class="text-center text-secondary opacity-7">Cập Nhật Sản Phẩm</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cập Nhật Sản Phẩm</th>
                     </tr>
                   </thead>
                   <tbody>

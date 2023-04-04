@@ -24,7 +24,7 @@
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Ngày Cập Nhật Hợp Đồng</th>
-                                <th class="text-center text-secondary opacity-7">Hành Động</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>

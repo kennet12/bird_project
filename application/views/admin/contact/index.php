@@ -15,7 +15,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và Tên</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
-
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cập Nhật</th>
                             </tr>
                         </thead>
