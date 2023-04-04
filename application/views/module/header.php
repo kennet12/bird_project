@@ -10,10 +10,11 @@
 	// foreach ($carts as $carts) {
 	// 	$subtotal += $carts['subtotal'];
 	// }
-	
 	$info = new stdClass();
 	$info->parent_id = 0;
 	$product_categories = $this->m_product_categories->items($info,1);
+	$new_categories = $this->m_content_categories->items();
+	$faq_categories = $this->m_faq_categories->items();
 ?>
 <? if($this->util->detect_mobile()) {  ?>
 <div class="header-mobile d-md-none">
@@ -279,38 +280,66 @@
 													</ul>
 					</div>
 				</div>
+				<div style="display: block;" id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
+					<ul class="site-nav" id="SiteNav">
+						<?foreach($product_categories as $product_category) {?>
+						<li class="site-nav--has-dropdown hasMegaMenu center">
+							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" title="Tổ Yến Tinh Chế">
+							<div class="icon_nav">
+							<i class="zmdi zmdi-card-giftcard"></i>
+							</div>
+							<div class="group_title">
+								<?=$product_category->name?>										
+								<div class="sub_title_nav limit-content-2-line"><?=$product_category->description?></div>
+							</div>
+							</a>
+						</li>
+						<?}?>
+					</ul>
+				</div>
+				</div>
 			</div>
 			<div class="col-lg-9 col-md-10">
 				<div class="contentsticky_menu">
-					<nav id="AccessibleNav">
-						<ul class="site-nav list--inline " id="SiteNav">
-														<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" class="site-nav__link site-nav__link--main">
-									<span>Tổ Yến Tinh Chế</span>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-tho.html" class="site-nav__link site-nav__link--main">
-									<span>Tổ Yến Thô</span>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-rut-long.html" class="site-nav__link site-nav__link--main">
-									<span>Tổ Yến Rút Lông</span>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-								<a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html" class="site-nav__link site-nav__link--main">
-									<span>Đông Trùng Hạ Thảo</span>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-contact">
-								<a href="https://www.yen-vietnam.com/lien-he.html" class="site-nav__link site-nav__link--main">
-									<span>Liên hệ</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
+				<nav id="AccessibleNav">
+					<ul class="site-nav list--inline " id="SiteNav">
+						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
+							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" class="site-nav__link site-nav__link--main">
+							<span>Giới Thiệu</span>
+							</a>
+						</li>
+						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
+							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tho.html" class="site-nav__link site-nav__link--main">
+							<span>Tin Tức & Sự Kiện</span>
+							</a>
+							<ul class ="menu-writter">
+								<?foreach($new_categories as $new_category){?>
+									<li><a href=""><?=$new_category->name?></a></li>
+								<?}?>
+							</ul>
+						</li>
+						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
+							<a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html" class="site-nav__link site-nav__link--main">
+							<span>Chương Trình Khuyến Mãi</span>
+							</a>
+						</li>
+						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
+							<a href="https://www.yen-vietnam.com/san-pham/to-yen-rut-long.html" class="site-nav__link site-nav__link--main">
+							<span>Hỏi & Đáp</span>
+							</a>
+							<ul class ="menu-writter">
+								<?foreach($faq_categories as $faq_category){?>
+									<li><a href=""><?=$faq_category->name?></a></li>
+								<?}?>
+							</ul>
+						</li>
+						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-contact">
+							<a href="https://www.yen-vietnam.com/lien-he.html" class="site-nav__link site-nav__link--main">
+							<span>Liên hệ</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
 				</div>
 			</div>
 		</div>

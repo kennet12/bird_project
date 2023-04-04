@@ -30,7 +30,7 @@
                                     Lượt Xem</th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Hành Động</th>
+                                    Thao Tác</th>
                                 <th></th>
                             </tr>
                         </thead>
