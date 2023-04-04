@@ -926,194 +926,6 @@ class Syslog extends CI_Controller {
 		}
 	}
 
-	public function products($action = null , $id = null) {
-		if(!empty($action))
-		{
-			
-				if(!empty($_POST))
-				{
-					$product_categories = $this->m_product_categories->items();
-
-					$receive_data=[];
-					$receive_data['title']	 		= $_POST['title'];
-					$receive_data['price'] 	 		= $_POST['price'];
-					$receive_data['alias']	 		= $_POST['alias'];
-					$receive_data['content'] 		= $_POST['content'];
-					$receive_data['view_num'] 		= $_POST['view_num'];
-					$receive_data['description'] 	= $_POST['description'];
-					$receive_data['check_bold'] 	= $_POST['check_bold'];
-					$receive_data['active'] 	 	= $_POST['active'];
-					$receive_data['active'] 	 	= $_POST['active'];
-					$receive_data['category_id'] 	= $_POST['category_id'];
-
-
-					if (!empty($_FILES['thumbnail']['name'])){
-						$path = "./files/upload/image/product/{$id}";
-						if (!file_exists($path)) {
-							mkdir($path, 0755, true);
-						}
-						// code tao thư mục
-						$allow_type = 'jpg|jpeg|png';
-						$this->util->upload_file($path,'thumbnail','',$allow_type);
-						// upload ảnh lên server
-	
-						$thumbnail = explode('.',$_FILES['thumbnail']['name']);
-						$receive_data['thumbnail'] = $path."{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
-						// add url hinh ảnh vào database
-						
-					}
-					if($action=='add')
-					{
-						$this->session->set_flashdata("success", "Thêm thành công");
-						$this->m_product->add($receive_data);
-					}
-					elseif($action=='edit')
-					{
-						$this->session->set_flashdata("success", "Cập Nhật thành công");
-						$this->m_product->update($receive_data,['id'=>$id]);
-					}
-					redirect(site_url("syslog/product"), "back");
-					
-				}
-
-			if($action=='add')
-			{
-				$product_kq = $this->m_product->items();
-				$product_chuyen =array();
-				$view_data['products']=$product_kq;
-				$view_data['title'] = 'Thêm Sản Phẩm';
-		
-				$tmpl_product = array();
-				$tmpl_product['content']=$this->load->view('admin/product/edit',$view_data, true);
-				$this->load->view('layout/admin/main',$tmpl_product);
-			}
-			else if($action=='edit')
-			{
-				$kq_product_item = $this->m_product->load($id);
-				$view_data = array();
-				$view_data["kq_product_item"] = $kq_product_item;
-				$view_data["title"] = 'Cập nhật Product';
-
-				$tmpl_slider = array();
-				$tmpl_slider["content"] = $this->load->view("admin/product/edit", $view_data, true);
-				$this->load->view("layout/admin/main", $tmpl_slider);
-			}
-			else if($action='delete')
-			{
-				$this->m_product->remove(['id' => $id]);
-				$this->session->set_flashdata("success", "Xóa thành công");
-				redirect(site_url("syslog/products"), "back");
-			}
-		}
-		else
-		{
-			$product = $this->m_product->items();
-			$view_data =array();
-			$view_data['products']=$product;
-			$view_data['title'] = 'Danh Sách Sản Phẩm';
-	
-			$tmpl_product = array();
-			$tmpl_product['content']=$this->load->view('admin/product/index',$view_data, true);
-			$this->load->view('layout/admin/main',$tmpl_product);
-		}
-		
-	}
-	
-	public function product_category($action=null, $id=null)
-	{
-		if(!empty($action))
-		{
-			if(!empty($_POST))
-			{
-				$receive_data=[];
-				$receive_data['name']=$_POST['title'];
-				$receive_data['active']=$_POST['active'];
-
-				if($action =='add')
-				{
-					if ($action == "add") {
-						$this->m_product_categories->add($receive_data);
-						$this->session->set_flashdata("success", "Thêm danh mục thành công");
-					}
-
-				}
-				if($action=='edit')
-				{
-					$this->m_product_categories->update($receive_data,['id'=>$id]);
-					$this->session->set_flashdata("success", "Cập nhật danh mục thành công");
-
-				}
-				redirect(site_url("syslog/product_category"), "back");
-
-			}
-
-			if($action =='add')
-			{
-				$view_data = array();
-				$view_data["title"] = 'Thêm Danh Mục';
-
-				$tmpl_product_categories = array();
-				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
-				$this->load->view("layout/admin/main", $tmpl_product_categories);
-			}
-			else if($action =='edit')
-			{
-				$kq_product_category = $this->m_product_categories->load($id);
-				$view_data = array();
-				$view_data["title"] = 'Cập Nhật Danh Mục';
-				$view_data["product_category_chuyen"] = $kq_product_category;
-
-	public function sliders($action=null, $id=null){
-		if(!empty($action))
-		{
-			if(!empty($_POST))
-			{
-				$receive_data=[];
-				$receive_data['title'] 		 = $_POST['title'];
-				$receive_data['link']		 = $_POST['link'];
-				$receive_data['description'] = $_POST['description'];
-				$receive_data['thumbnail']   = $_POST['thumbnail'];
-				$receive_data['active'] 	 = $_POST['active'];
-				if($action == 'add')
-				{
-					$this->session->set_flashdata("success", "Thêm thành công");
-					$this->m_slide->add($receive_data);
-					
-				}
-				else if($action =='edit')
-				{
-					$this->m_slide->update($receive_data,['id'=>$id]);
-					$this->session->set_flashdata("success", "Cập nhật thành công");
-					
-				}
-				redirect(site_url("syslog/sliders"), "back");
-
-				$tmpl_product_categories = array();
-				$tmpl_product_categories["content"] = $this->load->view("admin/product/category/edit", $view_data, true);
-				$this->load->view("layout/admin/main", $tmpl_product_categories);
-			}
-			else if($action=='delete'){
-
-				$this->m_product_categories->remove(['id' => $id]);
-				
-				$this->session->set_flashdata("success", "Xóa thành công");
-				redirect(site_url("syslog/product_category"), "back");
-
-			}
-		}
-		else{
-			$kq_product_category = $this->m_product_categories->items();
-			$view_data = array();
-			$view_data["product_category_chuyen"] = $kq_product_category;
-			$view_data["title"] = 'Danh sách Danh Mục';
-
-			$tmpl_product_categories = array();
-			$tmpl_product_categories["content"] = $this->load->view("admin/product/category/index", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_product_categories);
-		}
-
-		
-	}
 	//------------------------------------------------------------------------------
 	// slider
 	//------------------------------------------------------------------------------
@@ -1648,21 +1460,46 @@ class Syslog extends CI_Controller {
 			if(!empty($_POST))
 			{
 				$receive_data=[];
-				$receive_data['name']=$_POST['title'];
+				$receive_data['name']			=$_POST['title'];
+				$receive_data['description']	=$_POST['description'];
 				$receive_data['alias'] 			= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
-				$receive_data['active']=$_POST['active'];
+				$receive_data['active']			=$_POST['active'];
+
+				if (!empty($_FILES['thumbnail']['name'])){
+					$path = "./files/upload/image/product_category{$id}";
+					if (!file_exists($path)) {
+						mkdir($path, 0755, true);
+					}
+					// code tao thư mục
+
+					$allow_type = 'jpg|jpeg|png';
+					$this->util->upload_file($path,'thumbnail','',$allow_type);
+					// upload ảnh lên server
+
+					$thumbnail = explode('.',$_FILES['thumbnail']['name']);
+					$receive_data['thumbnail'] = $path."/{$this->util->slug($thumbnail[0])}.{$thumbnail[1]}";
+					// add url hinh ảnh vào database
+				}
+
 
 				if (empty($_POST['title'])) {
 					$this->session->set_flashdata("error", "Vui lòng nhập tiêu đề");
 					redirect(site_url("syslog/product_category"), "back");
 				}
 
+				if (empty($_POST['description'])) {
+					$this->session->set_flashdata("error", "Vui lòng mô tả");
+					redirect(site_url("syslog/product_category"), "back");
+				}
+				if (empty($_FILES['thumbnail']['name'])) {
+					$this->session->set_flashdata("error", "Vui lòng hình ảnh");
+					redirect(site_url("syslog/product_category"), "back");
+				}
+				
 				if($action =='add')
 				{
-					if ($action == "add") {
-						$this->m_product_categories->add($receive_data);
-						$this->session->set_flashdata("success", "Thêm danh mục thành công");
-					}
+					$this->m_product_categories->add($receive_data);
+					$this->session->set_flashdata("success", "Thêm danh mục thành công");
 				}
 				if($action=='edit')
 				{

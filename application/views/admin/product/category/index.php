@@ -55,8 +55,8 @@
                       </td>
                       <td style="text-align: center;">
                           <ul class="action">
-                              <li><a href="<?=site_url("syslog/sliders/edit/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
-                              <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
+                              <li><a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
+                              <li><a class="btn-delete" linkHref="<?=site_url("syslog/product_category/delete/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                           </ul>
                        
                             <strong class="updated-by"><?=$for_product_category->updated_by->fullname?></strong>
