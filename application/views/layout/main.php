@@ -5,7 +5,7 @@
       <header class="site-header sticky-menu" style="height: auto;">
          <? require_once(APPPATH."views/module/header.php"); ?>
       </header>
-      <div id="header-sticky" class="d-none d-md-block" style="background-color: #ffffff;">
+      <div id="header-sticky" class="d-none d-md-block" style="background-color: #ffffff; padding: 3px 0">
          <div class="container">
             <div class="row align-items-center justify-content-between">
                <div class="contentstickynew_logo col-xl-2 col-lg-2 col-md-2"></div>

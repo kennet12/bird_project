@@ -133,7 +133,7 @@
 			<div class="contentsticky_logo col-md-3">
 				<div class="h2 site-header__logo mb-0" itemscope="" itemtype="http://schema.org/Organization">
 					<a href="<?=BASE_URL?>" itemprop="url" class="site-header__logo-image">
-						<img class="js img-fluid" src="<?=IMG_URL.'logo.jpg?v='.CACHE_TIME?>" style="width:115px" alt="Yen Viet Nam">
+						<img class="js img-fluid" src="<?=$setting->logo?>" style="width:53px" alt="Giang Long">
 					</a>
 				</div>
 			</div>
@@ -153,7 +153,7 @@
 									</button>
 									<ul class="search-results has-scroll" style="position: absolute; left: 0px; top: 44px; display: none;"></ul>
 								
-									<div class="list-keyword" style="display: block; overflow: scroll; width: 290px; right: 0px;">
+									<div class="list-keyword" style="display: none; overflow: scroll; width: 290px; right: 0px;">
 										<div class="title-search">
 											<strong><i class="zmdi zmdi-key"></i> Từ khóa gợi ý</strong>
 										</div>
@@ -235,68 +235,23 @@
 						<span class="nv-ml-20 nv-ml-md-10 d-none d-lg-block">Danh mục</span>
 						</div>
 					</div>
-					<div style="display:block;" id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
+					<div style="display: block;" id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
 						<ul class="site-nav" id="SiteNav">
-														<li class="site-nav--has-dropdown hasMegaMenu center">
+							<?foreach($product_categories as $product_category) {?>
+							<li class="site-nav--has-dropdown hasMegaMenu center">
 								<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" title="Tổ Yến Tinh Chế">
-									<div class="icon_nav">
-										<img class="img-fluid icon-menu" src="https://www.yen-vietnam.com/template/images/to-yen-tinh-che.svg" alt="image">
-									</div>
-									<div class="group_title">
-										Tổ Yến Tinh Chế										<div class="sub_title_nav limit-content-2-line">Tổ chim yến thô sau khi lấy được ngâm vào nước sau đó loại bỏ lông chim yến và các tập chất và hông khô lại thành tổ....</div>
-									</div>
+								<div class="icon_nav">
+								<i class="zmdi zmdi-card-giftcard"></i>
+								</div>
+								<div class="group_title">
+									<?=$product_category->name?>										
+									<div class="sub_title_nav limit-content-2-line"><?=$product_category->description?></div>
+								</div>
 								</a>
 							</li>
-														<li class="site-nav--has-dropdown hasMegaMenu center">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-tho.html" title="Tổ Yến Thô">
-									<div class="icon_nav">
-										<img class="img-fluid icon-menu" src="https://www.yen-vietnam.com/template/images/to-yen-tho.svg" alt="image">
-									</div>
-									<div class="group_title">
-										Tổ Yến Thô										<div class="sub_title_nav limit-content-2-line">Tổ chim yến sau khi được lấy vẫn còn nguyên lông yến dính bên trong tổ chim yến....</div>
-									</div>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown hasMegaMenu center">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-rut-long.html" title="Tổ Yến Rút Lông">
-									<div class="icon_nav">
-										<img class="img-fluid icon-menu" src="https://www.yen-vietnam.com/template/images/to-yen-rut-long.svg" alt="image">
-									</div>
-									<div class="group_title">
-										Tổ Yến Rút Lông										<div class="sub_title_nav limit-content-2-line">Tổ chim yến sau khi lấy sẽ được rút lông làm sạch không cần phải ngâm nước....</div>
-									</div>
-								</a>
-							</li>
-														<li class="site-nav--has-dropdown hasMegaMenu center last">
-								<a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html" title="Đông Trùng Hạ Thảo">
-									<div class="icon_nav">
-										<img class="img-fluid icon-menu" src="https://www.yen-vietnam.com/template/images/dong-trung-ha-thao.svg" alt="image">
-									</div>
-									<div class="group_title">
-										Đông Trùng Hạ Thảo										<div class="sub_title_nav limit-content-2-line">Đông trùng hạ thảo là một giống nấm mọc kí sinh trên một loài sâu non. Loài dược liệu này được cho là có tác dụng chống oxy hóa và chống viêm....</div>
-									</div>
-								</a>
-							</li>
-													</ul>
+							<?}?>
+						</ul>
 					</div>
-				</div>
-				<div style="display: block;" id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
-					<ul class="site-nav" id="SiteNav">
-						<?foreach($product_categories as $product_category) {?>
-						<li class="site-nav--has-dropdown hasMegaMenu center">
-							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" title="Tổ Yến Tinh Chế">
-							<div class="icon_nav">
-							<i class="zmdi zmdi-card-giftcard"></i>
-							</div>
-							<div class="group_title">
-								<?=$product_category->name?>										
-								<div class="sub_title_nav limit-content-2-line"><?=$product_category->description?></div>
-							</div>
-							</a>
-						</li>
-						<?}?>
-					</ul>
-				</div>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-10">

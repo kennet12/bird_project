@@ -101,7 +101,7 @@
    <div class="container">
       <div class="row">
          <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-         <img class="js img-fluid" src="https://www.yen-vietnam.com/template/images/logo.jpg?v=55" style="width:170px" alt="Greenbee 4">
+         <img class="js img-fluid" src="<?=$setting->logo?>" style="width:170px" alt="Greenbee 4">
          </div>
          <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <div class="title-block">Về chúng tôi</div>

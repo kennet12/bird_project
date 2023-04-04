@@ -57,21 +57,21 @@ $meta_img = !empty($meta_img)?BASE_URL.str_replace('./','/',$meta_img):IMG_URL.'
 <meta name="author" content="<?=$meta['author']?>" />
 <meta name="google-site-verification" content="HEh7pVJ5ODYj59f4t9NqWvMq1spvCvaIVF_UI4UMJU4" />
 
-<link rel="SHORTCUT ICON" href="<?=BASE_URL?>/favicon.ico?v=<?=CACHE_TIME?>"/>
+<link rel="SHORTCUT ICON" href="<?=BASE_URL?>/favicon.ico?v=<?=date('Ymdhis')?>"/>
 <link rel="manifest" href="<?=BASE_URL?>/manifest.json">
-<link rel="icon" sizes="192x192" href="<?=IMG_URL?>launcher/192x192.jpg?v=<?=CACHE_TIME?>">
-<link rel="icon" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=CACHE_TIME?>">
-<link rel="apple-touch-icon" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=CACHE_TIME?>">
-<link rel="apple-touch-icon-precomposed" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=CACHE_TIME?>">
-<link href="<?=CSS_URL?>bootstrap.min.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>common.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>owl.carousel.min.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>owl.theme.default.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>slick.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>jquery.mmenu.all.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>layout.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>theme.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>responsive.css?v=<?=CACHE_TIME?>" rel="stylesheet" type="text/css" media="all">
+<link rel="icon" sizes="192x192" href="<?=IMG_URL?>launcher/192x192.jpg?v=<?=date('Ymdhis')?>">
+<link rel="icon" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=date('Ymdhis')?>">
+<link rel="apple-touch-icon" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=date('Ymdhis')?>">
+<link rel="apple-touch-icon-precomposed" sizes="128x128" href="<?=IMG_URL?>launcher/128x128.jpg?v=<?=date('Ymdhis')?>">
+<link href="<?=CSS_URL?>bootstrap.min.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>common.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>owl.carousel.min.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>owl.theme.default.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>slick.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>jquery.mmenu.all.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>layout.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>theme.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>responsive.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
     
 <script>
   var theme = {
@@ -80,14 +80,14 @@ $meta_img = !empty($meta_img)?BASE_URL.str_replace('./','/',$meta_img):IMG_URL.'
     },
   }
 </script>
-<script src="<?=JS_URL?>jquery.min.js?v=<?=CACHE_TIME?>" type="text/javascript"></script>
-<script src="<?=JS_URL?>vendor.js?v=<?=CACHE_TIME?>" defer="defer"></script>
-<script src="<?=JS_URL?>history.js?v=<?=CACHE_TIME?>" type="text/javascript"></script>
-<script src="<?=JS_URL?>jquery.owl.carousel.min.js?v=<?=CACHE_TIME?>" defer="defer"></script>
-<script src="<?=JS_URL?>jquery.mmenu.all.min.js?v=<?=CACHE_TIME?>" defer="defer"></script>
-<script src="<?=JS_URL?>util.js?v=<?=CACHE_TIME?>" type="text/javascript"></script>
-<script src="<?=JS_URL?>theme.js?v=<?=CACHE_TIME?>" defer="defer"></script>
-<script src="<?=JS_URL?>global.js?v=<?=CACHE_TIME?>" defer="defer"></script>
+<script src="<?=JS_URL?>jquery.min.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
+<script src="<?=JS_URL?>vendor.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
+<script src="<?=JS_URL?>history.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
+<script src="<?=JS_URL?>jquery.owl.carousel.min.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
+<script src="<?=JS_URL?>jquery.mmenu.all.min.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
+<script src="<?=JS_URL?>util.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
+<script src="<?=JS_URL?>theme.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
+<script src="<?=JS_URL?>global.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
 
 
 <script type="text/javascript">
