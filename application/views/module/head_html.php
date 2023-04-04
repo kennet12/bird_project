@@ -66,7 +66,7 @@ $meta_img = !empty($meta_img)?BASE_URL.str_replace('./','/',$meta_img):IMG_URL.'
 <link href="<?=CSS_URL?>bootstrap.min.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
 <link href="<?=CSS_URL?>common.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
 <link href="<?=CSS_URL?>owl.carousel.min.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
-<link href="<?=CSS_URL?>owl.theme.default.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
+<link href="<?=CSS_URL?>owl.theme.default.min.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
 <link href="<?=CSS_URL?>slick.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
 <link href="<?=CSS_URL?>jquery.mmenu.all.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
 <link href="<?=CSS_URL?>layout.css?v=<?=date('Ymdhis')?>" rel="stylesheet" type="text/css" media="all">
@@ -83,7 +83,7 @@ $meta_img = !empty($meta_img)?BASE_URL.str_replace('./','/',$meta_img):IMG_URL.'
 <script src="<?=JS_URL?>jquery.min.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
 <script src="<?=JS_URL?>vendor.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
 <script src="<?=JS_URL?>history.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
-<script src="<?=JS_URL?>jquery.owl.carousel.min.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
+<script src="<?=JS_URL?>owl.carousel.min.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
 <script src="<?=JS_URL?>jquery.mmenu.all.min.js?v=<?=date('Ymdhis')?>" defer="defer"></script>
 <script src="<?=JS_URL?>util.js?v=<?=date('Ymdhis')?>" type="text/javascript"></script>
 <script src="<?=JS_URL?>theme.js?v=<?=date('Ymdhis')?>" defer="defer"></script>

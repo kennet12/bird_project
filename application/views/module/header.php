@@ -13,8 +13,8 @@
 	$info = new stdClass();
 	$info->parent_id = 0;
 	$product_categories = $this->m_product_categories->items($info,1);
-	$new_categories = $this->m_content_categories->items();
-	$faq_categories = $this->m_faq_categories->items();
+	$new_categories = $this->m_content_categories->items(null,1);
+	$faq_categories = $this->m_faq_categories->items(null,1);
 ?>
 <? if($this->util->detect_mobile()) {  ?>
 <div class="header-mobile d-md-none">

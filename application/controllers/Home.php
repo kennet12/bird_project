@@ -5,7 +5,6 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		// $about = $this->m_post->load(1);
-		// $products = $this->m_product->items(null,1,4);
 		// $news = $this->m_contents->items(null,1,4);
 
 		$view_data = array();
