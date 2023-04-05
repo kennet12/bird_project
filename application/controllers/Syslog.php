@@ -990,22 +990,6 @@ class Syslog extends CI_Controller {
 				
 				else if($action =='edit')
 				{
-					// kiểm tra log
-					$id_log = $id;	
-					$content_previous = $this->m_slide->load($id);
-					$admin = $this->session->userdata("admin");
-					$add_log=[];
-					$add_log['id_slider']=$id_log;
-					$add_log['item_log']='slide';
-					// lấy ra trước
-					$add_log['previous_content'] = json_encode($content_previous);
-					
-					// lấy ra sau
-					$add_log['after_content']=json_encode($receive_data);
-					
-					$add_log['id_user'] = $admin->id;
-					$this->m_log->add($add_log);
-					
 					$this->m_slide->update($receive_data,['id'=>$id]);
 				
 					$this->session->set_flashdata("success", "Cập nhật thành công");
@@ -1030,7 +1014,7 @@ class Syslog extends CI_Controller {
 			else if($action == 'edit')
 			{
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
-					"Sữa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
 				]);	
 				$kq_slider_item = $this->m_slide->load($id);
 				$view_data = array();
@@ -1466,7 +1450,7 @@ class Syslog extends CI_Controller {
 				$receive_data['active']			=$_POST['active'];
 
 				if (!empty($_FILES['thumbnail']['name'])){
-					$path = "./files/upload/image/product_category{$id}";
+					$path = "./files/upload/image/product_category/{$id}";
 					if (!file_exists($path)) {
 						mkdir($path, 0755, true);
 					}
@@ -1527,7 +1511,7 @@ class Syslog extends CI_Controller {
 			else if($action =='edit')
 			{
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
-					"Sữa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+					"Sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
 				]);
 				$kq_product_category = $this->m_product_categories->load($id);
 				

@@ -13,7 +13,6 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Danh Mục</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cập Nhật Sản Phẩm</th>
                     </tr>
                   </thead>
@@ -23,18 +22,29 @@
                       {
                         ?>
                     <tr>
-                    <td style="font-size: 13px;text-align: center;"><?=$i; ?></td>
+
+                     <a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>"><td style="font-size: 13px;text-align: center;"><?=$i; ?></td><a>
                       <td>
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                          <a href="<?=site_url("syslog/sliders/edit/{$for_product_category->id}")?>"><h6 class="mb-0 text-sm"><?= $for_product_category->name?></h6></a>
+                          <a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>">
+                            <div class="d-flex px-2 py-1">
+                                <div>
+                                    <img src="<?=BASE_URL.$for_product_category->thumbnail?>" class="avatar avatar-sm me-3" alt="for_product_category1">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                    <p class="text-xs text-secondary mb-0"><?=$for_product_category->name?></p>
+                                </div>
+                              </div>
+                           
+                          </a>
                           </div>
                           
                         </div>  
 
                       </td>
-                      
+                      <a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>"></a>
                       <td class="align-middle text-center text-sm">
                         <?php  
                           if($for_product_category->active == 1)
@@ -48,16 +58,15 @@
                             <?php
                           }
                         ?>
+                      <a>
+                      </td>
                       
-                      </td>
-                      <td class="align-middle text-center text-sm " >
-                        <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($for_product_category->updated_date)?></span>
-                      </td>
                       <td style="text-align: center;">
                           <ul class="action">
                               <li><a href="<?=site_url("syslog/product_category/edit/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                               <li><a class="btn-delete" linkHref="<?=site_url("syslog/product_category/delete/{$for_product_category->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                           </ul>
+                          <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($for_product_category->updated_date)?></span>
                        
                             <strong class="updated-by"><?=$for_product_category->updated_by->fullname?></strong>
                       </td>
