@@ -13,7 +13,6 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Danh Mục</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hiển Thị</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thao Tác</th>
                     </tr>
                   </thead>
@@ -50,15 +49,13 @@
                         ?>
                       
                       </td>
-                      <td class="align-middle text-center text-sm " >
-                        <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($categories->updated_date)?></span>
-                        <strong class="updated-by"><?=$categories->updated_by->fullname?></strong>
-                      </td>
                       <td style="text-align: center;">
                           <ul class="action">
                               <li><a href="<?=site_url("syslog/content_category/edit/{$categories->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                               <li><a class="btn-delete" linkHref="<?=site_url("syslog/content_category/delete/{$categories->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                           </ul>
+                          <span class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($categories->updated_date)?></span>
+                        <strong class="updated-by"><?=$categories->updated_by->fullname?></strong>
                       </td>
                     </tr>
                     <? $i++; } ?>

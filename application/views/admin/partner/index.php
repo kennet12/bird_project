@@ -21,9 +21,6 @@
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Trạng Thái</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Ngày Cập Nhật Hợp Đồng</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thao Tác</th>
                             </tr>
                         </thead>
@@ -56,10 +53,6 @@
                                     <? } else { ?>
                                     <span class="badge badge-sm bg-gradient-secondary">Ẩn</span>
                                     <? } ?>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <span
-                                        class="text-secondary text-xs font-weight-bold"><?=date('d/m/Y',strtotime($partner->updated_date))?></span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <ul class="action">

@@ -144,7 +144,7 @@
             data-items_mobile_xs="2"
             data-custombutton="true"
             >
-            <? for ($i=0;$i<10;$i++) { ?>
+            <? foreach ($products as $product) { ?>
             <div class="block">
                <div>
                   <div class="item col">
@@ -156,7 +156,7 @@
                         </div>
                         <div class="product__info text-center">
                            <div class="product__title">
-                              <a href="#" class="limit-content-1-line">Tổ Yến Tinh Chế Cam</a>
+                              <a href="#" class="limit-content-1-line"><?=$product->title?></a>
                            </div>
                            <div class="product__typename">100g</div>
                            <div class="product__price">
@@ -220,7 +220,7 @@
                   data-items_mobile_xs="2"
                   data-custombutton="true"
                   >
-                  <? for ($i=0;$i<8;$i++) { ?>
+                  <? foreach ($product_categories as $product_category) { ?>
                   <div class="block">
                      <div>
                         <div class="item col">
@@ -232,7 +232,7 @@
                               </div>
                               <div class="product__info text-center">
                                  <div class="product__title">
-                                    <a href="#" class="limit-content-1-line">to yen tinh che</a>
+                                    <a href="#" class="limit-content-1-line"><?=$product_category->name?></a>
                                  </div>
                                  <div class="product__typename">100g</div>
                                  <div class="product__price">
