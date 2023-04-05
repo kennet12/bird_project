@@ -158,7 +158,6 @@
                            <div class="product__title">
                               <a href="#" class="limit-content-1-line"><?=$product->title?></a>
                            </div>
-                           <div class="product__typename">100g</div>
                            <div class="product__price">
                               <?=number_format(1800000,0,',','.')?>
                            </div>
@@ -220,7 +219,7 @@
                   data-items_mobile_xs="2"
                   data-custombutton="true"
                   >
-                  <? foreach ($product_categories as $product_category) { ?>
+                  <? foreach ($products_category_12 as $value) { ?>
                   <div class="block">
                      <div>
                         <div class="item col">
@@ -232,9 +231,8 @@
                               </div>
                               <div class="product__info text-center">
                                  <div class="product__title">
-                                    <a href="#" class="limit-content-1-line"><?=$product_category->name?></a>
+                                    <a href="#" class="limit-content-1-line"><?=$value->title?></a>
                                  </div>
-                                 <div class="product__typename">100g</div>
                                  <div class="product__price">
                                     <?=number_format(10000000,0,',','.')?>
                                  </div>
@@ -330,7 +328,6 @@
                               <div class="product__info">
                                  <div class="block_product_info">
                                     <a class="limit-content-2-line product__title" href="#">to yen tinh che</a>
-                                    <div class="product__typename">100g</div>
                                     <div class="product__price">
                                        <?=number_format(1000000,0,',','.')?>
                                     </div>

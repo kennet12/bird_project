@@ -1,14 +1,24 @@
-<? if ($this->util->slug($this->router->fetch_class()) != "home" && !empty($breadcrumb)) { ?>
-<div class="breadcrumbs">
+<? if ($this->util->slug($this->router->fetch_class()) != "trang-chu" && !empty($breadcrumb)) { ?>
+<section id="NovFakeBreadcrumbs" class="d-none d-md-block">
 	<div class="container">
-		<ul class="breadcrumb clearfix" itemscope itemtype="http://schema.org/BreadcrumbList">
-			<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="<?=BASE_URL?>" class="active transition"><span itemprop="name">Trang chủ</span></a></li>
+		<ul class="fakebreadcrumbs list-inline" >
 			<?
-				foreach ($breadcrumb as $k => $v) {
-					echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemscope itemtype="http://schema.org/Thing" itemprop="item" title="'.$k.'" href="'.$v.'" class="active transition"><span itemprop="name">'.$k.'</span></a></li>';
+			foreach ($breadcrumb as $k => $v) {
+				echo '<li class="list-inline-item"><a title="'.$k.'" href="'.$v.'"><span>'.$k.'</span></a></li>';
 				}
 			?>
 		</ul>
 	</div>
-</div>
+</section>
+<section id="NovBreadcrumbs" class="d-none">
+	<div class="container">
+		<ol class="breadcrumb list-inline" >
+			<?
+			foreach ($breadcrumb as $k => $v) {
+				echo '<li class="list-inline-item"><a title="'.$k.'" href="'.$v.'"><span>'.$k.'</span></a></li>';
+				}
+			?>
+		</ol>
+	</div>
+</section>
 <? } ?>

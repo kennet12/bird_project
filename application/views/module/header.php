@@ -240,7 +240,7 @@
 						<ul class="site-nav" id="SiteNav">
 							<?foreach($product_categories as $product_category) {?>
 							<li class="site-nav--has-dropdown hasMegaMenu center">
-								<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" title="Tổ Yến Tinh Chế">
+								<a href="<?=site_url("san-pham/{$product_category->alias}")?>" title="<?=$product_category->name?>">
 								<div class="icon_nav">
 								<i class="zmdi zmdi-card-giftcard"></i>
 								</div>
@@ -260,7 +260,7 @@
 				<nav id="AccessibleNav">
 					<ul class="site-nav list--inline " id="SiteNav">
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("gioi-thieu")?>" class="site-nav__link site-nav__link--main">
 							<span>Giới Thiệu</span>
 							</a>
 						</li>
