@@ -14,7 +14,6 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Câu Hỏi</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Cập Nhật</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thao Tác</th>
                     </tr>
                   </thead>
@@ -42,15 +41,13 @@
                           <span class="badge badge-sm bg-gradient-secondary">Ẩn</span>
                           <?}?> 
                       </td>
-                      <td class="align-middle text-center text-sm " >
-                        <i class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($faq->updated_date)?></i>
-                        <strong class="updated-by"><?=$faq->updated_by->fullname?></strong>
-                      </td>
                       <td class="align-middle text-center">
                         <ul class ="action">
                           <li><a href="<?=site_url("syslog/faq/edit/{$faq->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                           <li><a href="<?=site_url("syslog/faq/delete/{$faq->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xoá</span></a></li>
                         </ul>
+                        <i class="text-secondary text-xs font-weight-bold"><?=$this->util->to_vn_date($faq->updated_date)?></i>
+                        <strong class="updated-by"><?=$faq->updated_by->fullname?></strong>
                       </td>
                     </tr>
                     <?$i++; }?>
