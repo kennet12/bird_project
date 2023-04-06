@@ -15,7 +15,7 @@
 	$product_categories = $this->m_product_categories->items($info,1);
 	$new_categories = $this->m_content_categories->items(null,1);
 	$faq_categories = $this->m_faq_categories->items(null,1);
-	$products = $this->m_product->items(null,1);
+	// $products = $this->m_product->items(null,1);
 ?>
 <? if($this->util->detect_mobile()) {  ?>
 <div class="header-mobile d-md-none">
@@ -265,12 +265,12 @@
 							</a>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("san-pham") ?>" class="site-nav__link site-nav__link--main">
 							<span>Sản Phẩm</span>
 							</a>
 							<ul class ="menu-writter">
-								<?foreach($products as $product){?>
-									<li><a href=""><?=$product->title?></a></li>
+								<?foreach($product_categories as $product_category){?>
+									<li><a href=""><?=$product_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>

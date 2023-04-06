@@ -50,6 +50,7 @@
                         </td>
                         <td class="align-middle">
                         <a href="<?=site_url("syslog/posts/edit/{$for_post_chuyen->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a>
+                        <i class="updated-date"><?=$this->util->to_vn_date($for_post_chuyen->updated_date)?></i>
                         <strong class="updated-by"><?=$for_post_chuyen->updated_by_user->fullname?></strong>
                         </td>
                     </tr>
