@@ -265,37 +265,37 @@
 							</a>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("san-pham")?>" class="site-nav__link site-nav__link--main">
 							<span>Sản Phẩm</span>
 							</a>
 							<ul class ="menu-writter">
-								<?foreach($products as $product){?>
-									<li><a href=""><?=$product->title?></a></li>
+								<?foreach($product_categories as $product_category){?>
+									<li><a href="<?=site_url("san-pham/{$product_category->alias}")?>"title="<?=$product_category->name?>"><?=$product_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="https://www.yen-vietnam.com/san-pham/to-yen-tho.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("tin-tuc-&-su-kien")?>" class="site-nav__link site-nav__link--main">
 							<span>Tin Tức & Sự Kiện</span>
 							</a>
 							<ul class ="menu-writter">
 								<?foreach($new_categories as $new_category){?>
-									<li><a href=""><?=$new_category->name?></a></li>
+									<li><a href="<?=site_url("tin-tuc-&-su-kien/{$new_category->alias}")?>"title="<?=$new_category->name?>"><?=$new_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="https://www.yen-vietnam.com/san-pham/to-yen-rut-long.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("hoi-&-dap")?>" class="site-nav__link site-nav__link--main">
 							<span>Hỏi & Đáp</span>
 							</a>
 							<ul class ="menu-writter">
 								<?foreach($faq_categories as $faq_category){?>
-									<li><a href=""><?=$faq_category->name?></a></li>
+									<li><a href="<?=site_url("hoi-&-dap/{$faq_category->alias}")?>"title="<?=$faq_category->name?>""><?=$faq_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-contact">
-							<a href="https://www.yen-vietnam.com/lien-he.html" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("lien-he")?>" class="site-nav__link site-nav__link--main">
 							<span>Liên hệ</span>
 							</a>
 						</li>

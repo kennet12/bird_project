@@ -16,8 +16,6 @@
                                     STT</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Đối
                                     Tác</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Ngày Hợp Tác</th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Trạng Thái</th>
@@ -39,13 +37,9 @@
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm"><?=$partner->name?></h6>
+                                           <a href="<?=site_url("syslog/partners/edit/{$partner->id}")?>"> <h6 class="mb-0 text-sm"><?=$partner->name?></h6></a>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">
-                                        <?=date('d/m/Y',strtotime($partner->created_date))?></p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <? if ($partner->active == 1)  { ?>

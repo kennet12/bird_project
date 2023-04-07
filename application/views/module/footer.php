@@ -1,172 +1,168 @@
+<?
+   $products_categories = $this->m_product_categories->items(null,1);
+   $posts = $this->m_post->items(null,1);
+   $settings = $this->m_setting->items(null,1);
+?>
 <div class="footer_newsletter pt-120">
-   <div class="container">
-      <div class="b_news text-center pb-65">
-         <div class="box-icon-news">
-            <div class="bg-box-icon-news"></div>
-            <img src="https://www.yen-vietnam.com/template/images/subscribe.svg" class="icon_news" alt="img">
-         </div>
-         <div class="title-block mb-5">
-            Đăng ký nhận khuyến mãi         </div>
-         <div class="des mb-35">Đăng ký nhận bản tin để nhận được nhiều ưu đãi và tin tức độc quyền về các sản phẩm của Yến Việt Nam</div>
-         <div class="section-content">
-            <div class="input-group">
-               <input type="hidden" name="contact[tags]" value="newsletter">
-               <input type="email" name="submail" id="Email_Footer" class="input-group__field newsletter__input form-control" value="" placeholder="Nhập email của bạn">
-               <div class="input-group__btn">
-                  <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe_footer">
-                  <span class="newsletter__submit-text--large">Đăng ký</span>
-                  </button>
-               </div>
+    <div class="container">
+        <div class="b_news text-center pb-65">
+            <div class="box-icon-news">
+                <div class="bg-box-icon-news"></div>
+                <img src="https://www.yen-vietnam.com/template/images/subscribe.svg" class="icon_news" alt="img">
             </div>
-            <script type="text/javascript">
-					$(document).ready(function() {
-						$('#Subscribe_footer').click(function(event) {
-							var e = $('#Email_Footer').val();
-							var err = 0;
-							var msg = [];
+            <div class="title-block mb-5">
+                Đăng ký nhận khuyến mãi </div>
+            <div class="des mb-35">Đăng ký nhận bản tin để nhận được nhiều ưu đãi và tin tức độc quyền về các sản phẩm
+                của Yến Việt Nam</div>
+            <div class="section-content">
+                <div class="input-group">
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <input type="email" name="submail" id="Email_Footer"
+                        class="input-group__field newsletter__input form-control" value=""
+                        placeholder="Nhập email của bạn">
+                    <div class="input-group__btn">
+                        <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe_footer">
+                            <span class="newsletter__submit-text--large">Đăng ký</span>
+                        </button>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#Subscribe_footer').click(function(event) {
+                        var e = $('#Email_Footer').val();
+                        var err = 0;
+                        var msg = [];
 
-							clearFormError();
+                        clearFormError();
 
-							if (e == "") {
-								err++;
-								msg.push("Email không được trống.");
-							} else {
-								if (!isEmail(e)) {
-									err++;
-									msg.push("Email của bạn không hợp lệ.");
-								}
-							}
-							if (!err) {
-								var p = {};
-									p['email'] = e;
-								$.ajax({
-									url: 'https://www.yen-vietnam.com/trang-chu/subscribe-email.html',
-									type: 'POST',
-									dataType: 'json',
-									data: p,
-									success: function (r) {
-										if (r) {
-                                 messageBox("INFO", "Thành công", "Đăng ký nhận khuyến mãi thành công", "Đóng");
-										} else {
-											msg.push("Mail này đã được đăng ký, vui lòng nhập mail khác.");
-                                 showErrorMessage('Lỗi','Vui lòng nhập lại thông tin:', msg, 'Đóng');
-										}
-									}
-								})
-								
-							} else {
-                        showErrorMessage('Lỗi','Vui lòng nhập lại thông tin:', msg, 'Đóng');
-							}
-						});
-					});
-				</script>
-         </div>
-      </div>
-   </div>
-   <div class="footer_policy pt-80 pb-30 mt-75">
-      <div class="container">
-         <div class="row">
-            <div class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="b_icon nv-mr-20 mb-md-10">
-                  <img src="https://www.yen-vietnam.com/template/images/p-1_45x.png" alt="icon_policy">
-               </div>
-               <div>
-                  <div class="title-policy">Thanh toán nhận hàng</div>
-                  <div class="desc-policy">Khi nhận hàng khách hàng có thể kiểm tra hàng và thanh toán cho nhân viên.</div>
-               </div>
+                        if (e == "") {
+                            err++;
+                            msg.push("Email không được trống.");
+                        } else {
+                            if (!isEmail(e)) {
+                                err++;
+                                msg.push("Email của bạn không hợp lệ.");
+                            }
+                        }
+                        if (!err) {
+                            var p = {};
+                            p['email'] = e;
+                            $.ajax({
+                                url: 'https://www.yen-vietnam.com/trang-chu/subscribe-email.html',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: p,
+                                success: function(r) {
+                                    if (r) {
+                                        messageBox("INFO", "Thành công",
+                                            "Đăng ký nhận khuyến mãi thành công", "Đóng"
+                                            );
+                                    } else {
+                                        msg.push(
+                                            "Mail này đã được đăng ký, vui lòng nhập mail khác."
+                                            );
+                                        showErrorMessage('Lỗi',
+                                            'Vui lòng nhập lại thông tin:', msg, 'Đóng');
+                                    }
+                                }
+                            })
+
+                        } else {
+                            showErrorMessage('Lỗi', 'Vui lòng nhập lại thông tin:', msg, 'Đóng');
+                        }
+                    });
+                });
+                </script>
             </div>
-            <div class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="b_icon nv-mr-20 mb-md-10">
-                  <img src="https://www.yen-vietnam.com/template/images/p-2_45x.png" alt="icon_policy">
-               </div>
-               <div>
-                  <div class="title-policy">Giao hàng nhanh</div>
-                  <div class="desc-policy">Giao hàng nhanh cho khách nội thành phố HCM (trong ngày), ngoại thành (2 đến 3 ngày).</div>
-               </div>
+        </div>
+    </div>
+    <div class="footer_policy pt-80 pb-30 mt-75">
+        <div class="container">
+            <div class="row">
+                <div
+                    class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="b_icon nv-mr-20 mb-md-10">
+                        <img src="https://www.yen-vietnam.com/template/images/p-1_45x.png" alt="icon_policy">
+                    </div>
+                    <div>
+                        <div class="title-policy">Thanh toán nhận hàng</div>
+                        <div class="desc-policy">Khi nhận hàng khách hàng có thể kiểm tra hàng và thanh toán cho nhân
+                            viên.</div>
+                    </div>
+                </div>
+                <div
+                    class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="b_icon nv-mr-20 mb-md-10">
+                        <img src="https://www.yen-vietnam.com/template/images/p-2_45x.png" alt="icon_policy">
+                    </div>
+                    <div>
+                        <div class="title-policy">Giao hàng nhanh</div>
+                        <div class="desc-policy">Giao hàng nhanh cho khách nội thành phố HCM (trong ngày), ngoại thành
+                            (2 đến 3 ngày).</div>
+                    </div>
+                </div>
+                <div
+                    class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="b_icon nv-mr-20 mb-md-10">
+                        <img src="https://www.yen-vietnam.com/template/images/p-3_45x.png" alt="icon_policy">
+                    </div>
+                    <div>
+                        <div class="title-policy">Hoàn lại tiền</div>
+                        <div class="desc-policy">Hoàn lại tiền cho khách khi bị hư hỏng trong quá trình vận chuyển.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="nov-policy-item d-flex d-md-block d-lg-flex align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="b_icon nv-mr-20 mb-md-10">
-                  <img src="https://www.yen-vietnam.com/template/images/p-3_45x.png" alt="icon_policy">
-               </div>
-               <div>
-                  <div class="title-policy">Hoàn lại tiền</div>
-                  <div class="desc-policy">Hoàn lại tiền cho khách khi bị hư hỏng trong quá trình vận chuyển.</div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 <div class="footer-layout">
-   <div class="container">
-      <div class="row">
-         <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-         <img class="js img-fluid" src="<?=$setting->logo?>" style="width:170px" alt="Greenbee 4">
-         </div>
-         <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <div class="title-block">Về chúng tôi</div>
-            <ul class="site-footer__linklist list-unstyled">
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/gioi-thieu.html">Giới thiệu</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/chinh-sach-hoan-tien.html">Chính sách hoàn tiền</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/chinh-sach-doi-hang.html">Chính Sách Đổi Hàng</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/khuyen-mai-giam-gia.html">Khuyến Mãi Và Giảm Giá</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/he-thong-chi-nhanh.html">Hệ Thống Chi Nhánh</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/chinh-sach.html">Chính Sách</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/dieu-khoan-su-dung.html">Điều Khoản Sử Dụng</a>
-               </li>
-                           </ul>
-         </div>
-         <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <div class="title-block">Sản phẩm của chúng tôi</div>
-            <ul class="site-footer__linklist list-unstyled">
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html">Tổ Yến Tinh Chế</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/san-pham/to-yen-tho.html">Tổ Yến Thô</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/san-pham/to-yen-rut-long.html">Tổ Yến Rút Lông</a>
-               </li>
-                              <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/san-pham/dong-trung-ha-thao.html">Đông Trùng Hạ Thảo</a>
-               </li>
-                              <!-- <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/tin-tuc.html">Tin tức</a>
-               </li> -->
-               <li class="site-footer__linklist-item">
-                  <a href="https://www.yen-vietnam.com/lien-he.html">Liên hệ</a>
-               </li>
-            </ul>
-         </div>
-         <div class="footer-contact pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <div class="title-block">
-               Liên hệ chúng tôi            </div>
-            <div class="block-content">
-               <div class="contact phone">
-                  <i class="zmdi zmdi-phone-in-talk"></i>085.93 2222.4</div>
-               <div class="contact email"><i class="zmdi zmdi-email"></i>nevermirepda@gmail.com </div>
-               <div class="contact address"><i class="zmdi zmdi-pin"></i>Nguyễn Hữu Tiến, Tây Thạnh, Tân Phú</div>
-               <div class="contact open"><i class="zmdi zmdi-time"></i>Mở cửa : 7.00AM - 21.00PM</div>
+    <div class="container">
+        <div class="row">
+            <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <img class="js img-fluid" src="<?=$setting->logo?>" style="width:170px" alt="Greenbee 4">
             </div>
-            <ul class="socical">
-               <li class="socical-item">
-                  <a target="_blank" href="https://www.facebook.com" title="Facebook">
-                  <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg" width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#1877f2" stroke="none"> 
-                     <path d="M1400 3069 c-365 -35 -676 -183 -940 -448 -226 -227 -353 -464 -422
+            <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="title-block">Về chúng tôi</div>
+                <ul class="site-footer__linklist list-unstyled">
+                    <?foreach($posts as $value){?>
+                    <li class="site-footer__linklist-item">
+                        <a href="<?=site_url("{$value->alias}")?>"><?=$value->title?></a>
+                    </li>
+                    <?}?>
+                </ul>
+            </div>
+            <div class="footer_list_menu pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="title-block">Sản phẩm của chúng tôi</div>
+                <ul class="site-footer__linklist list-unstyled">
+                    <?foreach($products_categories as $value){?>
+                    <li class="site-footer__linklist-item">
+                        <a href="<?=site_url("san-pham/{$value->alias}")?>"><?=$value->name?></a>
+                    </li>
+                    <?}?>
+                </ul>
+            </div>
+            <div class="footer-contact pt-55 pb-50 pt-lg-30 pb-lg-30 col-xl-3 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="title-block">
+                    Liên hệ chúng tôi </div>
+                <div class="block-content">
+                    <div class="contact phone">
+                        <i class="zmdi zmdi-phone-in-talk"></i>02963. 958. 167
+                    </div>
+                    <div class="contact email"><i class="zmdi zmdi-email"></i>basa.mekongagg@gmail.com </div>
+                    <div class="contact address"><i class="zmdi zmdi-pin"></i>Tây Khánh 2, Phường Mỹ Hoà, Thành phố Long
+                        Xuyên, Tỉnh An Giang, Việt Nam</div>
+                    <div class="contact open"><i class="zmdi zmdi-time"></i>Mở cửa : 7.00AM - 17.00PM</div>
+                </div>
+                <ul class="socical">
+                    <li class="socical-item">
+                        <a target="_blank" href="https://www.facebook.com" title="Facebook">
+                            <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#1877f2"
+                                    stroke="none">
+                                    <path d="M1400 3069 c-365 -35 -676 -183 -940 -448 -226 -227 -353 -464 -422
 -784 -29 -137 -31 -426 -5 -562 80 -408 292 -746 616 -979 83 -59 229 -140
 321 -177 67 -26 230 -74 285 -83 l40 -7 4 533 3 534 -53 -1 c-30 0 -118 1
 -196 3 l-143 2 0 225 0 225 195 0 195 0 0 205 c0 240 13 323 67 435 42 87 130
@@ -176,18 +172,21 @@
 -133 -33 -221 l-27 -160 -176 -3 -176 -2 -6 -527 c-4 -289 -5 -528 -2 -531 8
 -8 124 18 225 50 742 237 1187 987 1039 1756 -58 299 -200 564 -423 788 -263
 262 -567 405 -945 443 -114 12 -156 12 -281 0z"></path>
-</g>
-</svg>
-                  </a>
-               </li>
-               <li class="socical-item">
-                  <a target="_blank" href="viber://add?number=0932177566" title="Viber">
-                  <svg style="width: 30px;height: 35px;margin-top: 3px;" version="1.0" xmlns="http://www.w3.org/2000/svg" width="317.000000pt" height="359.000000pt" viewBox="0 0 317.000000 359.000000" preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.16, written by Peter Selinger 2001-2019
-</metadata>
-<g transform="translate(0.000000,359.000000) scale(0.100000,-0.100000)" fill="#953fde" stroke="none">
-<path d="M1350 3492 c0 -5 -60 -14 -132 -22 -73 -7 -144 -14 -158 -15 -14 -1
+                                </g>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="socical-item">
+                        <a target="_blank" href="viber://add?number=0932177566" title="Viber">
+                            <svg style="width: 30px;height: 35px;margin-top: 3px;" version="1.0"
+                                xmlns="http://www.w3.org/2000/svg" width="317.000000pt" height="359.000000pt"
+                                viewBox="0 0 317.000000 359.000000" preserveAspectRatio="xMidYMid meet">
+                                <metadata>
+                                    Created by potrace 1.16, written by Peter Selinger 2001-2019
+                                </metadata>
+                                <g transform="translate(0.000000,359.000000) scale(0.100000,-0.100000)" fill="#953fde"
+                                    stroke="none">
+                                    <path d="M1350 3492 c0 -5 -60 -14 -132 -22 -73 -7 -144 -14 -158 -15 -14 -1
 -32 -6 -41 -9 -9 -4 -31 -8 -50 -10 -19 -2 -45 -8 -59 -13 -14 -6 -29 -7 -34
 -3 -5 5 -16 2 -24 -7 -8 -8 -26 -13 -38 -10 -13 2 -25 0 -26 -4 -2 -5 -14 -10
 -28 -11 -14 -2 -27 -6 -30 -10 -3 -4 -15 -9 -25 -11 -11 -2 -30 -8 -41 -15
@@ -232,19 +231,22 @@ m856 -156 c137 -33 221 -80 320 -179 106 -106 153 -191 181 -324 25 -124 25
 m-9 -250 c149 -28 246 -134 268 -292 10 -73 -4 -108 -43 -108 -33 0 -52 27
 -61 85 -9 68 -30 114 -68 153 -31 32 -105 62 -156 62 -74 0 -84 108 -10 110 9
 0 40 -5 70 -10z"></path>
-</g>
-</svg>
-                  </a>
-                  
-               </li>
-               <li class="socical-item">
-                  <a target="_blank" href="https://www.youtube.com" title="Youtube">
-                  <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg" width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000" preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.16, written by Peter Selinger 2001-2019
-</metadata>
-<g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#d30f1b" stroke="none">
-<path d="M1358 3085 c-2 -3 -21 -7 -41 -9 -20 -3 -52 -8 -69 -11 -18 -3 -42
+                                </g>
+                            </svg>
+                        </a>
+
+                    </li>
+                    <li class="socical-item">
+                        <a target="_blank" href="https://www.youtube.com" title="Youtube">
+                            <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <metadata>
+                                    Created by potrace 1.16, written by Peter Selinger 2001-2019
+                                </metadata>
+                                <g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#d30f1b"
+                                    stroke="none">
+                                    <path d="M1358 3085 c-2 -3 -21 -7 -41 -9 -20 -3 -52 -8 -69 -11 -18 -3 -42
 -8 -53 -10 -11 -2 -20 -4 -20 -5 0 -1 -9 -3 -20 -4 -18 -2 -124 -38 -210 -71
 -49 -18 -177 -85 -222 -117 -24 -16 -43 -25 -43 -21 0 4 -4 3 -8 -2 -4 -6 -25
 -23 -47 -40 -22 -16 -45 -34 -51 -40 -6 -5 -38 -32 -70 -60 -31 -27 -67 -61
@@ -272,20 +274,23 @@ Created by potrace 1.16, written by Peter Selinger 2001-2019
 l28 -57 0 -390 c0 -389 0 -390 -24 -437 -31 -64 -95 -126 -161 -157 l-55 -26
 -640 0 -640 0 -55 26 c-74 34 -120 76 -156 141 l-29 53 -3 384 c-3 349 -1 389
 15 434 20 56 89 139 137 164 80 42 86 42 746 40 625 -2 636 -2 681 -23z"></path>
-<path d="M1348 1541 c-2 -133 0 -241 3 -241 8 0 441 229 451 238 4 4 -96 60
+                                    <path d="M1348 1541 c-2 -133 0 -241 3 -241 8 0 441 229 451 238 4 4 -96 60
 -222 125 l-229 118 -3 -240z"></path>
-</g>
-</svg>
-                  </a>
-               </li>
-               <li class="socical-item">
-                  <a target="_blank" href="https://zalo.me/0932177566" title="Zalo">
-                  <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg" width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000" preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.16, written by Peter Selinger 2001-2019
-</metadata>
-<g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#005be0" stroke="none">
-<path d="M629 3079 c-181 -19 -300 -72 -422 -188 -64 -61 -86 -90 -122 -165
+                                </g>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="socical-item">
+                        <a target="_blank" href="https://zalo.me/02963958167" title="Zalo">
+                            <svg style="width:30px;height:30px" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                width="309.000000pt" height="309.000000pt" viewBox="0 0 309.000000 309.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <metadata>
+                                    Created by potrace 1.16, written by Peter Selinger 2001-2019
+                                </metadata>
+                                <g transform="translate(0.000000,309.000000) scale(0.100000,-0.100000)" fill="#005be0"
+                                    stroke="none">
+                                    <path d="M629 3079 c-181 -19 -300 -72 -422 -188 -64 -61 -86 -90 -122 -165
 -85 -172 -79 -95 -82 -1141 -3 -1082 -5 -1053 87 -1236 42 -83 171 -212 258
 -258 170 -89 231 -93 1277 -89 850 4 861 4 944 26 46 12 116 39 155 60 86 45
 203 153 250 231 66 110 106 264 106 413 l0 60 -67 -62 c-219 -201 -548 -332
@@ -293,59 +298,71 @@ Created by potrace 1.16, written by Peter Selinger 2001-2019
 -350 -41 -4 6 7 28 24 49 57 71 86 148 86 226 -1 67 -3 74 -52 152 -203 327
 -273 816 -182 1268 66 329 236 627 447 786 31 24 61 47 66 51 12 10 -142 8
 -245 -3z"></path>
-<path d="M2040 1717 c0 -269 3 -366 12 -375 7 -7 34 -12 60 -12 l48 0 0 375 0
+                                    <path d="M2040 1717 c0 -269 3 -366 12 -375 7 -7 34 -12 60 -12 l48 0 0 375 0
 375 -60 0 -60 0 0 -363z"></path>
-<path d="M730 2008 l0 -63 196 3 c108 2 200 0 205 -5 4 -4 -87 -126 -203 -270
+                                    <path d="M730 2008 l0 -63 196 3 c108 2 200 0 205 -5 4 -4 -87 -126 -203 -270
 -176 -221 -211 -269 -215 -303 l-6 -40 296 0 c283 0 297 1 307 19 5 11 10 36
 10 55 l0 36 -215 0 c-118 0 -215 2 -215 5 0 3 92 122 205 265 203 257 225 289
 225 336 l0 24 -295 0 -295 0 0 -62z"></path>
-<path d="M1559 1887 c-92 -35 -146 -87 -180 -177 -89 -233 156 -462 383 -358
+                                    <path d="M1559 1887 c-92 -35 -146 -87 -180 -177 -89 -233 156 -462 383 -358
 l54 25 10 -21 c7 -16 19 -22 57 -24 l47 -3 0 278 0 278 -55 0 c-47 0 -55 -3
 -55 -18 0 -10 -3 -17 -7 -15 -89 46 -188 59 -254 35z m161 -119 c105 -53 131
 -182 54 -267 -44 -50 -82 -65 -145 -59 -145 14 -207 189 -104 293 57 57 125
 68 195 33z"></path>
-<path d="M2425 1876 c-219 -102 -226 -416 -11 -521 147 -72 309 -20 383 124
+                                    <path d="M2425 1876 c-219 -102 -226 -416 -11 -521 147 -72 309 -20 383 124
 61 117 40 254 -53 343 -84 80 -216 103 -319 54z m195 -108 c131 -66 130 -246
 -1 -314 -40 -20 -113 -18 -159 6 -99 51 -120 202 -39 277 63 57 127 67 199 31z"></path>
-</g>
-</svg>
-                  </a>
-               </li>
-            </ul>
-         </div>
-      </div>
-   </div>
+                                </g>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="footer_copyright pt-20 pb-20 pb-sm-80">
-   <div class="container">
-      <div class="row align-items-center">
-         <div class="copyright col-md-6 mb-sm-15" style="color: #666666;">Copyright © 2023 Yến Việt Nam. All rights reserved.</div>
-         <div class="col-md-6 d-flex justify-content-center justify-content-lg-end"><img class="img-fluid" src="https://www.yen-vietnam.com/template/images/payment_500x.png"></div>
-      </div>
-   </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="copyright col-md-6 mb-sm-15" style="color: #666666;">Copyright © 2023 Yến Việt Nam. All rights
+                reserved.</div>
+            <div class="col-md-6 d-flex justify-content-center justify-content-lg-end"><img class="img-fluid"
+                    src="https://www.yen-vietnam.com/template/images/payment_500x.png"></div>
+        </div>
+    </div>
 </div>
 <style>
-   .footer-layout {
-   background-color: #fff;
-   color: #7a5935;
-   }
-   .footer_newsletter {
-   background-image: url("https://www.yen-vietnam.com/template/images/img-4_1920x.jpg");
-   background-size: cover;
-   background-repeat: no-repeat;
-   }
-   .footer-layout .title-block {
-   color: #5a4023;
-   }
-   .footer_menu li a, .footer_blog .article__title a, .footer_list_menu li a {
-   color: #7a5935;
-   }
-   .footer_copyright {
-   background-color: #ffffff;
-   }
-   .footer_policy {
-   background: url("https://www.yen-vietnam.com/template/images/img-10_1920x.png") no-repeat;
-   background-size: cover;
-   }
-   .footer_policy .b_icon {background: url("https://www.yen-vietnam.com/template/images/bicon_policy_85x.png") no-repeat;}
+.footer-layout {
+    background-color: #fff;
+    color: #7a5935;
+}
+
+.footer_newsletter {
+    background-image: url("https://www.yen-vietnam.com/template/images/img-4_1920x.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer-layout .title-block {
+    color: #5a4023;
+}
+
+.footer_menu li a,
+.footer_blog .article__title a,
+.footer_list_menu li a {
+    color: #7a5935;
+}
+
+.footer_copyright {
+    background-color: #ffffff;
+}
+
+.footer_policy {
+    background: url("https://www.yen-vietnam.com/template/images/img-10_1920x.png") no-repeat;
+    background-size: cover;
+}
+
+.footer_policy .b_icon {
+    background: url("https://www.yen-vietnam.com/template/images/bicon_policy_85x.png") no-repeat;
+}
 </style>
