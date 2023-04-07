@@ -26,10 +26,9 @@
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?= $categories->name?></h6>
+                            <a href="<?=site_url("syslog/content_category/edit/{$categories->id}")?>"><h6 class="mb-0 text-sm"><?= $categories->name?></h6></a>
                             <p class="text-xs text-secondary mb-0"><?=$categories->alias?></p>
                           </div>
-                          
                         </div>  
 
                       </td>

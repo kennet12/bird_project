@@ -116,7 +116,7 @@
       <div class="text-left mb-55 d-flex align-items-center">
          <div class="title_block mb-0">
             <span>Tất cả sản phẩm</span>
-            <span class="sub_title">Tổ chim yến thô sau khi lấy được ngâm vào nước sau đó loại bỏ lông chim yến và các tập chất và hông khô lại thành tổ.</span>
+            <span class="sub_title" style = " font-size : 15px">Cá ba sa, không những giàu chất dinh dưỡng mà còn là món ăn tinh thần của bà con Đồng Bằng Sông Cửu Long</span>
          </div>
          <div class="nv-ml-auto">
             <span class="custombutton prev_custom d-xs-none">
@@ -156,13 +156,13 @@
                         </div>
                         <div class="product__info text-center">
                            <div class="product__title">
-                              <a href="#" class="limit-content-1-line"><?=$product->title?></a>
+                              <a href="<?=site_url("san-pham/{$product->alias}")?>" class="limit-content-1-line"><?=$product->title?></a>
                            </div>
                            <div class="product__price">
-                              <?=number_format(1800000,0,',','.')?>
+                              <a href="<?=site_url("lien-he")?>"><?=!empty($product->price)?number_format($product->price,0,',','.'):'Liên Hệ'?></a>
                            </div>
-                           <a class="btn btnAddToCart btnChooseVariant" href="#">
-                              <i class="zmdi zmdi-zoom-in"></i>
+                           <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$product->alias}")?>">
+                              <i class="zmdi zmdi-zoom-in"></i>   
                               <span>Xem chi tiết</span>
                            </a>
                         </div>
@@ -231,12 +231,12 @@
                               </div>
                               <div class="product__info text-center">
                                  <div class="product__title">
-                                    <a href="#" class="limit-content-1-line"><?=$value->title?></a>
+                                    <a href="<?=site_url("san-pham/{$value->alias}")?>" class="limit-content-1-line"><?=$value->title?></a>
                                  </div>
                                  <div class="product__price">
-                                    <?=number_format(10000000,0,',','.')?>
+                                    <a href="<?=site_url("lien-he")?>"><?=!empty($value->price)?number_format($value->price,0,',','.'):'Liên Hệ'?></a>
                                  </div>
-                                 <a class="btn btnAddToCart btnChooseVariant" href="#">
+                                 <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$value->alias}")?>">
                                     <i class="zmdi zmdi-zoom-in"></i>
                                     <span>Xem chi tiết</span>
                                  </a>
@@ -313,7 +313,7 @@
                   data-items_mobile_xs="1"
                   data-custombutton="true"
                   >
-                  <? for ($i=0;$i<16;$i++) { ?>
+                  <? foreach($products_category_3_6 as $value) { ?>
                   <div class="item col">
                      <div class="item-product align-items-center">
                         <div class="row">
@@ -327,9 +327,9 @@
                            <div class="col-6 d-flex align-items-center">
                               <div class="product__info">
                                  <div class="block_product_info">
-                                    <a class="limit-content-2-line product__title" href="#">to yen tinh che</a>
+                                    <a class="limit-content-2-line product__title" href="<?=site_url("san-pham/{$value->alias}")?>"><?=$value->title?></a>
                                     <div class="product__price">
-                                       <?=number_format(1000000,0,',','.')?>
+                                      <a href="<?=site_url("lien-he")?>"> <?=!empty($value->price)?number_format($value->price):'Liên Hệ'?></a>
                                     </div>
                                  </div>
                               </div>

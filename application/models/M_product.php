@@ -19,6 +19,9 @@ class M_product extends M_db
 				$info->search = trim($info->search);
 				$sql .= " AND (I.title LIKE '%{$info->search}%')";
 			}
+			if (!empty($info->category_id_3_6)) {
+				$sql .= " AND (I.category_id = '3' OR I.category_id = '6')";
+			}
 		}
 		
 		if (!is_null($active)) {
