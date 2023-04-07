@@ -155,4 +155,3 @@ $autoload['model'] = array(
 	'm_partner',
 	'm_log'
 );
-

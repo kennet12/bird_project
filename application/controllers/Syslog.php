@@ -1350,6 +1350,7 @@ class Syslog extends CI_Controller {
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
 					"Chỉnh sửa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
 				]);
+			
 				$kq_product_item = $this->m_product->load($id);
 
 				$view_data = array();
@@ -1394,6 +1395,8 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
+		// var_dump($_SERVER);
+		// die;
 				$info = new stdClass();
 				$info->search = !empty($_GET['search'])?$_GET['search']:'';
 
