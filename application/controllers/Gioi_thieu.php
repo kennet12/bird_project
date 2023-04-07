@@ -6,10 +6,11 @@ class Gioi_thieu extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Giới thiệu" => site_url($this->util->slug($this->router->fetch_class()))));
+		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Trang chủ" => site_url()));
+		
 	}
 	public function index() {
+		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Giới thiệu" => site_url($this->util->slug($this->router->fetch_class()))));
 		$item = $this->m_post->load(1);
 		$view_data = array();
 		$view_data['item'] 			= $item;
@@ -17,7 +18,7 @@ class Gioi_thieu extends CI_Controller {
 
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("post/index", $view_data, TRUE);
-		$this->load->view("layout/main", $tmpl_content);
+		$this->load->view("layout/view", $tmpl_content);
 	}
 }
 ?>

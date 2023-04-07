@@ -67,22 +67,39 @@
                               </div>
                               <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" value="a" aria-expanded="true">
                               <? 
-                              if(!empty($_GET['sort'])) {
-                                 if ($_GET['sort'] == 'price-desc') {
+                              if(!empty($_GET['sap-xep'])) {
+                                 if ($_GET['sap-xep'] == 'tang-dan') {
                                     echo 'Tăng dần';
-                                 } else if ($_GET['sort'] == 'price-asc') {
-                                    echo 'giảm dần';
+                                 } else if ($_GET['sap-xep'] == 'giam-dan') {
+                                    echo 'Giảm dần';
                                  }
                               } else {
-                                 echo 'Sắp sếp';
+                                 echo 'Sắp xếp';
                               }
                               ?>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right text-right">
-                                 <div class="drop-item active" status="sort" data-value="">Sắp xếp</div>
-                                 <div class="drop-item" id="price-desc" status="sort" data-value="price-desc"><?='Tăng dần'?></div>
-                                 <div class="drop-item" id="price-asc" status="sort" data-value="price-asc"><?='giảm dần'?></div>
-                              </div>   
+                                 <div class="drop-item active" data-value="">Sắp xếp</div>
+                                 <div class="drop-item" id="price-desc" data-value="tang-dan"><?='Tăng dần'?></div>
+                                 <div class="drop-item" id="price-asc" data-value="giam-dan"><?='giảm dần'?></div>
+                              </div>
+                              <script>
+                                 $('.drop-item').click(function() {
+                                    let url_page = window.location.href.split('?')[0];
+                                    let params = getParams(window.location.href)
+     
+                                    var val = $(this).attr('data-value')
+                                    if (val != '')
+                                       url_page += '?sap-xep='+val
+
+                                    if(params.page != undefined) {
+                                       url_page += (val == '')?'?':'&'
+                                       url_page += 'page='+params.page
+                                    }
+                                       
+                                    window.location.href = url_page
+                                 })
+                              </script>
                            </div>
                         </div>
                      </div>

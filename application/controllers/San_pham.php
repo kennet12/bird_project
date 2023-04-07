@@ -10,14 +10,11 @@ class San_pham extends CI_Controller {
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Trang chủ" => site_url('')));
 		
 	}
-	public function index($category=null, $id=null) {
-
-		
+	public function index($category=null, $id=null) {	
+		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Sản Phẩm" => site_url($this->util->slug($this->router->fetch_class()))));	
 		if(!empty($category))
 		{	
-		
-			$_breadcrumb = $this->_breadcrumb = array_merge($this->_breadcrumb, array("Sản Phẩm" => site_url($this->util->slug($this->router->fetch_class()))));
-			$this->_breadcrumb = array_merge($_breadcrumb,array($this->m_product_categories->load($category)->name => site_url($this->util->slug($this->router->fetch_class()).'/'.$category.'/'.$id)));
+			$this->_breadcrumb = array_merge($this->_breadcrumb,array( $this->m_product_categories->load($category)->name => site_url($this->util->slug($this->router->fetch_class()).'/'.$category.'/'.$id)));
 
 			$product_categories = $this->m_product_categories->items(null,1);
 			
@@ -47,10 +44,8 @@ class San_pham extends CI_Controller {
 		}
 		else
 		{
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Sản phẩm" => site_url($this->util->slug($this->router->fetch_class()))));
 
-		$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
-			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
 			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;
 			}
@@ -59,17 +54,21 @@ class San_pham extends CI_Controller {
 			}
 			$offset = ($page - 1) * $page_num;
 
-			$total = count($this->m_contents->items());
+			$total = count($this->m_product->items(null,1));
 
+			$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+			$url = str_replace("?page={$page}", '', $url);
+			$url = str_replace("&page={$page}", '', $url);
 			$pagination = $this->util->pagination(
-				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$url,
 				$total,
 				$page_num
 			);
-		// var_dump($offset);
+
 			// lấy ra danh mục sản phẩm
 			$product_categories = $this->m_product_categories->items(null,1);
-			
+		
+
 			// lay tat san pham
 			$products = $this->m_product->items(null,1);
 			

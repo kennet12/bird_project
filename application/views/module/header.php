@@ -230,13 +230,13 @@
 		<div class="row align-items-center">
 			<div class="col-lg-3 col-md-2">
 				<div class="header-verticalmenu">
-					<div stt="2" class="vertical_dropdown active">
+					<div stt="2" class="vertical_dropdown <?=($method == 'home')?'active':''?>">
 						<div class="title_vertical d-flex align-items-center">
 						<i class="zmdi zmdi-menu"></i>
 						<span class="nv-ml-20 nv-ml-md-10 d-none d-lg-block">Danh mục</span>
 						</div>
 					</div>
-					<div style="display: block;" id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
+					<div <?=($method == 'home')?'style="display: block;"':''?>  id="_desktop_vertical_menu" class="vertical_menu has-showmore" data-count_showmore="9" data-count_showmore_lg="6" data-textshowmore="See More" data-textless="See Less">
 						<ul class="site-nav" id="SiteNav">
 							<?foreach($product_categories as $product_category) {?>
 							<li class="site-nav--has-dropdown hasMegaMenu center">
