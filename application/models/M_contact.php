@@ -36,7 +36,5 @@ class M_contact extends M_db
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
-
-	
 }
 ?>

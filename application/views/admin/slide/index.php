@@ -71,7 +71,7 @@
                                         <li><a href="<?=site_url("syslog/sliders/edit/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-info">Sửa</span></a></li>
                                         <li><a class="btn-delete" linkHref="<?=site_url("syslog/sliders/delete/{$slider_foreach->id}")?>"><span class="badge badge-sm bg-gradient-danger">Xóa</span></a></li>
                                     </ul>
-                                    <i class="updated-date"><?=$this->util->to_vn_date($slider_foreach->updated_date)?></i>
+                                     <i class="updated-date"><?=$this->util->to_vn_date($slider_foreach->updated_date)?></i>
                                      <strong class="updated-by"><?=$slider_foreach->updated_by->fullname?></strong>
                                 </td>
                               
