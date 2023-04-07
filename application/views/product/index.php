@@ -18,7 +18,7 @@
                       <? foreach($result_revice_category as $result_category){?> 
                         <li class="item mb-10">
                         
-                           <a href="<?=site_url("san-pham/{$result_category->alias}/{$result_category->id}")?>" title="<?=$result_category->name?>"><?=$result_category->name?></a>
+                           <a href="<?=site_url("san-pham/{$result_category->alias}")?>" title="<?=$result_category->name?>"><?=$result_category->name?></a>
                         
                         </li>
                      <?}?>
@@ -80,8 +80,8 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-right text-right">
                                  <div class="drop-item active" status="sort" data-value="">Sắp xếp</div>
-                                 <div class="drop-item" status="sort" data-value="price-desc"><?='Tăng dần'?></div>
-                                 <div class="drop-item" status="sort" data-value="price-asc"><?='giảm dần'?></div>
+                                 <div class="drop-item" id="price-desc" status="sort" data-value="price-desc"><?='Tăng dần'?></div>
+                                 <div class="drop-item" id="price-asc" status="sort" data-value="price-asc"><?='giảm dần'?></div>
                               </div>   
                            </div>
                         </div>
@@ -92,7 +92,7 @@
                      <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">
                         <div class="item-product">
                            <div class="thumbnail-container has-multiimage has_variants">
-                              <a href="#" style="margin-top: 10px;">
+                              <a href="<?=site_url("san-pham/{$result_product->alias}/{$result_product->id}")?>" style="margin-top: 10px;">
                                  <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->image)?$result_product ->image : ' '?>" alt="">
                               </a>
                            </div>
@@ -125,7 +125,7 @@
                      <!------------------------------------------------------>
                   </div>
                   <!-----pagination---->
-                  <?//=$pagination?>
+                  <?=$pagination?>
                </div>
             </div>
          </div>
@@ -135,4 +135,10 @@
 
 <script>
 	addLike('.btnProductWishlist');
+   $('#price-desc').click(function(){
+      // window.location.href = $(this).attr('linkHref');
+    })
+    $('#price-asc').click(function(){
+      // window.location.href = $(this).attr('linkHref');
+    })
 </script>
