@@ -14,17 +14,59 @@ class San_pham extends CI_Controller {
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Sản Phẩm" => site_url($this->util->slug($this->router->fetch_class()))));	
 		if(!empty($category))
 		{	
+			
 			$this->_breadcrumb = array_merge($this->_breadcrumb,array( $this->m_product_categories->load($category)->name => site_url($this->util->slug($this->router->fetch_class()).'/'.$category.'/'.$id)));
+			
+			$order_by = null;
+			$sort_by = null;
+			// var_dump($_GET ["sap-xep"]);
+			if(!empty($_GET))
+			{
+				if($_GET ["sap-xep"] == "tang-dan")
+				{
+					$order_by = 'price';
+					$sort_by = 'ASC';
+				
+				}
+				else if($_GET['sap-xep'] == "giam-dan")
+				{
+					$order_by = 'price';
+					$sort_by = 'DESC';
+				}
+			}
+
 
 			$product_categories = $this->m_product_categories->items(null,1);
 			
 			$check_id_category = $this->m_product_categories->load($category);
-			
+
+			$info = new stdClass();
+			$info->category_id = $check_id_category->id;
+			$total = count($this->m_product->items($info,1));
+
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+			$url = str_replace("?page={$page}", '', $url);
+			$url = str_replace("&page={$page}", '', $url);
+			$pagination = $this->util->pagination(
+				$url,
+				$total,
+				$page_num
+			);
+
 			// lay tat san pham
 			$info = new stdClass();
 			$info->category_id = $check_id_category->id;
 			
-			$products = $this->m_product->items($info,1);
+			$products = $this->m_product->items($info,1, $page_num,$offset,$order_by,$sort_by);
 			
 			foreach($products as $product) {
 				$info = new stdClass();
@@ -34,9 +76,10 @@ class San_pham extends CI_Controller {
 			}
 
 			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
+			$view_data["breadcrumb"] 			= $this->_breadcrumb;
 			$view_data['result_revice_category']=$product_categories;
-			$view_data['result_products']=$products;
+			$view_data["pagination"]			= $pagination;
+			$view_data['result_products']		=$products;
 			
 			$tmpl_content = array();
 			$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);
@@ -44,6 +87,23 @@ class San_pham extends CI_Controller {
 		}
 		else
 		{
+			$order_by = null;
+			$sort_by = null;
+			// var_dump($_GET ["sap-xep"]);
+		if(!empty($_GET))
+		{
+			if($_GET ["sap-xep"] == "tang-dan")
+			{
+				$order_by = 'price';
+				$sort_by = 'ASC';
+			
+			}
+			else if($_GET['sap-xep'] == "giam-dan")
+			{
+				$order_by = 'price';
+				$sort_by = 'DESC';
+			}
+		}
 
 			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
 			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
@@ -70,7 +130,7 @@ class San_pham extends CI_Controller {
 		
 
 			// lay tat san pham
-			$products = $this->m_product->items(null,1);
+			$products = $this->m_product->items(null,1, $page_num,$offset,$order_by,$sort_by);
 			
 			foreach($products as $product) {
 				$info = new stdClass();

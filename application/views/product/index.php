@@ -86,12 +86,14 @@
                               <script>
                                  $('.drop-item').click(function() {
                                     let url_page = window.location.href.split('?')[0];
+                                   
                                     let params = getParams(window.location.href)
-     
+                                  
                                     var val = $(this).attr('data-value')
+                                   
                                     if (val != '')
                                        url_page += '?sap-xep='+val
-
+                                    console.log(url_page)
                                     if(params.page != undefined) {
                                        url_page += (val == '')?'?':'&'
                                        url_page += 'page='+params.page
