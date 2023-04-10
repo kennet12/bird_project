@@ -10,7 +10,21 @@ class M_product extends M_db
 	
 	public function items($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
 	{
-		$sql = "SELECT I.*, C.alias AS 'category_alias', '0' AS 'child_num' FROM m_product AS I INNER JOIN m_product_categories AS C ON (I.category_id = C.id) WHERE 1 = 1";
+		$sql ="SELECT DISTINCT
+		I.*, C.alias AS 'category_alias', '0' AS 'child_num',
+		G.thumbnail as gallery
+		FROM
+		m_product as I 
+		
+		INNER JOIN 
+		m_product_categories as C 
+		ON (C.id = I.category_id)
+		
+		LEFT JOIN 
+		m_product_gallery as G 
+		ON (G.product_id = I.id) 
+		WHERE 1 = 1";
+
 		if (!is_null($info)) {
 			if (!empty($info->category_id)) {
 				$sql .= " AND I.category_id = '{$info->category_id}'";
