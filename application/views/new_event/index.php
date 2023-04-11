@@ -3,16 +3,42 @@
    <h1 class="page-title">TIN TỨC</h1>
    <div class="row">
       <div class="col-md-2 ">
-			<div class="sidebar sidebar-collection ">
-				<ul class="shopify-section " id="shopify-section list-unstyled" style="padding-left: 0;
-				margin-bottom: 0;
-				list-style: none;">
-				<li role="presentation" <?=empty($category) ? 'class="active-category item mb-10"' : '' ?>><a href="<?=site_url("tin-tuc-su-kien")?>">Tất cả</a></li>
-				<? foreach ($categories as $categorie) { ?>
-				<li role="presentation" <?=( $categorie->alias) ? 'class="active-category item mb-10"' : '' ?>><a href="<?=site_url("tin-tuc-su-kien/{$categorie->alias}")?>"><i class="fa-solid fa-newspaper"></i> <?=$categorie->name?></a></li>
-				<? } ?>
-			</ul>
-			</div>
+         <div id="shopify-section-nov-sidebar" class="shopify-section">
+            <div class="list-filter-selected">
+               <div class="filter-item_title align-items-center">
+                  <a href="<?=site_url("tin-tuc-su-kien")?>" class="nv-ml-auto">Tất cả Tin Tức</a>
+               </div>
+            </div>
+            <div class="categories__sidebar sidebar-block sidebar-block__1">
+               <div class="title-block mb-10">Danh Mục </div>
+               <ul class="list-unstyled">
+                  <? foreach($categories as $categorie){?> 
+                  <li class="item mb-10">
+                     <a href="<?=site_url("tin-tuc-su-kien/{$categorie->alias}")?>"> <?=$categorie->name?></a>
+                  </li>
+                  <?}?>
+               </ul>
+               <script>
+                  $('.zmdi-caret-right').click(function(e){
+                     var stt = $(this).attr('stt');
+                     var cls = $(this).attr('cls');
+                     if (stt == '0'){
+                        $(this).addClass('active');
+                        $(this).attr('stt','1');
+                     } else {
+                        $(this).removeClass('active');
+                        $(this).attr('stt','0');
+                     }
+                     $('.'+cls).toggle('fast');
+                  })
+               </script>
+            </div>
+            <script>
+               $('.zmdi-caret-right').click(function(e) {
+                  $(this).parents('.item-sub').find('.childsub-item').toggle('fast');
+               })
+            </script>
+         </div>
       </div>
       <div class="col-md-10">
          <div class="list-warpper">
@@ -29,10 +55,10 @@
                <div class="right-item">
                   <p class="help-block"><?=$this->util->to_vn_date($item->updated_date)?></p>
                   <p class="limit-content-3-line text-justify"><?=strip_tags($item->content)?></p>
-               </div><br>
+               </div>
+               <br>
             </div>
             <? } ?>
-			
          </div>
       </div>
    </div>

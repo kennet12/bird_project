@@ -15,7 +15,6 @@
    		{	
    			if(!empty($id))
    			{
-   				var_dump($id);
    				
    				$check_id = $this->m_contents->load($id);
    				$check_cate =$this->m_content_categories->load($category);
@@ -41,7 +40,6 @@
    			else
    			{	
    				
-   
    				$check_cate =$this->m_content_categories->load($category);
    				$results_category = $this->m_content_categories->items(null,1);
    				
