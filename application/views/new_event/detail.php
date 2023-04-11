@@ -6,6 +6,7 @@
 	</div>
 	<div class="wrap-relative-item">
 		<div class="relative-item-title">
+		<br/>
 			<h4>TIN TỨC LIÊN QUAN</h4>
 		</div>
 		<div class="box-relative-item">
@@ -14,8 +15,9 @@
 				<div class="relative-item">
 					<?=$relative_item->title ?>
 				</div>
-			</a>
+			</a><br/>
 			<? } ?>
+			
 		</div>
 	</div>
 	<? require_once(APPPATH."views/module/addthis.php"); ?>

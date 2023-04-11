@@ -3,7 +3,7 @@
       <div class="row">
          <div class="sidebar sidebar-collection col-lg-3 col-md-4 flex-xs-unordered">
             <div class="collection_vn pt-md-30 mb-md-40">
-               <div class="collection_title">Tất cả sản phẩm</div>
+               <div class="collection_title"><?=!empty($name_category)?$name_category:"Tất cả sản phẩm";?></div>
             </div>
             <div id="shopify-section-nov-sidebar" class="shopify-section">
                <div class="close-filter"><i class="zmdi zmdi-close"></i></div>
@@ -58,7 +58,7 @@
                            </div>
                            <div class="filters-toolbar__item d-flex align-items-center">
                               <div class="pagination__viewing">
-                                 Trang 1 - 20 | 40 Sản phẩm
+                                 Trang <?=$page?> - <?=!empty($page_num)?$page_num:$page;?> | <?=$total; ?> Sản phẩm
                               </div>
                               <div class="gridlist-toggle">
                                  <a href="#" id="grid-3" title="Grid View 3" data-type="view_3" class="active"><i class="zmdi zmdi-apps"></i></a>
@@ -112,7 +112,7 @@
                         <div class="item-product">
                            <div class="thumbnail-container has-multiimage has_variants">
                               <a href="<?=site_url("san-pham/{$result_product->alias}/{$result_product->id}")?>" style="margin-top: 10px;">
-                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->image)?$result_product ->image : ' '?>" alt="">
+                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->gallery)?BASE_URL.$result_product ->gallery : ' '?>" alt="">
                               </a>
                            </div>
                            <div class="product__info">

@@ -19,7 +19,6 @@ class Home extends CI_Controller {
 		$view_data['products_category_12']	= $products_category_12;
 		$view_data['products_category_3_6']	= $products_category_3_6;
 
-
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("home", $view_data, TRUE);
 		$this->load->view("layout/main", $tmpl_content);

@@ -34,7 +34,7 @@ class San_pham extends CI_Controller {
 				$order_by = null;
 				$sort_by = null;
 				// var_dump($_GET ["sap-xep"]);
-				if(!empty($_GET))
+				if(!empty($_GET["sap-xep"]))
 				{
 					if($_GET ["sap-xep"] == "tang-dan")
 					{
@@ -53,12 +53,17 @@ class San_pham extends CI_Controller {
 				$product_categories = $this->m_product_categories->items(null,1);
 				
 				$check_id_category = $this->m_product_categories->load($category);
+				$name_category=$check_id_category->name ;
+				// var_dump($name_category);
+			
 
 				$info = new stdClass();
 				$info->category_id = $check_id_category->id;
 				$total = count($this->m_product->items($info,1));
+			
+				$page_num	= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
 
-				$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
+			
 				if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 					$page = 1;
 				}
@@ -74,26 +79,35 @@ class San_pham extends CI_Controller {
 					$url,
 					$total,
 					$page_num
+					
 				);
+				$check =ceil(($total /6));
 
 				// lay tat san pham
+				
 				$info = new stdClass();
 				$info->category_id = $check_id_category->id;
 				
 				$products = $this->m_product->items($info,1, $page_num,$offset,$order_by,$sort_by);
 				
-				foreach($products as $product) {
-					$info = new stdClass();
-					$info->product_id = $product->id;
-					$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
-					$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
-				}
+				// foreach($products as $product) {
+				// 	$info = new stdClass();
+				// 	$info->product_id = $product->id;
+				// 	$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
+				// 	$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+				// }
 
 				$view_data = array();
-				$view_data["breadcrumb"] 			= $this->_breadcrumb;
-				$view_data['result_revice_category']=$product_categories;
-				$view_data["pagination"]			= $pagination;
-				$view_data['result_products']		=$products;
+				$view_data['name_category']			 =$name_category;
+				$view_data["breadcrumb"] 			 = $this->_breadcrumb;
+				$view_data['result_revice_category'] = $product_categories;
+				$view_data["pagination"]			 = $pagination;
+				$view_data['page']					 = $page;
+				$view_data['total']				 	 = $total;
+				$view_data['page_num']				 =$check;
+				$view_data['result_products']		 = $products;
+				
+				// var_dump($view_data);
 				
 				$tmpl_content = array();
 				$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);
@@ -103,7 +117,6 @@ class San_pham extends CI_Controller {
 		} else {
 			$order_by = null;
 			$sort_by = null;
-			// var_dump($_GET ["sap-xep"]);
 			if(!empty($_GET["sap-xep"]))
 			{
 				if($_GET["sap-xep"] == "tang-dan")
@@ -120,6 +133,7 @@ class San_pham extends CI_Controller {
 			}
 
 			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
+			
 			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 				$page = 1;
 			}
@@ -138,7 +152,10 @@ class San_pham extends CI_Controller {
 				$total,
 				$page_num
 			);
+			
+			$check =ceil(($total /6));
 
+			
 			// lấy ra danh mục sản phẩm
 			$product_categories = $this->m_product_categories->items(null,1);
 		
@@ -146,20 +163,22 @@ class San_pham extends CI_Controller {
 			// lay tat san pham
 			$products = $this->m_product->items(null,1, $page_num,$offset,$order_by,$sort_by);
 			
-			foreach($products as $product) {
-				$info = new stdClass();
-				$info->product_id = $product->id;
-				$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
-				$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
-			}
+			// foreach($products as $product) {
+			// 	$info = new stdClass();
+			// 	$info->product_id = $product->id;	
+			// 	$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
+			// 	$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+			// }
 
 			$view_data = array();
-			$view_data["breadcrumb"] = $this->_breadcrumb;
-			$view_data["offset"]		= $offset;
-			$view_data["pagination"]	= $pagination;
-			$view_data['result_revice_category']=$product_categories;
-			$view_data['result_products']=$products;
-			
+			$view_data["breadcrumb"] 			 = $this->_breadcrumb;
+			$view_data["offset"]				 = $offset;
+			$view_data["pagination"]			 = $pagination;
+			$view_data['total']				 	 = $total;
+			$view_data['page_num']				 =$check;
+			$view_data['page']				 	 = $page;
+			$view_data['result_revice_category'] =$product_categories;
+			$view_data['result_products']		 =$products;
 			
 			$tmpl_content = array();
 			$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);

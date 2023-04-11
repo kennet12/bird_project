@@ -275,12 +275,12 @@
 							</ul>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="<?=site_url("tin-tuc-&-su-kien")?>" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("tin-tuc-su-kien")?>" class="site-nav__link site-nav__link--main">
 							<span>Tin Tức & Sự Kiện</span>
 							</a>
 							<ul class ="menu-writter">
 								<?foreach($new_categories as $new_category){?>
-									<li><a href="<?=site_url("tin-tuc-&-su-kien/{$new_category->alias}")?>"title="<?=$new_category->name?>"><?=$new_category->name?></a></li>
+									<li><a href="<?=site_url("tin-tuc-su-kien/{$new_category->alias}")?>"title="<?=$new_category->name?>"><?=$new_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>

@@ -150,8 +150,8 @@
                   <div class="item col">
                      <div class="item-product">
                         <div class="thumbnail-container has-multiimage">
-                           <a class="w-100" href="#">
-                              <img class="w-100 img-fluid product__thumbnail" src="https://www.yen-vietnam.com/files/upload/product/YS000135956/thumb/new-birds-nest467.jpg">
+                           <a class="w-100" href="<?=site_url("san-pham/{$product->alias}/{$product->id}")?>">
+                              <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($product ->gallery)?BASE_URL.$product ->gallery : ' '?> ?> " >
                            </a>
                         </div>
                         <div class="product__info text-center">
@@ -161,7 +161,7 @@
                            <div class="product__price">
                               <a href="<?=site_url("lien-he")?>"><?=!empty($product->price)?number_format($product->price,0,',','.'):'Liên Hệ'?></a>
                            </div>
-                           <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$product->alias}")?>">
+                           <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$product->alias}/{$product->id}")?>">
                               <i class="zmdi zmdi-zoom-in"></i>   
                               <span>Xem chi tiết</span>
                            </a>
@@ -225,8 +225,8 @@
                         <div class="item col">
                            <div class="item-product">
                               <div class="thumbnail-container has-multiimage">
-                                 <a class="w-100" href="#">
-                                 <img class="w-100 img-fluid product__thumbnail" src="https://www.yen-vietnam.com/files/upload/product/YS000100622/thumb/du-an-moi928.jpg" alt="to yen tinh che">
+                                 <a class="w-100" href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
+                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias?>">
                                  </a>
                               </div>
                               <div class="product__info text-center">
@@ -236,7 +236,7 @@
                                  <div class="product__price">
                                     <a href="<?=site_url("lien-he")?>"><?=!empty($value->price)?number_format($value->price,0,',','.'):'Liên Hệ'?></a>
                                  </div>
-                                 <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$value->alias}")?>">
+                                 <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
                                     <i class="zmdi zmdi-zoom-in"></i>
                                     <span>Xem chi tiết</span>
                                  </a>
@@ -319,8 +319,8 @@
                         <div class="row">
                            <div class="col-6">
                               <div class="thumbnail-container has-multiimage">
-                                 <a href="#">
-                                 <img class="img-fluid product__thumbnail" src="https://www.yen-vietnam.com/files/upload/product/RL000100616/thumb/yen-tinh-che-yen-sao-dai-nam993.jpg" alt="to yen tinh che">
+                                 <a href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
+                                 <img class="img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias ?>">
                                  </a>
                               </div>
                            </div>
