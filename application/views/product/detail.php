@@ -10,16 +10,16 @@
                   <div class="product-single__photos block_img_sticky">
                      <div class="proFeaturedImage">
                         <div class="block_content d-flex">
-                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" alt="tieu de san pham"/>
+                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="<?=BASE_URL.$product_gallery[0]->thumbnail?>" alt="tieu de san pham"/>
                         </div>
                      </div>
                      <div id="productThumbs" class="mt-10">
                         <div class="thumblist" data-pswp-uid="1">
                            <div class="owl-carousel owl-theme" data-autoplay="false" data-autoplayTimeout="6000" data-items="5" data-margin="10" data-nav="false" data-dots="false" data-loop="false" data-items_tablet="4" data-items_mobile="5">
-                              <? for($i=0;$i<4;$i++) { ?>
+                              <? foreach($product_gallery as $gallery) { ?>
                               <div class="thumbItem">
                                  <a href="javascript:void(0)" data-image="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" data-zoom-image="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" class="product-single__thumbnail">
-                                 <img class="detail-img" src="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" alt="tieu de san pham">
+                                 <img class="detail-img" src="<?=BASE_URL.$gallery->thumbnail?>" alt="tieu de san pham">
                                  </a>
                               </div>
                               <? } ?>
@@ -30,7 +30,7 @@
                </div>
                <div class="block_information position-static col-md-7 col-xs-12 mt-xs-30">
                   <div class="info_content">
-                     <h1 itemprop="name" class="product-single__title">Vụn lớn đắp tổ</h1>
+                     <h1 itemprop="name" class="product-single__title"><?=$item->title?></h1>
                      <div class="product-single__meta">
                         <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
                            <meta itemprop="priceCurrency" content="VND">
@@ -51,7 +51,7 @@
                                  <span class="label-sku">YS000100386</span>
                               </p> -->
                               <p itemprop="cat" class="product-single__cat"><span class="label control-label">Danh mục:</span>
-                                 <a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html">Tổ Yến Tinh Chế</a>,
+                                 <a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html"><?=$product_category->name?></a>
                               </p>
                               <!-- <p itemprop="origin" class="product-single__sku">
                                  <span class="label control-label">Xuất xứ:</span>
@@ -69,7 +69,7 @@
                      <p class="product-single__price product-single__price-nov-product-template d-flex align-items-center" price-pitemprop="description">
                         <span class="product-price__price product-price__price-nov-product-template product-price__sale product-price__sale--single">
                         <span id="ProductPrice-nov-product-template" class="money mr-10">
-                        <span class="money" itemprop="price" content="2.790.000">2.790.000</span>
+                        <span class="money" itemprop="price" content="2.790.000"><?=number_format($item->price,'0',',','.')?></span>
                         </span>
                         </span>
                         <s id="ComparePrice-nov-product-template"><span class="money">3.000.000</span></s>
@@ -91,7 +91,7 @@
                         </div> -->
                         <div class="group-quantity">
                            <span class="control-label">Số lượng:</span>
-                           <div class="product-form__item product-form__item--quantity align-items-center mb-30">
+                           <div class="product-form__item product-form__item--quantity align-item-center mb-30">
                               <label for="Quantity" class="quantity-selector"></label>
                               <div class="quick_view_qty">
                                  <a class="quick_view-qty quick_view-qty-minus">-</a>
@@ -129,7 +129,7 @@
                </div>
                <div class="tab-content">
                   <div class="tab-pane active" id="proTabs1">
-                     <article>Đây là nội dung</article>
+                     <article><?=$item->content?></article>
                   </div>
                </div>
             </div>
