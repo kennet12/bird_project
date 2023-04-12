@@ -55,7 +55,6 @@ class M_product extends M_db
 		}
 
 		$query = $this->db->query($sql);
-		// var_dump($sql);
 		return $query->result();
 	}
 	
@@ -84,6 +83,7 @@ class M_product extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
+
 		$query = $this->db->query($sql);
 		
 		return $query->result();

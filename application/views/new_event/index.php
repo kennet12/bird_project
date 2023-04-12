@@ -45,7 +45,7 @@
             <? foreach ($items as $item) {?>
             <div class="item">
                <div style="padding-bottom: 10px;" class="left-item">
-                  <a  href="<?=site_url("tin-tuc-su-kien/{$this->m_content_categories->load($item->category_id)->alias}/{$item->alias}")?>" title="">
+                  <a  href="<?=site_url("tin-tuc-su-kien/{$this->m_content_categories->load($item->category_id)->alias}/{$item->alias}")?>" title="<?=$item->title?>">
                   <img  src="<?=!empty($item->thumbnail) ? $item->thumbnail : IMAGES_DEFAULT ?>" class="img-responsive transition" alt="<?=$item->title?>" style="width:100px;">
                   </a>
                   <a href="<?=site_url("tin-tuc-su-kien/{$this->m_content_categories->load($item->category_id)->alias}/{$item->alias}")?>">
@@ -63,5 +63,5 @@
       </div>
    </div>
    <br>
-   <div class="text-center"><?=!empty($pagination)?$pagination:''?></div>
+   <div class="text-center"><?=$pagination?></div>
 </div>

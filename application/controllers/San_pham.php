@@ -18,15 +18,21 @@ class San_pham extends CI_Controller {
 
 				$item = $this->m_product->load($id);
 				$product_category = $this->m_product_categories->load($item->category_id);
-				$product_gallery = $this->m_product_gallery->items($item->id);
 
-				// $related_product = ""
+				$info = new stdClass();
+				$info->product_id = $item->id;
+				$product_galleries = $this->m_product_gallery->items($info, null, null, 'stt','ASC');
+
+				$info = new stdClass();
+				$info->category_id = $product_category->id;
+				$related_product = $this->m_product->relative_items($info, [$item->id]);
 
 				$view_data = array();
 				$view_data["breadcrumb"] 			= $this->_breadcrumb;
 				$view_data['item'] = $item;
 				$view_data['product_category'] = $product_category;
-				$view_data['product_gallery'] = $product_gallery;
+				$view_data['product_galleries'] = $product_galleries;
+				$view_data['related_product'] = $related_product;
 
 				$tmpl_content = array();
 				$tmpl_content["content"]   = $this->load->view("product/detail", $view_data, TRUE);

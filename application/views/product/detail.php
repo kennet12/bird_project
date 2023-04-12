@@ -1,25 +1,25 @@
 <div class="page-width container">
    <div id="shopify-section-nov-product-template" class="shopify-section">
       <div class="product-template__container tabdesc" itemscope itemtype="http://schema.org/Product" id="ProductSection-nov-product-template" data-section-id="nov-product-template" data-enable-history-state="true" data-type="product-template" data-wishlist-product>
-         <meta itemprop="name" content="tieu de san pham">
-         <meta itemprop="url" content="alias-san-pham">
-         <meta itemprop="image" content="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg">
+         <meta itemprop="name" content="><?=$item->title?>">
+         <meta itemprop="url" content="><?=$item->alias?>">
+         <meta itemprop="image" content="<?=BASE_URL.$product_galleries[0]->thumbnail?>">
          <div class="TopContent mb-100 pb-xs-60">
             <div class="product-single row position-static">
                <div class="col-md-5 col-xs-12 position-static">
                   <div class="product-single__photos block_img_sticky">
                      <div class="proFeaturedImage">
                         <div class="block_content d-flex">
-                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="<?=BASE_URL.$product_gallery[0]->thumbnail?>" alt="tieu de san pham"/>
+                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="<?=BASE_URL.$product_galleries[0]->thumbnail?>" alt="<?=$item->title?>"/>
                         </div>
                      </div>
                      <div id="productThumbs" class="mt-10">
                         <div class="thumblist" data-pswp-uid="1">
                            <div class="owl-carousel owl-theme" data-autoplay="false" data-autoplayTimeout="6000" data-items="5" data-margin="10" data-nav="false" data-dots="false" data-loop="false" data-items_tablet="4" data-items_mobile="5">
-                              <? foreach($product_gallery as $gallery) { ?>
+                              <? foreach($product_galleries as $product_gallery) { ?>
                               <div class="thumbItem">
-                                 <a href="javascript:void(0)" data-image="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" data-zoom-image="https://www.yen-vietnam.com/files/upload/product/YS000100386/yen-tinh-che-vun-lon-dap-to95.jpg" class="product-single__thumbnail">
-                                 <img class="detail-img" src="<?=BASE_URL.$gallery->thumbnail?>" alt="tieu de san pham">
+                                 <a href="javascript:void(0)" data-image="<?=BASE_URL.$product_gallery->thumbnail?>" data-zoom-image="<?=BASE_URL.$product_gallery->thumbnail?>" class="product-single__thumbnail">
+                                    <img class="detail-img" src="<?=BASE_URL.$product_gallery->thumbnail?>" alt="<?=$item->title?>">
                                  </a>
                               </div>
                               <? } ?>
@@ -51,14 +51,14 @@
                                  <span class="label-sku">YS000100386</span>
                               </p> -->
                               <p itemprop="cat" class="product-single__cat"><span class="label control-label">Danh mục:</span>
-                                 <a href="https://www.yen-vietnam.com/san-pham/to-yen-tinh-che.html"><?=$product_category->name?></a>
+                                 <a href="<?=site_url("san-pham/{$product_category->alias}")?>"><?=$product_category->name?></a>
                               </p>
                               <!-- <p itemprop="origin" class="product-single__sku">
                                  <span class="label control-label">Xuất xứ:</span>
                                  <span class="label"></span>
                               </p> -->
                               <p style="display:none;" itemprop="price" class="product-single__sku">
-                                 <span class="label">2790000</span>
+                                 <span class="label"><?=!empty($item->price)?:0?></span>
                               </p>
                            </div>
                            <div class="product-single__shortdes mb-20" itemprop="description">
@@ -69,10 +69,9 @@
                      <p class="product-single__price product-single__price-nov-product-template d-flex align-items-center" price-pitemprop="description">
                         <span class="product-price__price product-price__price-nov-product-template product-price__sale product-price__sale--single">
                         <span id="ProductPrice-nov-product-template" class="money mr-10">
-                        <span class="money" itemprop="price" content="2.790.000"><?=number_format($item->price,'0',',','.')?></span>
+                        <span class="money" itemprop="price" content="<?=!empty($item->price)?number_format($item->price,'0',',','.'):'0'?>"><?=!empty($item->price)?number_format($item->price,'0',',','.'):'Liên Hệ'?></span>
                         </span>
                         </span>
-                        <s id="ComparePrice-nov-product-template"><span class="money">3.000.000</span></s>
                      </p>
                      <div class="selectorVariants">
                         <!-- <div class="pattern">
@@ -89,7 +88,7 @@
                               </li>
                            </ul>
                         </div> -->
-                        <div class="group-quantity">
+                        <!-- <div class="group-quantity">
                            <span class="control-label">Số lượng:</span>
                            <div class="product-form__item product-form__item--quantity align-item-center mb-30">
                               <label for="Quantity" class="quantity-selector"></label>
@@ -98,12 +97,12 @@
                                  <input type="number" id="Quantity" name="quantity" value="1" min="1" max="40" step="1" class="quantity-selector product-form__input" pattern="[0-9]*">
                                  <a class="quick_view-qty quick_view-qty-plus">+</a>
                               </div>
-                              <!-- <div class="productWishList">
+                              <div class="productWishList">
                                  <a href="#" status="0" id_item="5" class="removed-wishlist wishlist btnProductWishlist btnProductWishlist-5">
                                  <i class="zmdi zmdi-favorite"></i>
                                  <span class="wishlist-text">Sản phẩm yêu thích</span>
                                  </a>
-                              </div> -->
+                              </div>
                            </div>
                            <div class="product_option_sub">
                               <div class="product-form__item product-form__item--submit">
@@ -116,7 +115,7 @@
                            <script type="text/javascript">
                               addToCart('enable-cart','Thêm vào giỏ','Hoàn thành ','Sản phẩm của bạn đã được thêm vào giỏ','Tiếp tục mua sắm','Đặt hàng');
                            </script>
-                        </div>
+                        </div> -->
                      </div>
                   </div>
                </div>

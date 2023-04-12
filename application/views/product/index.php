@@ -111,7 +111,7 @@
                      <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">
                         <div class="item-product">
                            <div class="thumbnail-container has-multiimage has_variants">
-                              <a href="<?=site_url("san-pham/{$result_product->alias}/{$result_product->id}")?>" style="margin-top: 10px;">
+                              <a href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>" style="margin-top: 10px;">
                                  <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->gallery)?BASE_URL.$result_product ->gallery : ' '?>" alt="">
                               </a>
                            </div>
@@ -119,7 +119,7 @@
                               <div class="block_product_info">
                                  
                                  <div class="product__title">
-								         	<a href="#" class="limit-content-1-line"><?=$result_product ->title; ?></a>
+								         	<a href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>" class="limit-content-1-line"><?=$result_product->title; ?></a>
                                  </div>
                                  <div class="product__price">
 								         	<span class="product-price__price product-price__sale">
@@ -131,7 +131,7 @@
                               </div>
                               <div class="group_buttons_bottom">
                                  <div class="group-buttons">
-                                    <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$result_product->alias}/{$result_product->id}")?>">
+                                    <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>">
                                        <i class="zmdi zmdi-zoom-in"></i>
                                        <span>Xem chi tiết</span>
                                     </a>

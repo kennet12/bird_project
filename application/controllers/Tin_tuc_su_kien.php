@@ -10,7 +10,8 @@
    	}
    	public function index($category=null, $id=null) {
    		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Tin tức - sự kiện" => site_url($this->util->slug($this->router->fetch_class()))));
-   
+		$results_category = $this->m_content_categories->items(null,1);
+
    		if(!empty($category))
    		{	
    			if(!empty($id))
@@ -35,13 +36,12 @@
    				
    				$tmpl_content = array();
    				$tmpl_content["content"]   = $this->load->view("new_event/detail", $view_data, TRUE);
-   				$this->load->view("layout/main", $tmpl_content);
+   				$this->load->view("layout/view", $tmpl_content);
    			}
    			else
    			{	
    				
    				$check_cate =$this->m_content_categories->load($category);
-   				$results_category = $this->m_content_categories->items(null,1);
    				
    				$info = new stdClass();
    				$info->category_id=$check_cate->id;
@@ -55,7 +55,7 @@
    
    				$tmpl_content = array();
    				$tmpl_content["content"]   = $this->load->view("new_event/index", $view_data, TRUE);
-   				$this->load->view("layout/main", $tmpl_content);
+   				$this->load->view("layout/view", $tmpl_content);
    			}
    				
    		}
@@ -85,7 +85,6 @@
    				
    			);
    			$results_item = $this->m_contents->items(null,1,$page_num,$offset);
-   			$results_category = $this->m_content_categories->items(null,1);
    
    			$view_data = array();
    			// $view_data["breadcrumb"] 			= $this->_breadcrumb;
@@ -99,7 +98,7 @@
    
    			$tmpl_content = array();
    			$tmpl_content["content"]   = $this->load->view("new_event/index", $view_data, TRUE);
-   			$this->load->view("layout/main", $tmpl_content);
+   			$this->load->view("layout/view", $tmpl_content);
    		}
    
    		

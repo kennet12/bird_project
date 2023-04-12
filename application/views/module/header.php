@@ -27,7 +27,7 @@
 		</div>
 		<div class="mobile_logo">
 		<a href="<?=BASE_URL?>" class="site-header__logo-image img-fluid">
-			<img class="js" src="<?=IMG_URL.'logo.jpg?v='.CACHE_TIME?>" alt="">
+			<img class="js" src="<?=BASE_URL.str_replace('./','/',$setting->logo)?>" alt="">
 		</a>
 		</div>
 		<div id="mobile_search" class="search-box">
@@ -134,7 +134,7 @@
 			<div class="contentsticky_logo col-md-3">
 				<div class="h2 site-header__logo mb-0" itemscope="" itemtype="http://schema.org/Organization">
 					<a href="<?=BASE_URL?>" itemprop="url" class="site-header__logo-image">
-						<img class="js img-fluid" src="<?=$setting->logo?>" style="width:90px" alt="Giang Long">
+						<img class="js img-fluid" src="<?=BASE_URL.str_replace('./','/',$setting->logo)?>" style="width:90px" alt="Giang Long">
 					</a>
 				</div>
 			</div>

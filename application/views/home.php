@@ -150,7 +150,7 @@
                   <div class="item col">
                      <div class="item-product">
                         <div class="thumbnail-container has-multiimage">
-                           <a class="w-100" href="<?=site_url("san-pham/{$product->alias}/{$product->id}")?>">
+                           <a class="w-100" href="<?=site_url("san-pham/{$product->category_alias}/{$product->alias}")?>">
                               <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($product ->gallery)?BASE_URL.$product ->gallery : ' '?> ?> " >
                            </a>
                         </div>
@@ -161,7 +161,7 @@
                            <div class="product__price">
                               <a href="<?=site_url("lien-he")?>"><?=!empty($product->price)?number_format($product->price,0,',','.'):'Liên Hệ'?></a>
                            </div>
-                           <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$product->alias}/{$product->id}")?>">
+                           <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$product->category_alias}/{$product->alias}")?>">
                               <i class="zmdi zmdi-zoom-in"></i>   
                               <span>Xem chi tiết</span>
                            </a>
@@ -190,7 +190,7 @@
       <div class="container">
          <div class="text-left mb-55 d-flex align-items-center">
             <div class="title_block">
-               <span style="color:#573816;text-shadow: 0px 2px 2px #fff, 0px -2px 2px white, -2px 0px 2px white, 2px 0px 2px white;">Mỡ cá - dầu cá</span>
+               <span style="color:#573816;text-shadow: 0px 2px 2px #fff, 0px -2px 2px white, -2px 0px 2px white, 2px 0px 2px white;"><?=$this->m_product_categories->load(12)->name?></span>
             </div>
             <div class="nv-ml-auto">
                <span class="custombutton prev_custom d-xs-none">
@@ -225,7 +225,7 @@
                         <div class="item col">
                            <div class="item-product">
                               <div class="thumbnail-container has-multiimage">
-                                 <a class="w-100" href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
+                                 <a class="w-100" href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>">
                                  <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias?>">
                                  </a>
                               </div>
@@ -236,7 +236,7 @@
                                  <div class="product__price">
                                     <a href="<?=site_url("lien-he")?>"><?=!empty($value->price)?number_format($value->price,0,',','.'):'Liên Hệ'?></a>
                                  </div>
-                                 <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
+                                 <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>">
                                     <i class="zmdi zmdi-zoom-in"></i>
                                     <span>Xem chi tiết</span>
                                  </a>
@@ -285,7 +285,7 @@
          <div class="col-xl-8 col-lg-7">
             <div class="text-left mb-55 d-flex align-items-center">
                <div class="title_block mb-0">
-                  <span>Bột cá tra - bộ cá biển</span>
+                  <span><?=$this->m_product_categories->load(3)->name?> - <?=$this->m_product_categories->load(6)->name?></span>
                </div>
                <div class="nv-ml-auto">
                   <span class="custombutton prev_custom d-xs-none">
@@ -319,7 +319,7 @@
                         <div class="row">
                            <div class="col-6">
                               <div class="thumbnail-container has-multiimage">
-                                 <a href="<?=site_url("san-pham/{$value->alias}/{$value->id}")?>">
+                                 <a href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>">
                                  <img class="img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias ?>">
                                  </a>
                               </div>
@@ -327,7 +327,7 @@
                            <div class="col-6 d-flex align-items-center">
                               <div class="product__info">
                                  <div class="block_product_info">
-                                    <a class="limit-content-2-line product__title" href="<?=site_url("san-pham/{$value->alias}")?>"><?=$value->title?></a>
+                                    <a class="limit-content-2-line product__title" href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>"><?=$value->title?></a>
                                     <div class="product__price">
                                       <a href="<?=site_url("lien-he")?>"> <?=!empty($value->price)?number_format($value->price):'Liên Hệ'?></a>
                                     </div>
