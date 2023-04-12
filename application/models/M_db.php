@@ -44,6 +44,7 @@ class M_db extends CI_Model {
 		if ($query->num_rows() > 0) {
 			return $query->row();
 		}
+		// var_dump($sql);
 		return null;
 	}
 	

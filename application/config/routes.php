@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = TRUE;
 $route['san-pham/(:any)/(:any)'] 			= "san-pham/index/$1/$2";
 $route['san-pham/(:any)'] 					= "san-pham/index/$1";
 $route['san-pham']                          = "san-pham";
+$route['tin-tuc-su-kien']                   = "tin-tuc-su-kien";
 $route['tin-tuc-su-kien/(:any)/(:any)'] 	= "tin-tuc-su-kien/index/$1/$2";
 $route['tin-tuc-su-kien/(:any)'] 			= "tin-tuc-su-kien/index/$1";
 $route['ho-tro-khach-hang/(:any)/(:any)'] 	= "ho-tro-khach-hang/index/$1/$2";

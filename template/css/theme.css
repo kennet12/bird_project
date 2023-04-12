@@ -7824,14 +7824,28 @@ h1.product-single__title {
     list-style: none;
     z-index: 2;
     padding-left: 10px;
-    margin-bottom: 20px 
+    margin-bottom: 20px ;
+    justify-content: center;
 }
+
 .pagination li {
-    display: inline-block 
+    width: 40px;
+    display: inline-block;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    padding: 7px;
+   
 }
 .pagination li:not(:last-child) {
     margin-right: 5px 
 }
+.pagination li.active { 
+    background: #606bdf !important;
+   
+}
+
 .pagination__text>a, .pagination__text>span {
     width: 40px;
     height: 40px;

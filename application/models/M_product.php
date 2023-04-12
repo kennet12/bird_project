@@ -151,53 +151,50 @@ class M_product extends M_db
 
 
 
-	public function items_b($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
-	{
+	// public function items_b($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
+	// {
 		
-		$sql ="SELECT DISTINCT
-		pd.*, 
-		pdc.alias as category_alias,
-		pdg.thumbnail as gallery
-		FROM
-		m_product as pd 
-		
-		INNER JOIN 
-		m_product_categories as pdc 
-		ON (pdc.id = pd.category_id)
-		
-		LEFT JOIN 
-		m_product_gallery as pdg 
-		ON (pdg.product_id = pd.id) 
-		WHERE 1 = 1";
+	// 	$sql ="SELECT DISTINCT
+	// 	pd.*, 
+	// 	pdc.*,
 
-		if(!is_null($info))
-		{
-			if(!empty($info->$category_id))
-			{
-				$sql .=" AND pd.category_id = '{$info->$category_id}'";
-			}
-		}
-		if(!is_null($active))
-		{
-			$sql .= " AND pd.active  = '{$active}'";
-		}
-		$sql .= " AND pd.deleted = '0'";
-		if (!empty($order_by)) {
-			$sql .= " ORDER BY pd.{$order_by} {$sort_by}";
-		} else {
-			$sql .= " ORDER BY pd.created_date DESC";
-		}
-		if (!is_null($limit)) {
-			$sql .= " LIMIT {$limit}";
-		}
-		if (!is_null($offset)) {
-			$sql .= " OFFSET {$offset}";
-		}
-		$query = $this->db->query($sql);
-		// var_dump($sql);
-		return $query->result();
+	// 	FROM
+	// 	m_product as pd 
+		
+	// 	INNER JOIN 
+	// 	m_product_categories as pdc 
+	// 	ON (pdc.id = pd.category_id)
+		
+	// 	WHERE 1 = 1";
 
-	}
+	// 	if(!is_null($info))
+	// 	{
+	// 		if(!empty($info->$category_id))
+	// 		{
+	// 			$sql .=" AND pd.category_id = '{$info->$category_id}'";
+	// 		}
+	// 	}
+	// 	if(!is_null($active))
+	// 	{
+	// 		$sql .= " AND pd.active  = '{$active}'";
+	// 	}
+	// 	$sql .= " AND pd.deleted = '0'";
+	// 	if (!empty($order_by)) {
+	// 		$sql .= " ORDER BY pd.{$order_by} {$sort_by}";
+	// 	} else {
+	// 		$sql .= " ORDER BY pd.created_date DESC";
+	// 	}
+	// 	if (!is_null($limit)) {
+	// 		$sql .= " LIMIT {$limit}";
+	// 	}
+	// 	if (!is_null($offset)) {
+	// 		$sql .= " OFFSET {$offset}";
+	// 	}
+	// 	$query = $this->db->query($sql);
+	// 	// var_dump($sql);
+	// 	return $query->result();
+
+	// }
 
 }
 ?>

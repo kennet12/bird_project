@@ -68,6 +68,7 @@ class M_contents extends M_db
 			$sql .= " OFFSET {$offset}";
 		}
 		$query = $this->db->query($sql);
+		// var_dump($sql);
 		return $query->result();
 	}
 
