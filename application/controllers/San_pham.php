@@ -15,7 +15,7 @@ class San_pham extends CI_Controller {
 		if(!empty($category))
 		{	
 			if (!empty($id)) {
-
+				
 				$item = $this->m_product->load($id);
 				$product_category = $this->m_product_categories->load($item->category_id);
 
