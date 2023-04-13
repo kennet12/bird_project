@@ -3,7 +3,7 @@
       <div class="row">
          <div class="sidebar sidebar-collection col-lg-3 col-md-4 flex-xs-unordered">
             <div class="collection_vn pt-md-30 mb-md-40">
-               <div class="collection_title"><?=!empty($name_category)?$name_category:"Tất cả sản phẩm";?></div>
+               <div class="collection_title"><?=!empty($category->name)?$category->name:"Tất cả sản phẩm";?></div>
             </div>
             <div id="shopify-section-nov-sidebar" class="shopify-section">
                <div class="close-filter"><i class="zmdi zmdi-close"></i></div>
@@ -15,10 +15,10 @@
                <div class="categories__sidebar sidebar-block sidebar-block__1">
                   <div class="title-block mb-10">Danh Mục </div>
                   <ul class="list-unstyled">
-                      <? foreach($result_revice_category as $result_category){?> 
+                      <? foreach($product_categories as $product_category){?> 
                         <li class="item mb-10">
                         
-                           <a href="<?=site_url("san-pham/{$result_category->alias}")?>" title="<?=$result_category->name?>"><?=$result_category->name?></a>
+                           <a href="<?=site_url("san-pham/{$product_category->alias}")?>" title="<?=$product_category->name?>"><?=$product_category->name?></a>
                         
                         </li>
                      <?}?>

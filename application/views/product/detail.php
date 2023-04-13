@@ -16,7 +16,7 @@
                      <div id="productThumbs" class="mt-10">
                         <div class="thumblist" data-pswp-uid="1">
                            <div class="owl-carousel owl-theme" data-autoplay="false" data-autoplayTimeout="6000" data-items="5" data-margin="10" data-nav="false" data-dots="false" data-loop="false" data-items_tablet="4" data-items_mobile="5">
-                              <? foreach($product_galleries as $product_gallery) { var_dump($product_gallery)?>
+                              <? foreach($product_galleries as $product_gallery) {?>
                               <div class="thumbItem">
                                  <a href="javascript:void(0)" data-image="<?=BASE_URL.$product_gallery->thumbnail?>" data-zoom-image="<?=BASE_URL.$product_gallery->thumbnail?>" class="product-single__thumbnail">
                                     <img class="detail-img" src="<?=BASE_URL.$product_gallery->thumbnail?>" alt="<?=$item->title?>">
@@ -51,7 +51,7 @@
                                  <span class="label-sku">YS000100386</span>
                               </p> -->
                               <p itemprop="cat" class="product-single__cat"><span class="label control-label">Danh mục:</span>
-                                 <a href="<?=site_url("san-pham/{$product_category->alias}")?>"><?=$product_category->name?></a>
+                                 <a href="<?=site_url("san-pham/{$category->alias}")?>"><?=$category->name?></a>
                               </p>
                               <!-- <p itemprop="origin" class="product-single__sku">
                                  <span class="label control-label">Xuất xứ:</span>
@@ -142,19 +142,19 @@
                         <div class="owl-relatedproduct owl-carousel owl-drag owl-loaded" data-autoplay="false" data-autoplaytimeout="6000" data-items="5" data-nav="true" data-dots="false" data-loop="true" data-items_tablet="3" data-items_mobile="2" data-margin="30">
                            <div class="owl-stage-outer">
                               <div class="owl-stage" style="transform: translate3d(-1200px, 0px, 0px); transition: all 0s ease 0s; width: 4320px;">
-							  <? foreach($related_product as $related) { ?>
+							            <? foreach($related_product as $related) { ?>
                                  <div class="owl-item cloned" style="width: 210px; margin-right: 30px;">
                                     <div class="item item-product">
                                        <div class="thumbnail-container has-multiimage has_variants">
-                                          <a class="w-100" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>">
-                                          <img class="w-100 img-fluid product__thumbnail" src="<?=BASE_URL.$related->gallery?>" alt="<?=$related->title?>">
+                                          <a class="w-100" href="<?=site_url("san-pham/{$category->alias}/{$related->alias}")?>">
+                                          <img class="w-100 img-fluid product__thumbnail" src="<?=BASE_URL.$related->image?>" alt="<?=$related->title?>">
                                           </a>
                                           <div class="badge_sale">
                                           </div>
                                        </div>
                                        <div class="product__info text-center">
                                           <div class="product__title">
-                                             <a class="limit-content-1-line" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>"><?=$related->title?></a>
+                                             <a class="limit-content-1-line" href="<?=site_url("san-pham/{$category->alias}/{$related->alias}")?>"><?=$related->title?></a>
                                           </div>
                                           <div class="product__review">
                                              <div class="rating"><span class="shopify-product-reviews-badge" data-id="6153538011328"></span></div>
@@ -164,7 +164,7 @@
                                             <a href="<?=site_url("lien-he")?>"> <span class="money"><?=!empty($related->price)?number_format($related->price,0,',','.'): "Liên Hệ"?></span></a>
                                              </span>
                                           </div>
-                                          <a class="btn btnAddToCart btnChooseVariant enable-cart" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>">
+                                          <a class="btn btnAddToCart btnChooseVariant enable-cart" href="<?=site_url("san-pham/{$category->alias}/{$related->alias}")?>">
                                           <i class="zmdi zmdi-zoom-in"></i>
                                           <span>Xem chi tiết</span>
                                           </a>

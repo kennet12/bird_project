@@ -13,31 +13,27 @@ class Hoi_dap extends CI_Controller {
 
 		if(!empty($category)){
 
-				$item = $this->m_faq_categories->load($category);
+				$category = $this->m_faq_categories->load($category);
 				$info = new stdClass();
-				$info->catagory_id = $item ->id;
+				$info->category = $category ->id;
 
-				$faq_kq = $this->m_faq->items($info,1);
+				$items = $this->m_faq->items($info,1);
 
 				$view_data = array();
-				$view_data['item'] = $item;
-				$view_data['faq_kq'] = $faq_kq;
+				$view_data['category'] = $category;
+				$view_data['categories'] = $this->m_faq_categories->items(null,1);
+				$view_data['items'] = $items;
 		
 				$tmpl_faq = [];
-				$tmpl_faq['content'] = $this->load->view("faq/detail",$view_data,true);
+				$tmpl_faq['content'] = $this->load->view("faq/index",$view_data,true);
 				$this->load->view("layout/view",$tmpl_faq);
 
 		}
 		else
 		{
-
-			$faqs = $this->m_faq->items(null,1);
-			$faq_categories = $this->m_faq_categories->items(null,1);
-
 			$view_data = array();
-			$view_data['faqs'] = $faqs;
-			$view_data['faq_categories'] = $faq_categories;
-			$view_data['title'] = 'Hỏi & Đáp';
+			$view_data['items'] = $this->m_faq->items(null,1);
+			$view_data['categories'] = $this->m_faq_categories->items(null,1);
 
 			$tmpl_faq = [];
 			$tmpl_faq['content'] = $this->load->view("faq/index",$view_data,true);

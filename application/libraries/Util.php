@@ -55,51 +55,101 @@ class Util {
 		
 		return $meta;
 	}
+
+	function pagination($base_url, $total_rows=1, $per_page=10,$type_title=null)
+    {
+        // $lang = !isset($_COOKIE['nguyenanh_lang'])?'vi':'en';
+        // $this->ci->lang->load('content',$lang);
+        // $website				= $this->ci->lang->line('website');
+        $this->ci->load->library('pagination');
+        if (preg_match('/&page=.*/', $base_url)) {
+            $base_url = preg_replace('/&page=.*/', NULL, $base_url);
+        }
+        $total_page = ceil($total_rows / $per_page);
+        $page_cur = !empty($_GET['page'])?$_GET['page']:'1';
+
+        $config = array();
+        $config['base_url']             = $base_url;
+        $config['total_rows']           = $total_rows;
+        $config['per_page']             = $per_page;
+        $config['page_query_string']    = TRUE;
+        $config['query_string_segment'] = 'page';
+        $config['use_page_numbers']     = TRUE;
+
+        $config['full_tag_open']        = '<div class="d-flex align-items-center"><div class="pagination__viewing">Trang '.$page_cur.' - '.$total_page.' | '.$total_rows.' '.$type_title.'</div><ul class="pagination d-flex justify-content-end align-items-center">';
+        $config['full_tag_close']       = '</ul></div>';
+
+        $config['first_link']           = 'Trang Đầu';
+        $config['first_tag_open']       = '<li class="d-none d-sm-inline"><div class="pagination__btn"><span class="icon__fallback-text">';
+        $config['first_tag_close']      = '</span></div></li>';
+
+        $config['prev_link']            = '<i class="zmdi zmdi-chevron-left"></i>';
+        $config['prev_tag_open']        = '<li class="pagination__text">';
+        $config['prev_tag_close']       = '</li>';
+
+        $config['cur_tag_open']         = '<li class="pagination__text active"><span>';
+        $config['cur_tag_close']        = '</span></li>';
+
+        $config['num_tag_open']         = '<li class="pagination__text">';
+        $config['num_tag_close']        = '</li>';
+
+        $config['next_link']            = '<i class="zmdi zmdi-chevron-right"></i>';
+        $config['next_tag_open']        = '<li class="pagination__text">';
+        $config['next_tag_close']       = '</li>';
+
+        $config['last_link']            = 'Trang Cuối';
+        $config['last_tag_open']       = '<li class="d-none d-sm-inline"><div class="pagination__btn"><span class="icon__fallback-text">';
+        $config['last_tag_close']      = '</span></div></li>';
+
+        $this->ci->pagination->initialize($config);
+
+        return $this->ci->pagination->create_links();
+    }
 	
-	function pagination($base_url, $total_rows=1, $per_page=10)
-	{
-		$this->ci->load->library('pagination');
-		if (preg_match('/&page=.*/', $base_url)) {
-			$base_url = preg_replace('/&page=.*/', null, $base_url);
-		}
+	// function pagination($base_url, $total_rows=1, $per_page=10)
+	// {
+	// 	$this->ci->load->library('pagination');
+	// 	if (preg_match('/&page=.*/', $base_url)) {
+	// 		$base_url = preg_replace('/&page=.*/', null, $base_url);
+	// 	}
 		
-		$config = array();
-		$config['base_url']				= $base_url;
-		$config['total_rows']			= $total_rows;
-		$config['per_page']				= $per_page;
-		$config['page_query_string']	= TRUE;
-		$config['query_string_segment']	= "page";
-		$config['use_page_numbers']		= TRUE;
+	// 	$config = array();
+	// 	$config['base_url']				= $base_url;
+	// 	$config['total_rows']			= $total_rows;
+	// 	$config['per_page']				= $per_page;
+	// 	$config['page_query_string']	= TRUE;
+	// 	$config['query_string_segment']	= "page";
+	// 	$config['use_page_numbers']		= TRUE;
 		
-		$config['full_tag_open'] 		= '<ul class="pagination">';
-		$config['full_tag_close'] 		= '</ul>';
+	// 	$config['full_tag_open'] 		= '<ul class="pagination">';
+	// 	$config['full_tag_close'] 		= '</ul>';
 		
-		$config['first_link']			= 'F';
-		$config['first_tag_open'] 		= '<li>';
-		$config['first_tag_close'] 		= '</li>';
+	// 	$config['first_link']			= 'F';
+	// 	$config['first_tag_open'] 		= '<li>';
+	// 	$config['first_tag_close'] 		= '</li>';
 		
-		$config['prev_link']			= '&lt;';
-		$config['prev_tag_open'] 		= '<li>';
-		$config['prev_tag_close'] 		= '</li>';
+	// 	$config['prev_link']			= '&lt;';
+	// 	$config['prev_tag_open'] 		= '<li>';
+	// 	$config['prev_tag_close'] 		= '</li>';
 		
-		$config['cur_tag_open'] 		= '<li class="active"><a href="#">';
-		$config['cur_tag_close'] 		= '<span class="sr-only">(current)</span></a></li>';
+	// 	$config['cur_tag_open'] 		= '<li class="active"><a href="#">';
+	// 	$config['cur_tag_close'] 		= '<span class="sr-only">(current)</span></a></li>';
 		
-		$config['num_tag_open'] 		= '<li>';
-		$config['num_tag_close'] 		= '</li>';
+	// 	$config['num_tag_open'] 		= '<li>';
+	// 	$config['num_tag_close'] 		= '</li>';
 		
-		$config['next_link']			= '&gt;';
-		$config['next_tag_open'] 		= '<li>';
-		$config['next_tag_close'] 		= '</li>';
+	// 	$config['next_link']			= '&gt;';
+	// 	$config['next_tag_open'] 		= '<li>';
+	// 	$config['next_tag_close'] 		= '</li>';
 		
-		$config['last_link']			= 'L';
-		$config['last_tag_open'] 		= '<li>';
-		$config['last_tag_close'] 		= '</li>';
+	// 	$config['last_link']			= 'L';
+	// 	$config['last_tag_open'] 		= '<li>';
+	// 	$config['last_tag_close'] 		= '</li>';
 		
-		$this->ci->pagination->initialize($config);
+	// 	$this->ci->pagination->initialize($config);
 		
-		return $this->ci->pagination->create_links();
-	}
+	// 	return $this->ci->pagination->create_links();
+	// }
 	
 	function requireUserLogin($login_page=null)
 	{

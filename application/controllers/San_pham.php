@@ -12,29 +12,37 @@ class San_pham extends CI_Controller {
 	}
 	public function index($category=null, $id=null) {	
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Sản Phẩm" => site_url($this->util->slug($this->router->fetch_class()))));	
+
 		if(!empty($category))
 		{	
+			$category = $this->m_product_categories->load($category);
+
+			$this->_breadcrumb = array_merge($this->_breadcrumb, [$category->name => site_url("{$this->util->slug($this->router->fetch_class())}/{$category->alias}")]);
+
 			if (!empty($id)) {
 				$item = $this->m_product->load($id);
-				$product_category = $this->m_product_categories->load($item->category_id);
-				$this->_breadcrumb = array_merge($this->_breadcrumb, [
-					$this->m_product_categories->load($category)->name=> site_url("{$this->util->slug($this->router->fetch_class())}/{$product_category->alias}")]);
-
-					$this->_breadcrumb = array_merge($this->_breadcrumb, [
-						$item->title=> site_url("{$this->util->slug($this->router->fetch_class())}/{$product_category->alias}/{$item->alias}")]);
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [$item->title => site_url("{$this->util->slug($this->router->fetch_class())}/{$category->alias}/{$item->alias}")]);
 
 				$info = new stdClass();
 				$info->product_id = $item->id;
 				$product_galleries = $this->m_product_gallery->items($info, null,null, 'stt','ASC');
 
 				$info = new stdClass();
-				$info->category_id = $product_category->id;
+				$info->category_id = $category->id;
 				$related_product = $this->m_product->relative_items($info, [$item->id]);
+
+				foreach($related_product as $related) {
+					$info = new stdClass();
+					$info->product_id = $related->id;
+					$gallery = $this->m_product_gallery->items($info, null,null, 'stt','ASC');
+
+					$related->image = !empty($gallery[0]->thumbnail)?$gallery[0]->thumbnail:'';
+				}
 
 				$view_data = array();
 				$view_data["breadcrumb"] 			= $this->_breadcrumb;
 				$view_data['item'] = $item;
-				$view_data['product_category'] = $product_category;
+				$view_data['category'] 		= $category;
 				$view_data['product_galleries'] = $product_galleries;
 				$view_data['related_product'] = $related_product;	
 
@@ -43,11 +51,10 @@ class San_pham extends CI_Controller {
 				$this->load->view("layout/view", $tmpl_content);
 
 			} else {
-				$this->_breadcrumb = array_merge($this->_breadcrumb,array( $this->m_product_categories->load($category)->name => site_url($this->util->slug($this->router->fetch_class()).'/'.$category.'/'.$id)));
 			
 				$order_by = null;
 				$sort_by = null;
-				// var_dump($_GET ["sap-xep"]);
+
 				if(!empty($_GET["sap-xep"]))
 				{
 					if($_GET ["sap-xep"] == "tang-dan")
@@ -63,21 +70,7 @@ class San_pham extends CI_Controller {
 					}
 				}
 
-
-				$product_categories = $this->m_product_categories->items(null,1);
-				
-				$check_id_category = $this->m_product_categories->load($category);
-				$name_category=$check_id_category->name ;
-				// var_dump($name_category);
-			
-
-				$info = new stdClass();
-				$info->category_id = $check_id_category->id;
-				$total = count($this->m_product->items($info,1));
-			
 				$page_num	= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
-
-			
 				if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
 					$page = 1;
 				}
@@ -85,6 +78,10 @@ class San_pham extends CI_Controller {
 					$page = $_GET['page'];
 				}
 				$offset = ($page - 1) * $page_num;
+
+				$info = new stdClass();
+				$info->category_id = $category->id;
+				$total = count($this->m_product->items($info,1));
 
 				$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 				$url = str_replace("?page={$page}", '', $url);
@@ -95,33 +92,27 @@ class San_pham extends CI_Controller {
 					$page_num
 					
 				);
-				$check =ceil(($total /6));
-
+				
 				// lay tat san pham
-				
-				$info = new stdClass();
-				$info->category_id = $check_id_category->id;
-				
+				$check = ceil(($total /6));
 				$products = $this->m_product->items($info,1, $page_num,$offset,$order_by,$sort_by);
 				
-				// foreach($products as $product) {
-				// 	$info = new stdClass();
-				// 	$info->product_id = $product->id;
-				// 	$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
-				// 	$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
-				// }
+				foreach($products as $product) {
+					$info = new stdClass();
+					$info->product_id = $product->id;
+					$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
+					$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+				}
 
 				$view_data = array();
-				$view_data['name_category']			 = $name_category;
 				$view_data["breadcrumb"] 			 = $this->_breadcrumb;
-				$view_data['result_revice_category'] = $product_categories;
+				$view_data['category'] 				 = $category;
+				$view_data['product_categories'] 	 = $this->m_product_categories->items(null,1);
 				$view_data["pagination"]			 = $pagination;
 				$view_data['page']					 = $page;
 				$view_data['total']				 	 = $total;
 				$view_data['page_num']				 =$check;
 				$view_data['result_products']		 = $products;
-				
-				// var_dump($view_data);
 				
 				$tmpl_content = array();
 				$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);
@@ -161,15 +152,11 @@ class San_pham extends CI_Controller {
 			$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 			$url = str_replace("?page={$page}", '', $url);
 			$url = str_replace("&page={$page}", '', $url);
-			$pagination = $this->util->pagination(
-				$url,
-				$total,
-				$page_num
-			);
+
+			$pagination = $this->util->pagination($url, $total, 6, 'Sản phẩm');
 			
 			$check =ceil(($total /6));
 
-			
 			// lấy ra danh mục sản phẩm
 			$product_categories = $this->m_product_categories->items(null,1);
 		
@@ -191,9 +178,8 @@ class San_pham extends CI_Controller {
 			$view_data['total']				 	 = $total;
 			$view_data['page_num']				 =$check;
 			$view_data['page']				 	 = $page;
-			$view_data['result_revice_category'] =$product_categories;
+			$view_data['product_categories'] 	 = $this->m_product_categories->items(null,1);
 			$view_data['result_products']		 =$products;
-			// var_dump($products);
 			
 			$tmpl_content = array();
 			$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);

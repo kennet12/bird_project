@@ -7833,7 +7833,7 @@ h1.product-single__title {
     display: inline-block;
     height: 40px;
     text-align: center;
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
     border-radius: 50%;
     padding: 7px;
    
@@ -7842,7 +7842,7 @@ h1.product-single__title {
     margin-right: 5px 
 }
 .pagination li.active { 
-    background: #606bdf !important;
+    /* background: #606bdf !important; */
    
 }
 
