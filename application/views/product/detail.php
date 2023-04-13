@@ -3,20 +3,20 @@
       <div class="product-template__container tabdesc" itemscope itemtype="http://schema.org/Product" id="ProductSection-nov-product-template" data-section-id="nov-product-template" data-enable-history-state="true" data-type="product-template" data-wishlist-product>
          <meta itemprop="name" content="><?=$item->title?>">
          <meta itemprop="url" content="><?=$item->alias?>">
-         <meta itemprop="image" content="<?=BASE_URL.$product_galleries[0]->thumbnail?>">
+         <meta itemprop="image" content="<?=!empty($product_galleries[0]->thumbnail)?BASE_URL.$product_galleries[0]->thumbnail:''?>">
          <div class="TopContent mb-100 pb-xs-60">
             <div class="product-single row position-static">
                <div class="col-md-5 col-xs-12 position-static">
                   <div class="product-single__photos block_img_sticky">
                      <div class="proFeaturedImage">
                         <div class="block_content d-flex">
-                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="<?=BASE_URL.$product_galleries[0]->thumbnail?>" alt="<?=$item->title?>"/>
+                           <img id="ProductPhotoImg" class="img-fluid <?=(!$this->util->detect_mobile())? 'image-zoom':'' ?>  img-responsive" src="<?=!empty($product_galleries[0]->thumbnail)?BASE_URL.$product_galleries[0]->thumbnail:''?>" alt="<?=$item->title?>"/>
                         </div>
                      </div>
                      <div id="productThumbs" class="mt-10">
                         <div class="thumblist" data-pswp-uid="1">
                            <div class="owl-carousel owl-theme" data-autoplay="false" data-autoplayTimeout="6000" data-items="5" data-margin="10" data-nav="false" data-dots="false" data-loop="false" data-items_tablet="4" data-items_mobile="5">
-                              <? foreach($product_galleries as $product_gallery) { ?>
+                              <? foreach($product_galleries as $product_gallery) { var_dump($product_gallery)?>
                               <div class="thumbItem">
                                  <a href="javascript:void(0)" data-image="<?=BASE_URL.$product_gallery->thumbnail?>" data-zoom-image="<?=BASE_URL.$product_gallery->thumbnail?>" class="product-single__thumbnail">
                                     <img class="detail-img" src="<?=BASE_URL.$product_gallery->thumbnail?>" alt="<?=$item->title?>">
@@ -142,30 +142,29 @@
                         <div class="owl-relatedproduct owl-carousel owl-drag owl-loaded" data-autoplay="false" data-autoplaytimeout="6000" data-items="5" data-nav="true" data-dots="false" data-loop="true" data-items_tablet="3" data-items_mobile="2" data-margin="30">
                            <div class="owl-stage-outer">
                               <div class="owl-stage" style="transform: translate3d(-1200px, 0px, 0px); transition: all 0s ease 0s; width: 4320px;">
-							  <? for ($i=0; $i < 6; $i++) { ?>
+							  <? foreach($related_product as $related) { ?>
                                  <div class="owl-item cloned" style="width: 210px; margin-right: 30px;">
                                     <div class="item item-product">
                                        <div class="thumbnail-container has-multiimage has_variants">
-                                          <a class="w-100" href="https://www.yen-vietnam.com/chan-yen-tinh-che.html?loai=50g">
-                                          <img class="w-100 img-fluid product__thumbnail" src="./files/upload/product/YS000100389/thumb/chan-to-yen-trang-tinh-che-hop-50-gr-images-02-thuong-hieu-yen-sao-ho-gia-trang453.jpeg" alt="Chân Yến Tinh Chế">
+                                          <a class="w-100" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>">
+                                          <img class="w-100 img-fluid product__thumbnail" src="<?=BASE_URL.$related->gallery?>" alt="<?=$related->title?>">
                                           </a>
                                           <div class="badge_sale">
                                           </div>
                                        </div>
                                        <div class="product__info text-center">
                                           <div class="product__title">
-                                             <a class="limit-content-1-line" href="https://www.yen-vietnam.com/chan-yen-tinh-che.html?loai=50g">Chân Yến Tinh Chế</a>
-                                             <div class="product__typename">50g</div>
+                                             <a class="limit-content-1-line" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>"><?=$related->title?></a>
                                           </div>
                                           <div class="product__review">
                                              <div class="rating"><span class="shopify-product-reviews-badge" data-id="6153538011328"></span></div>
                                           </div>
                                           <div class="product__price">
                                              <span class="product-price__price product-price__sale">
-                                             <span class="money">1.800.000</span>
+                                            <a href="<?=site_url("lien-he")?>"> <span class="money"><?=!empty($related->price)?number_format($related->price,0,',','.'): "Liên Hệ"?></span></a>
                                              </span>
                                           </div>
-                                          <a class="btn btnAddToCart btnChooseVariant enable-cart" href="https://www.yen-vietnam.com/chan-yen-tinh-che.html?loai=50g">
+                                          <a class="btn btnAddToCart btnChooseVariant enable-cart" href="<?=site_url("san-pham/{$related->category_alias}/{$related->alias}")?>">
                                           <i class="zmdi zmdi-zoom-in"></i>
                                           <span>Xem chi tiết</span>
                                           </a>

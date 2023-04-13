@@ -285,12 +285,12 @@
 							</ul>
 						</li>
 						<li class="site-nav--has-dropdown menu-item" aria-controls="SiteNavLabel-cosmetic">
-							<a href="<?=site_url("hoi-&-dap")?>" class="site-nav__link site-nav__link--main">
+							<a href="<?=site_url("hoi-dap")?>" class="site-nav__link site-nav__link--main">
 							<span>Hỏi & Đáp</span>
 							</a>
 							<ul class ="menu-writter">
 								<?foreach($faq_categories as $faq_category){?>
-									<li><a href="<?=site_url("hoi-&-dap/{$faq_category->alias}")?>"title="<?=$faq_category->name?>""><?=$faq_category->name?></a></li>
+									<li><a href="<?=site_url("hoi-dap/{$faq_category->alias}")?>"title="<?=$faq_category->name?>""><?=$faq_category->name?></a></li>
 								<?}?>
 							</ul>
 						</li>

@@ -33,5 +33,6 @@ class M_product_gallery extends M_db
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
+
 }
 ?>
