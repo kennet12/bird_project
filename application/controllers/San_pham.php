@@ -15,13 +15,14 @@ class San_pham extends CI_Controller {
 		if(!empty($category))
 		{	
 			if (!empty($id)) {
-
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					$this->m_product_categories->load($category)->name=> site_url("{$this->util->slug($this->router->fetch_class())}")]);
 				$item = $this->m_product->load($id);
 				$product_category = $this->m_product_categories->load($item->category_id);
 
 				$info = new stdClass();
 				$info->product_id = $item->id;
-				$product_galleries = $this->m_product_gallery->items($info, null, null, 'stt','ASC');
+				$product_galleries = $this->m_product_gallery->items($info, null,null, 'stt','ASC');
 
 				$info = new stdClass();
 				$info->category_id = $product_category->id;
@@ -32,7 +33,7 @@ class San_pham extends CI_Controller {
 				$view_data['item'] = $item;
 				$view_data['product_category'] = $product_category;
 				$view_data['product_galleries'] = $product_galleries;
-				$view_data['related_product'] = $related_product;
+				$view_data['related_product'] = $related_product;	
 
 				$tmpl_content = array();
 				$tmpl_content["content"]   = $this->load->view("product/detail", $view_data, TRUE);

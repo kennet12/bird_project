@@ -59,23 +59,36 @@ class M_product extends M_db
 	}
 	
 	public function relative_items ($info=null, $ids, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC') {
-		$sql   = "SELECT * FROM m_product  WHERE 1 = 1";
+		$sql   = "SELECT * FROM m_product  WHERE 1 = 1";$sql ="SELECT DISTINCT
+		I.*, C.alias AS 'category_alias', '0' AS 'child_num',
+		G.thumbnail as gallery
+		FROM
+		m_product as I 
+		
+		INNER JOIN 
+		m_product_categories as C 
+		ON (C.id = I.category_id)
+		
+		LEFT JOIN 
+		m_product_gallery as G 
+		ON (G.product_id = I.id) 
+		WHERE 1 = 1";
 		foreach ($ids as $id) {
-			$sql .= " AND id <> '{$id}'";
+			$sql .= " AND I.id <> '{$id}'";
 		}
 		if (!is_null($info)) {
 			if (!empty($info->category_id)) {
-				$sql .= " AND category_id = '{$info->category_id}'";
+				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
 		}
 		if (!is_null($active)) {
-			$sql .= " AND active = '{$active}'";
+			$sql .= " AND I.active = '{$active}'";
 		}
-		$sql .= " AND deleted = '0'";
+		$sql .= " AND I.deleted = '0'";
 		if (!empty($order_by)) {
-			$sql .= " ORDER BY {$order_by} {$sort_by}";
+			$sql .= " ORDER BY I.{$order_by} {$sort_by}";
 		} else {
-			$sql .= " ORDER BY created_date DESC";
+			$sql .= " ORDER BY I.created_date DESC";	
 		}
 		if (!is_null($limit)) {
 			$sql .= " LIMIT {$limit}";
@@ -83,7 +96,6 @@ class M_product extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
-
 		$query = $this->db->query($sql);
 		
 		return $query->result();

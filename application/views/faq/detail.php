@@ -1,8 +1,8 @@
 <div class="container">
-	<h1 class="page-title"><?=$item->title?></h1>
+	<h1 class="page-title"><?=$item->name?></h1>
 	<div class="content">
 		<p class="help-block">Ngày đăng: <?=$this->util->to_vn_date($item->updated_date)?></p>
-		<?=$item->content?>
+		<?=$faq_kq->content?>
 	</div>
 	<div class="wrap-relative-item">
 		<div class="relative-item-title">
