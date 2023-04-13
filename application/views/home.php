@@ -151,7 +151,7 @@
                      <div class="item-product">
                         <div class="thumbnail-container has-multiimage">
                            <a class="w-100" href="<?=site_url("san-pham/{$product->category_alias}/{$product->alias}")?>">
-                              <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($product ->gallery)?BASE_URL.$product ->gallery : ' '?> ?> " >
+                              <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($product ->image)?$product ->image : ' '?> ?> " >
                            </a>
                         </div>
                         <div class="product__info text-center">
@@ -226,7 +226,7 @@
                            <div class="item-product">
                               <div class="thumbnail-container has-multiimage">
                                  <a class="w-100" href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>">
-                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias?>">
+                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->alias?>">
                                  </a>
                               </div>
                               <div class="product__info text-center">
@@ -320,7 +320,7 @@
                            <div class="col-6">
                               <div class="thumbnail-container has-multiimage">
                                  <a href="<?=site_url("san-pham/{$value->category_alias}/{$value->alias}")?>">
-                                 <img class="img-fluid product__thumbnail" src="<?=!empty($value ->gallery)?BASE_URL.$value ->gallery : ' '?>" alt="<?=$value->alias ?>">
+                                 <img class="img-fluid product__thumbnail" src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->alias ?>">
                                  </a>
                               </div>
                            </div>
