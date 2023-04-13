@@ -33,6 +33,7 @@
    				$view_data['item'] 					= $result;
    				$view_data["breadcrumb"] 			= $this->_breadcrumb;
    				$view_data['relative_items'] 		= $result_relative;
+				$view_data['categories']				=$results_category;
    				
    				$tmpl_content = array();
    				$tmpl_content["content"]   = $this->load->view("new_event/detail", $view_data, TRUE);
