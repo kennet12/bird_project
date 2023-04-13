@@ -15,10 +15,13 @@ class San_pham extends CI_Controller {
 		if(!empty($category))
 		{	
 			if (!empty($id)) {
-				$this->_breadcrumb = array_merge($this->_breadcrumb, [
-					$this->m_product_categories->load($category)->name=> site_url("{$this->util->slug($this->router->fetch_class())}")]);
 				$item = $this->m_product->load($id);
 				$product_category = $this->m_product_categories->load($item->category_id);
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					$this->m_product_categories->load($category)->name=> site_url("{$this->util->slug($this->router->fetch_class())}/{$product_category->alias}")]);
+
+					$this->_breadcrumb = array_merge($this->_breadcrumb, [
+						$item->title=> site_url("{$this->util->slug($this->router->fetch_class())}/{$product_category->alias}/{$item->alias}")]);
 
 				$info = new stdClass();
 				$info->product_id = $item->id;
@@ -109,7 +112,7 @@ class San_pham extends CI_Controller {
 				// }
 
 				$view_data = array();
-				$view_data['name_category']			 =$name_category;
+				$view_data['name_category']			 = $name_category;
 				$view_data["breadcrumb"] 			 = $this->_breadcrumb;
 				$view_data['result_revice_category'] = $product_categories;
 				$view_data["pagination"]			 = $pagination;
@@ -174,12 +177,12 @@ class San_pham extends CI_Controller {
 			// lay tat san pham
 			$products = $this->m_product->items(null,1, $page_num,$offset,$order_by,$sort_by);
 			
-			// foreach($products as $product) {
-			// 	$info = new stdClass();
-			// 	$info->product_id = $product->id;	
-			// 	$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
-			// 	$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
-			// }
+			foreach($products as $product) {
+				$info = new stdClass();
+				$info->product_id = $product->id;	
+				$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
+				$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+			}
 
 			$view_data = array();
 			$view_data["breadcrumb"] 			 = $this->_breadcrumb;
@@ -190,6 +193,7 @@ class San_pham extends CI_Controller {
 			$view_data['page']				 	 = $page;
 			$view_data['result_revice_category'] =$product_categories;
 			$view_data['result_products']		 =$products;
+			// var_dump($products);
 			
 			$tmpl_content = array();
 			$tmpl_content["content"]   = $this->load->view("product/index", $view_data, TRUE);

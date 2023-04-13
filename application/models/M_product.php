@@ -10,6 +10,41 @@ class M_product extends M_db
 	
 	public function items($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
 	{
+		$sql = "SELECT I.*, C.alias AS 'category_alias', '0' AS 'child_num' FROM m_product AS I INNER JOIN m_product_categories AS C ON (I.category_id = C.id) WHERE 1 = 1";
+		if (!is_null($info)) {
+			if (!empty($info->category_id)) {
+				$sql .= " AND I.category_id = '{$info->category_id}'";
+			}
+			if (!empty($info->search)) {
+				$info->search = trim($info->search);
+				$sql .= " AND (I.title LIKE '%{$info->search}%')";
+			}
+		}
+		
+		if (!is_null($active)) {
+			$sql .= " AND I.active = '{$active}'";
+		}
+		$sql .= " AND I.deleted = '0'";
+		if (!empty($order_by)) {
+			$sql .= " ORDER BY I.{$order_by} {$sort_by}";
+		} else {
+			$sql .= " ORDER BY I.created_date DESC";
+		}
+		if (!is_null($limit)) {
+			$sql .= " LIMIT {$limit}";
+		}
+		if (!is_null($offset)) {
+			$sql .= " OFFSET {$offset}";
+		}
+
+		$query = $this->db->query($sql);
+		
+		return $query->result();
+	}
+
+
+	public function items_i($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
+	{
 		$sql ="SELECT DISTINCT
 		I.*, C.alias AS 'category_alias', '0' AS 'child_num',
 		G.thumbnail as gallery
@@ -55,11 +90,13 @@ class M_product extends M_db
 		}
 
 		$query = $this->db->query($sql);
+		var_dump($sql);
+		die;
 		return $query->result();
 	}
 	
 	public function relative_items ($info=null, $ids, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC') {
-		$sql   = "SELECT * FROM m_product  WHERE 1 = 1";$sql ="SELECT DISTINCT
+		$sql ="SELECT DISTINCT
 		I.*, C.alias AS 'category_alias', '0' AS 'child_num',
 		G.thumbnail as gallery
 		FROM

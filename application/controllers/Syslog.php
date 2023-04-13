@@ -1420,6 +1420,7 @@ class Syslog extends CI_Controller {
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
 			$view_data['title'] 		= 'Danh Sách Sản Phẩm';
+			// var_dump($view_data);
 	
 			$tmpl_product = array();
 			$tmpl_product['content']=$this->load->view('admin/product/index',$view_data, true);

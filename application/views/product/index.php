@@ -112,7 +112,7 @@
                         <div class="item-product">
                            <div class="thumbnail-container has-multiimage has_variants">
                               <a href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>" style="margin-top: 10px;">
-                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->gallery)?BASE_URL.$result_product ->gallery : ' '?>" alt="">
+                                 <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->image)?$result_product ->image : ' '?>" alt="">
                               </a>
                            </div>
                            <div class="product__info">
