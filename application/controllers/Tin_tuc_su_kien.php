@@ -19,14 +19,7 @@
 
 			$this->_breadcrumb = array_merge($this->_breadcrumb, [$check_cate->name => site_url("{$this->util->slug($this->router->fetch_class())}/{$check_cate->alias}")]);
 
-			foreach($results_item as $kq) {
-				$info = new stdClass();
-				$info->updated_by = $kq->id;
-				$info->content_id = $kq->id;
-				$kq->updated_by = $this->m_user->load($info);
-				$gallery = $this->m_content_gallery->items($info,null,null,'stt','ASC');
-				$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
-			}
+			
 
    			if(!empty($id))
    			{
@@ -40,7 +33,7 @@
 				// die;
    				$check_cate =$this->m_content_categories->load($category);
    				
-   				$results_item = $this->m_contents->load($check_cate->id);
+   				$result = $this->m_contents->load($check_cate->id);
    
    				$info = new stdClass();
    				$info->category_id = $check_cate->id;
@@ -57,7 +50,7 @@
 				$check_user= $this->m_user->load($check_id->updated_by);
 
    				$view_data = array();
-   				$view_data['item'] 						= $results_item;
+   				$view_data['item'] 						= $result;
 				$view_data['user'] 						= $check_user;
    				$view_data["breadcrumb"] 				= $this->_breadcrumb;
    				$view_data['result_relative'] 			= $result_relative;
