@@ -76,7 +76,9 @@ class Util {
         $config['query_string_segment'] = 'page';
         $config['use_page_numbers']     = TRUE;
 
-        $config['full_tag_open']        = '<div class="d-flex align-items-center"><div class="pagination__viewing">Trang '.$page_cur.' - '.$total_page.' | '.$total_rows.' '.$type_title.'</div><ul class="pagination d-flex justify-content-end align-items-center">';
+       	$config['full_tag_open']        = '<div class="d-flex align-items-center"><div class="pagination__viewing">    </div><ul class="pagination d-flex justify-content-end align-items-center">';
+		//    Trang '.$page_cur.' - '.$total_page.' | '.$total_rows.' '.$type_title.'
+		
         $config['full_tag_close']       = '</ul></div>';
 
         $config['first_link']           = 'Trang Đầu';

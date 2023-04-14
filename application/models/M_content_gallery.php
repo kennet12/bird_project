@@ -18,6 +18,7 @@ class M_content_gallery extends M_db
 			if (isset($info->stt) && !is_null($info->stt)) {
 				$sql .= " AND stt = '{$info->stt}'";
 			}
+			
 		}
 		if (!empty($order_by)) {
 			$sql .= " ORDER BY {$this->_table}.{$order_by} {$sort_by}";

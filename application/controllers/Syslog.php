@@ -1072,7 +1072,7 @@ class Syslog extends CI_Controller {
 			$view_data["offset"]		= $offset;
 			$view_data["breadcrumb"] 	= $this->_breadcrumb;
 			$view_data["pagination"]	= $pagination;
-			$view_data["titles"] = 'Danh sách Slider';
+			$view_data["titles"] 		= 'Danh sách Slider';
 
 			$tmpl_content = array();
 			$tmpl_content["content"] = $this->load->view("admin/slide/index", $view_data, true);
@@ -1416,7 +1416,7 @@ class Syslog extends CI_Controller {
 			$view_data =array();
 			$view_data['products']		= $products;
 			$view_data["breadcrumb"] 	= $this->_breadcrumb;
-			$view_data["search"] = !empty($_GET['search'])?$_GET['search']:'';
+			$view_data["search"] 		= !empty($_GET['search'])?$_GET['search']:'';
 			$view_data["offset"]		= $offset;
 			$view_data["pagination"]	= $pagination;
 			$view_data['title'] 		= 'Danh Sách Sản Phẩm';
