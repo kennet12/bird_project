@@ -14,9 +14,8 @@
                 <img src="https://www.yen-vietnam.com/template/images/subscribe.svg" class="icon_news" alt="img">
             </div>
             <div class="title-block mb-5">
-                Đăng ký nhận khuyến mãi </div>
-            <div class="des mb-35">Đăng ký nhận bản tin để nhận được nhiều ưu đãi và tin tức độc quyền về các sản phẩm
-                của Yến Việt Nam</div>
+                Đối tác độc quyền Basa-Mekong </div>
+            <div class="des mb-35">Kết nối thành công, đồng hành phát triền</div>
             <div class="row">
             <div class="col-md-1"></div>
                 
