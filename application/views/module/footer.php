@@ -2,6 +2,9 @@
    $products_categories = $this->m_product_categories->items(null,1);
    $posts = $this->m_post->items(null,1);
    $settings = $this->m_setting->items(null,1);
+   $parner = $this->m_partner->items(null,1);
+//    var_dump($parner);
+
 ?>
 <div class="footer_newsletter pt-120">
     <div class="container">
@@ -14,65 +17,17 @@
                 Đăng ký nhận khuyến mãi </div>
             <div class="des mb-35">Đăng ký nhận bản tin để nhận được nhiều ưu đãi và tin tức độc quyền về các sản phẩm
                 của Yến Việt Nam</div>
-            <div class="section-content">
-                <div class="input-group">
-                    <input type="hidden" name="contact[tags]" value="newsletter">
-                    <input type="email" name="submail" id="Email_Footer"
-                        class="input-group__field newsletter__input form-control" value=""
-                        placeholder="Nhập email của bạn">
-                    <div class="input-group__btn">
-                        <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe_footer">
-                            <span class="newsletter__submit-text--large">Đăng ký</span>
-                        </button>
-                    </div>
+            <div class="row">
+            <div class="col-md-1"></div>
+                
+                <div class="col-md-10">
+                    <?foreach($parner as $item){?>
+                        <img style="width:100px;margin: 10px 30px;border-radius:50%;height:100px" src="<?=!empty($item->banner)?BASE_URL.str_replace('./','/',$item->banner) : ' '?>" alt="<?=$item->name;?>">
+                    <?}?>
                 </div>
-                <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#Subscribe_footer').click(function(event) {
-                        var e = $('#Email_Footer').val();
-                        var err = 0;
-                        var msg = [];
-
-                        clearFormError();
-
-                        if (e == "") {
-                            err++;
-                            msg.push("Email không được trống.");
-                        } else {
-                            if (!isEmail(e)) {
-                                err++;
-                                msg.push("Email của bạn không hợp lệ.");
-                            }
-                        }
-                        if (!err) {
-                            var p = {};
-                            p['email'] = e;
-                            $.ajax({
-                                url: 'https://www.yen-vietnam.com/trang-chu/subscribe-email.html',
-                                type: 'POST',
-                                dataType: 'json',
-                                data: p,
-                                success: function(r) {
-                                    if (r) {
-                                        messageBox("INFO", "Thành công",
-                                            "Đăng ký nhận khuyến mãi thành công", "Đóng"
-                                            );
-                                    } else {
-                                        msg.push(
-                                            "Mail này đã được đăng ký, vui lòng nhập mail khác."
-                                            );
-                                        showErrorMessage('Lỗi',
-                                            'Vui lòng nhập lại thông tin:', msg, 'Đóng');
-                                    }
-                                }
-                            })
-
-                        } else {
-                            showErrorMessage('Lỗi', 'Vui lòng nhập lại thông tin:', msg, 'Đóng');
-                        }
-                    });
-                });
-                </script>
+             
+            <div class="col-md-1"></div>
+                
             </div>
         </div>
     </div>
