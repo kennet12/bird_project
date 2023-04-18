@@ -83,10 +83,7 @@
 						</div>
 						<?}?>	
                   </div>
-                  <div class="d-flex align-items-center">
-                     <div class="pagination__viewing">Trang <?=$page?> - <?=$page_num?> | <?=$total?> Tin tức</div>
-                    <?=$pagination?>
-                  </div>
+                  <?=$pagination?>
                </div>
             </div>
          </div>

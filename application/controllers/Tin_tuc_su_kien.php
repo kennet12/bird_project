@@ -114,8 +114,8 @@
 				$pagination = $this->util->paginationFrontend(
 					$url,
 					$total,
-					$page_num
-					
+					$page_num,
+					'Tin tức'
 				);
 
 				$check = ceil(($total /ROW_PER_PAGE));
@@ -168,8 +168,8 @@
    			$pagination = $this->util->paginationFrontend(
    				$url,
    				$total,
-   				$page_num
-   				
+   				$page_num,
+   				'Tin tức'
    			);
 
 			$check = ceil(($total /ROW_PER_PAGE));
