@@ -19,8 +19,6 @@
 
 			$this->_breadcrumb = array_merge($this->_breadcrumb, [$check_cate->name => site_url("{$this->util->slug($this->router->fetch_class())}/{$check_cate->alias}")]);
 
-			
-
    			if(!empty($id))
    			{
 				$check_id = $this->m_contents->load($id);
@@ -60,7 +58,6 @@
 					$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
 				}
 
-			
 				$check_user= $this->m_user->load($check_id->updated_by);
 
    				$view_data = array();
@@ -114,7 +111,7 @@
 				$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 				$url = str_replace("?page={$page}", '', $url);
 				$url = str_replace("&page={$page}", '', $url);
-				$pagination = $this->util->pagination(
+				$pagination = $this->util->paginationFrontend(
 					$url,
 					$total,
 					$page_num
@@ -168,7 +165,7 @@
    			$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
    			$url = str_replace("?page={$page}", '', $url);
    			$url = str_replace("&page={$page}", '', $url);
-   			$pagination = $this->util->pagination(
+   			$pagination = $this->util->paginationFrontend(
    				$url,
    				$total,
    				$page_num

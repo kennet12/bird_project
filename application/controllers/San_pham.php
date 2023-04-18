@@ -86,7 +86,7 @@ class San_pham extends CI_Controller {
 				$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 				$url = str_replace("?page={$page}", '', $url);
 				$url = str_replace("&page={$page}", '', $url);
-				$pagination = $this->util->pagination(
+				$pagination = $this->util->paginationFrontend(
 					$url,
 					$total,
 					$page_num
@@ -153,7 +153,7 @@ class San_pham extends CI_Controller {
 			$url = str_replace("?page={$page}", '', $url);
 			$url = str_replace("&page={$page}", '', $url);
 
-			$pagination = $this->util->pagination($url, $total, 6, 'Sản phẩm');
+			$pagination = $this->util->paginationFrontend($url, $total, 6, 'Sản phẩm');
 			
 			$check =ceil(($total /6));
 
