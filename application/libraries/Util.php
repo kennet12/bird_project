@@ -101,11 +101,8 @@ class Util {
 		return $this->ci->pagination->create_links();
 	}
 
-	function paginationFrontend($base_url, $total_rows=1, $per_page=10,$type_title=null)
+	function paginationFrontend($base_url, $total_rows=1, $per_page=10, $type_title=null)
     {
-        // $lang = !isset($_COOKIE['nguyenanh_lang'])?'vi':'en';
-        // $this->ci->lang->load('content',$lang);
-        // $website				= $this->ci->lang->line('website');
         $this->ci->load->library('pagination');
         if (preg_match('/&page=.*/', $base_url)) {
             $base_url = preg_replace('/&page=.*/', NULL, $base_url);
@@ -121,8 +118,7 @@ class Util {
         $config['query_string_segment'] = 'page';
         $config['use_page_numbers']     = TRUE;
 
-       	$config['full_tag_open']        = '<div class="d-flex align-items-center"><div class="pagination__viewing">    </div><ul class="pagination d-flex justify-content-end align-items-center">';
-		//    Trang '.$page_cur.' - '.$total_page.' | '.$total_rows.' '.$type_title.'
+       	$config['full_tag_open']        = '<div class="d-flex align-items-center"><div class="pagination__viewing"> Trang '.$page_cur.' - '.$total_page.' | '.$total_rows.' '.$type_title.'</div><ul class="pagination d-flex justify-content-end align-items-center">';
 		
         $config['full_tag_close']       = '</ul></div>';
 

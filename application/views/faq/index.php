@@ -61,19 +61,8 @@
                      </div>
                      <?}?>
                      <a href="<?=site_url("hoi-dap/{$item->category_alias}/{$item->alias_question}")?>" class="article__readmore text-uppercase">Xem thêm</a>
-					</div>
-                  <div class="d-flex align-items-center">
-                     <div class="pagination__viewing">Trang 1 - 16 | 46 Tin tức</div>
-                     <ul class="pagination d-flex justify-content-end align-items-center">
-                        <li class="pagination__text active"><span>1</span></li>
-                        <li class="pagination__text"><a href="https://www.yen-vietnam.com/tin-tuc.html?page=2" data-ci-pagination-page="2">2</a></li>
-                        <li class="pagination__text"><a href="https://www.yen-vietnam.com/tin-tuc.html?page=3" data-ci-pagination-page="3">3</a></li>
-                        <li class="pagination__text"><a href="https://www.yen-vietnam.com/tin-tuc.html?page=2" data-ci-pagination-page="2" rel="next"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                        <li class="d-none d-sm-inline">
-                           <div class="pagination__btn"><span class="icon__fallback-text"><a href="https://www.yen-vietnam.com/tin-tuc.html?page=16" data-ci-pagination-page="16">Trang cuối</a></span></div>
-                        </li>
-                     </ul>
-                  </div>
+					   </div>
+                  <?=$pagination?>
                </div>
             </div>
          </div>
