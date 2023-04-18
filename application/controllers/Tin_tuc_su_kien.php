@@ -19,8 +19,6 @@
 
 			$this->_breadcrumb = array_merge($this->_breadcrumb, [$check_cate->name => site_url("{$this->util->slug($this->router->fetch_class())}/{$check_cate->alias}")]);
 
-			
-
    			if(!empty($id))
    			{
 				$check_id = $this->m_contents->load($id);
@@ -28,25 +26,14 @@
 
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [$check_id->title => site_url("{$this->util->slug($this->router->fetch_class())}/{$check_cate->alias}/{$check_id->alias}")]);
    				
-   			
-				// var_dump($check_id);
-				// die;
-   				$check_cate =$this->m_content_categories->load($category);
-   				
    				$result = $this->m_contents->load($check_cate->id);
    
    				$info = new stdClass();
    				$info->category_id = $check_cate->id;
-   				$info->content_id = $check_id->id;
-
-				
-				 
-				
-				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='ASC');
+				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='DESC');
    
    				$result_relative = $this->m_contents->relative_items($info,array($check_id->id),1);
 
-			
 				$check_user= $this->m_user->load($check_id->updated_by);
 
    				$view_data = array();
@@ -71,7 +58,7 @@
    				$results_item = $this->m_contents->items($info,1);
 				//bài viết gần đây
 				
-				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='ASC');
+				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='DESC');
 
 
 				$total = count($this->m_contents->items($info,1));
@@ -90,7 +77,7 @@
 				$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 				$url = str_replace("?page={$page}", '', $url);
 				$url = str_replace("&page={$page}", '', $url);
-				$pagination = $this->util->pagination(
+				$pagination = $this->util->paginationFrontend(
 					$url,
 					$total,
 					$page_num
@@ -144,7 +131,7 @@
    			$url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
    			$url = str_replace("?page={$page}", '', $url);
    			$url = str_replace("&page={$page}", '', $url);
-   			$pagination = $this->util->pagination(
+   			$pagination = $this->util->paginationFrontend(
    				$url,
    				$total,
    				$page_num
@@ -167,8 +154,6 @@
 			$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
 			}
 			
-			// var_dump($results_item);
-			// die;
 			//bài viết gần đây
 			$result_contet_recently = $this->m_contents->items(null, null, 4, null, $order_by='updated_date', $sort_by='ASC');
 

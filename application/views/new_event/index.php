@@ -54,26 +54,32 @@
 						<?foreach ($items as $value){ ?>
 							
 						<div class="article--listing col-lg-12 mb-100">
-							<div class="article__image" style=width:100px;>
-							<a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>" class="article__list-image-container w-100">
-							<img class="article__list-image w-100" src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->title;?> ">
-							</a>
-							</div>
-							<div class="article-body">
-							<h2 class="article__title"><a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>"><?=$value->title;?> </a></h2>
-							<div class="article__info">
-								<span class="article__date">
-								<i class="zmdi zmdi-calendar-note"></i><time datetime="2021-01-16T04:34:57Z"><?=$this->util->to_vn_date($value->created_date);?></time>
-								</span>
-								<span class="article__author">
-								<i class="zmdi zmdi-account"></i> <?=$value->updated_by->fullname;?>
-								</span>
-							</div>
-							<div class="article__excerpt">
-							<?=character_limiter(strip_tags($value->content),100)?>								
-							</div>
-							<a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>" class="article__readmore text-uppercase">Xem thêm</a>
-							</div>
+							<div class="row">
+                        <div class="col-md-3">
+                           <div class="article__image">
+                              <a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>" class="article__list-image-container w-100">
+                              <img class="article__list-image w-100" src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->title;?> ">
+                              </a>
+                           </div>
+                        </div>
+                        <div class="col-md-9">
+                           <div class="article-body">
+                              <h2 class="article__title"><a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>"><?=$value->title;?> </a></h2>
+                                 <div class="article__info">
+                                    <span class="article__date">
+                                    <i class="zmdi zmdi-calendar-note"></i><time datetime="2021-01-16T04:34:57Z"><?=$this->util->to_vn_date($value->created_date);?></time>
+                                    </span>
+                                    <span class="article__author">
+                                    <i class="zmdi zmdi-account"></i> <?=$value->updated_by->fullname;?>
+                                    </span>
+                                 </div>
+                              <div class="article__excerpt limit-content-2-line">
+                                 <?=strip_tags($value->content)?>								
+                              </div>
+                              <a href="<?=site_url("tin-tuc-su-kien/$value->category_alias/{$value->alias}")?>" class="article__readmore text-uppercase">Xem thêm</a>
+                           </div>
+                        </div>
+                     </div>
 						</div>
 						<?}?>	
                   </div>

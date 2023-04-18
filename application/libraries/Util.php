@@ -56,7 +56,52 @@ class Util {
 		return $meta;
 	}
 
-	function pagination($base_url, $total_rows=1, $per_page=10,$type_title=null)
+	function pagination($base_url, $total_rows=1, $per_page=10)
+	{
+		$this->ci->load->library('pagination');
+		if (preg_match('/&page=.*/', $base_url)) {
+			$base_url = preg_replace('/&page=.*/', null, $base_url);
+		}
+		
+		$config = array();
+		$config['base_url']				= $base_url;
+		$config['total_rows']			= $total_rows;
+		$config['per_page']				= $per_page;
+		$config['page_query_string']	= TRUE;
+		$config['query_string_segment']	= "page";
+		$config['use_page_numbers']		= TRUE;
+		
+		$config['full_tag_open'] 		= '<ul class="pagination">';
+		$config['full_tag_close'] 		= '</ul>';
+		
+		$config['first_link']			= 'F';
+		$config['first_tag_open'] 		= '<li>';
+		$config['first_tag_close'] 		= '</li>';
+		
+		$config['prev_link']			= '&lt;';
+		$config['prev_tag_open'] 		= '<li>';
+		$config['prev_tag_close'] 		= '</li>';
+		
+		$config['cur_tag_open'] 		= '<li class="active"><a href="#">';
+		$config['cur_tag_close'] 		= '<span class="sr-only">(current)</span></a></li>';
+		
+		$config['num_tag_open'] 		= '<li>';
+		$config['num_tag_close'] 		= '</li>';
+		
+		$config['next_link']			= '&gt;';
+		$config['next_tag_open'] 		= '<li>';
+		$config['next_tag_close'] 		= '</li>';
+		
+		$config['last_link']			= 'L';
+		$config['last_tag_open'] 		= '<li>';
+		$config['last_tag_close'] 		= '</li>';
+		
+		$this->ci->pagination->initialize($config);
+		
+		return $this->ci->pagination->create_links();
+	}
+
+	function paginationFrontend($base_url, $total_rows=1, $per_page=10,$type_title=null)
     {
         // $lang = !isset($_COOKIE['nguyenanh_lang'])?'vi':'en';
         // $this->ci->lang->load('content',$lang);

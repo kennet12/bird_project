@@ -17,7 +17,7 @@ class Lien_he extends CI_Controller {
 
 		$tmpl_content = array();
 		$tmpl_content["content"] = $this->load->view("contact/index", $view_data, TRUE);
-		$this->load->view("layout/main", $tmpl_content);
+		$this->load->view("layout/view", $tmpl_content);
 	}
 	public function ajax_contact () {
 		$name 		= $this->input->post('name');
