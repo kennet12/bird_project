@@ -36,8 +36,6 @@ class M_faq extends M_db
 			$sql .= " OFFSET {$offset}";
 		}
 		$query = $this->db->query($sql);
-
-		
 		return $query->result();
 	}
 
