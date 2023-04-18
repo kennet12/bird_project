@@ -824,14 +824,17 @@ class Syslog extends CI_Controller {
 					$this->session->set_flashdata("error", "Vui lòng nhập tên");
 					redirect(site_url("syslog/partners"), "back");
 				}
-				
+			
+				$id = !empty($id) ? $id : $this->m_partner->get_next_value();
+
 				if (!empty($_FILES['banner']['name'])){
 					$path = "./files/upload/image/partner/{$id}";
+						
 					if (!file_exists($path)) {
 						mkdir($path, 0755, true);
 					}
 					// code tao thư mục
-	
+					
 					$allow_type = 'jpg|jpeg|png';
 					$this->util->upload_file($path,'banner','',$allow_type);
 					// upload ảnh lên server
@@ -848,7 +851,7 @@ class Syslog extends CI_Controller {
 					$this->m_partner->update($data, ['id' => $id]);
 				}
 				
-				redirect(site_url("syslog/partners"), "back");
+				// redirect(site_url("syslog/partners"), "back");
 			}
 			if($action == 'add'){
 				$this->_breadcrumb = array_merge($this->_breadcrumb, [
@@ -965,6 +968,8 @@ class Syslog extends CI_Controller {
 					$this->session->set_flashdata("error", "Vui lòng nhập mô tả.");
 					redirect(site_url("syslog/sliders"), "back");
 				}
+
+				$id = !empty($id) ? $id : $this->m_slide->get_next_value();
 
 				if (!empty($_FILES['thumbnail']['name'])){
 					$path = "./files/upload/image/slider{$id}";
@@ -1453,6 +1458,9 @@ class Syslog extends CI_Controller {
 				$receive_data['alias'] 			= !empty($_POST['alias'])?$_POST['alias']:$this->util->slug($_POST['title']);
 				$receive_data['active']			=$_POST['active'];
 
+				
+				$id = !empty($id) ? $id : $this->m_product_categories->get_next_value();
+
 				if (!empty($_FILES['thumbnail']['name'])){
 					$path = "./files/upload/image/product_category/{$id}";
 					if (!file_exists($path)) {
@@ -1822,6 +1830,8 @@ class Syslog extends CI_Controller {
 					redirect(site_url("syslog/sliders"), "back");
 				}
 
+
+				$id = !empty($id) ? $id : $this->m_contens->get_next_value();
 				if (!empty($_FILES['thumbnail']['name'])){
 					$path = "./files/upload/image/post/{$id}";
 					if (!file_exists($path)) {

@@ -32,31 +32,46 @@
 				// var_dump($check_id);
 				// die;
    				$check_cate =$this->m_content_categories->load($category);
+				
    				
    				$result = $this->m_contents->load($check_cate->id);
    
    				$info = new stdClass();
-   				$info->category_id = $check_cate->id;
    				$info->content_id = $check_id->id;
-
 				
-				 
-				
-				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='ASC');
+				//lấy ra sản phẩm gần đây
+				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='DESC');
+				foreach($result_contet_recently as $kq) {
+					$info = new stdClass();
+					$info->content_id = $kq->id;
+	
+					$gallery = $this->m_content_gallery->items($info,null,null,'stt','ASC');
+					
+					$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+				}
    
    				$result_relative = $this->m_contents->relative_items($info,array($check_id->id),1);
+				   foreach($result_relative as $kq) {
+					$info = new stdClass();
+					$info->content_id = $kq->id;
+	
+					$gallery = $this->m_content_gallery->items($info,null,null,'stt','ASC');
+					
+					$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+				}
 
 			
 				$check_user= $this->m_user->load($check_id->updated_by);
 
    				$view_data = array();
    				$view_data['item'] 						= $result;
+				$view_data['name_cate'] 				= $check_cate->alias;
 				$view_data['user'] 						= $check_user;
    				$view_data["breadcrumb"] 				= $this->_breadcrumb;
    				$view_data['result_relative'] 			= $result_relative;
 				$view_data['result_contet_recently'] 	= $result_contet_recently;
 				$view_data['categories']				=$results_category;
-				
+				;
 
    				$tmpl_content = array();
    				$tmpl_content["content"]   = $this->load->view("new_event/detail", $view_data, TRUE);
@@ -69,12 +84,21 @@
    				$info->category_id=$check_cate->id;
    				
    				$results_item = $this->m_contents->items($info,1);
+				   
 				//bài viết gần đây
-				
-				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='ASC');
+				//load ra danh mục gần đây
+				$result_contet_recently = $this->m_contents->items($info, null, 4, null, $order_by='updated_date', $sort_by='DESC');
+				foreach($result_contet_recently as $kq) {
+					$info = new stdClass();
+					$info->content_id = $kq->id;
+	
+					$gallery = $this->m_content_gallery->items($info,null,null,'stt','ASC');
+					
+					$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+				}
 
 
-				$total = count($this->m_contents->items($info,1));
+				$total = count( $results_item);
    			
 				$page_num	= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
 
@@ -167,10 +191,19 @@
 			$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
 			}
 			
-			// var_dump($results_item);
-			// die;
+			
 			//bài viết gần đây
-			$result_contet_recently = $this->m_contents->items(null, null, 4, null, $order_by='updated_date', $sort_by='ASC');
+			$result_contet_recently = $this->m_contents->items(null, null, 4, null, $order_by='updated_date', $sort_by='DESC');
+			// lấy ra 1 hỉnh ảnh cho tin tức gần đây
+			foreach($result_contet_recently as $kq) {
+				$info = new stdClass();
+				$info->content_id = $kq->id;
+
+				$gallery = $this->m_content_gallery->items($info,null,null,'stt','ASC');
+				
+				$kq->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
+			}
+			
 
    			$view_data = array();
    			$view_data['items'] 				 = $results_item;
