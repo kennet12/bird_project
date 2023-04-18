@@ -22,16 +22,16 @@
                   </div>
                   <div class="block__content">
                      <div>
-                        <?foreach($items_cate as $value){?>
+                        <?foreach($result_contet_recently as $value){?>
                            
                         <div class="post_groups d-flex">
                            <div class="post__image">
-                              <a href="<?=site_url("tin-tuc-su-kien/{$value->alias}")?>" class="article__list-image-container">
+                              <a href="<?=site_url("tin-tuc-su-kien/{$value->category_alias}/{$value->alias}")?>" class="article__list-image-container">
                               <img class="article__list-image"  src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->title;?> ">
                               </a>
                            </div>
                            <div class="post-item">
-                              <div class="post__title limit-content-2-line"><a href="<?=site_url("tin-tuc-su-kien/{$value->alias}")?>" title="<?=$value->title?>"><?=$value->title?></a></div>
+                              <div class="post__title limit-content-2-line"><a href="<?=site_url("tin-tuc-su-kien/{$value->category_alias}/{$value->alias}")?>" title="<?=$value->title?>"><?=$value->title?></a></div>
                               <div class="post__info">
                                  <span class="post__date">
                                  <i class="zmdi zmdi-calendar-note"></i><time datetime="2021-01-16T04:34:57Z"><?=$this->util->to_vn_date($value->created_date);?></time>
@@ -113,12 +113,12 @@
                                  <div class="item">
                                     <div class="article--listing">
                                        <div class="article__image">
-                                          <a href="<?=site_url("tin-tuc-su-kien/{$value->alias}")?>" class="article__list-image-container">
-                                          <img class="article__list-image img-fluid" src="<?=!empty($value ->thumbnail)?$value ->thumbnail : ' '?>" alt="<?=$value->title;?> ">
+                                          <a href="<?=site_url("tin-tuc-su-kien/{$name_cate}/{$value->alias}")?>" class="article__list-image-container">
+                                          <img class="article__list-image img-fluid" src="<?=!empty($value ->image)?$value ->image : ' '?>" alt="<?=$value->title;?> ">
                                           </a>
                                        </div>
                                        <div class="article-body">
-                                          <h2 class="article__title"><a href="<?=site_url("tin-tuc-su-kien/{$value->alias}")?>"><?=$value->title?></a></h2>
+                                          <h2 class="article__title"><a href="<?=site_url("tin-tuc-su-kien/{$name_cate}/{$value->alias}")?>"><?=$value->title?></a></h2>
                                           <div class="article__excerpt">
                                              <?=$value->description?>							
                                           </div>
