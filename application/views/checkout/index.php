@@ -2,15 +2,40 @@
    <div class="page-width book-cart-shop" data-section-id="cart-template" data-section-type="cart-template">
       <div class="container">
          <div class="section-header">
-            <div class="title-block">Giỏ hàng</div>
+            <div class="title-block">Đặt hàng</div>
          </div>
-         <form action="/cart" method="post" novalidate="" class="cart">
+         <form method="post" novalidate="" class="cart box-checkout">
             <div class="row data-sticky_parent">
-               <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                  <div class="cart__layout_left">
+               <div class="col-md-7 data-sticky_column mt-md-40">
+                  <div class="cart__layout_right">
+                     <div class="cart__heading">
+                        <div><span class="total-qty"></span>  Thông tin đặt hàng</div>
+                     </div>
+                     <div class="grid info">
+                        <div class="grid__item">
+                           <input type="email" name="" id="input" class="form-control" value="" required="required" placeholder="Email" title="">
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <input type="text" name="" id="input" class="form-control" value="" required="required" placeholder="Họ tên" title="">
+                              </div>
+                              <div class="col-md-6">
+                                 <input type="text" name="" id="input" class="form-control" value="" required="required" placeholder="Số điện thoại" title="">
+                              </div>
+                           </div>
+                           <input type="text" name="" id="input" class="form-control" value="" required="required" placeholder="Địa chỉ nhận hàng" title="">
+                           <textarea name="message" id="input" class="form-control" rows="3" placeholder="Ghi chú giao hàng"></textarea>
+                        </div>
+                        <div class="text-center">
+                           <a href="<?=site_url("dat-hang/mua-hang")?>" class="btn-get-cart">Mua hàng</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-5">
+                  <div class="cart__layout_left carts">
                      <div class="cart__header d-xs-none">
                         <div class="row spacing-0">
-                           <div class="col-md-1 label_remove"></div>
+                           <div class="col-md-1 label_product"></div>
                            <div class="col-md-5 label_product">Sản phẩm</div>
                            <div class="col-md-2 label_price">Giá</div>
                            <div class="col-md-2 label_quantity">SL</div>
@@ -18,77 +43,38 @@
                         </div>
                      </div>
                      <div class="cart__body">
-                        <? foreach($carts as $cart) { ?>
-                        <div id="<?=$cart['rowid']?>" class="row spacing-0 align-items-center line2 cart-flex cart_item nv-pl-xs-15 nv-pr-xs-15">
+                        <div id="f457c545a9ded88f18ecee47145a72c0" class="row spacing-0 align-items-center line2 cart-flex cart_item nv-pl-xs-15 nv-pr-xs-15">
                            <div class="col-md-1 cart__remove-wrapper text-center mb-xs-20">
-                              <a href="#" class="cart__remove">
-                                 <i class="zmdi zmdi-delete" rowid_item="<?=$cart['rowid']?>" id_item="<?=$cart['id']?>"></i>
-                              </a>
+                              
                            </div>
                            <div class="col-md-5 cart__image-wrapper d-flex align-items-center mb-xs-20">
                               <a href="#">
-                              <img class="cart__image" src=".<?=$cart['thumbnail']?>">
+                              <img class="cart__image" src="./files/upload/image/product/49/691675.jpg">
                               </a>
                               <div class="cart__meta cart-flex-item">
                                  <div class="content-left">
                                     <div class="list-view-item__title">
-                                       <a target="_blank" href="https://www.yen-vietnam.com/to-yen-tinh-che-loai-1.html"><?=$cart['name']?></a>
+                                       <a target="_blank" href="https://www.yen-vietnam.com/to-yen-tinh-che-loai-1.html">mỡ cá biển 1</a>
                                     </div>
                                  </div>
                               </div>
                            </div>
                            <div class="col-md-2 cart__price-wrapper mb-xs-20">
                               <div>
-                                 <span class="money"><?=number_format($cart['price'],0,',','.')?></span>
+                                 <span class="money">150.000</span>
                               </div>
                            </div>
                            <div class="col-md-2 cart__update-wrapper mb-xs-20">
-                              <div class="cart__qty" rowid_item="<?=$cart['rowid']?>">
-                                 <input type="button" class="js-qty__adjust minus js-qty__adjust--minus" value="-" max="150" cost="1800000" price="1800000" id_item="11" sale="0" stt="0">
-                                 <input class="cart__qty-input qty quantity quantity-0 quantity-11" value="<?=$cart['qty']?>" cost="1800000" price="1800000" id_item="11" sale="0" stt="0">
-                                 <input type="button" class="js-qty__adjust plus js-qty__adjust--plus" value="+" max="150" cost="1800000" price="1800000" id_item="11" sale="0" stt="0"> 
-                              </div>
+                              <strong>1</strong>
                            </div>
                            <div class="col-md-2 total">
                               <div class="product-subtotal">
-                                 <span class="money price-0"><?=number_format($cart['subtotal'],0,',','.')?></span>
+                                 <span class="money price-0">3.000.000</span>
                               </div>
                            </div>
                         </div>
-                        <? } ?>
                      </div>
                   </div>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 data-sticky_column mt-md-40">
-                  <div class="cart__layout_right">
-                     <div class="cart__heading">
-                        <div><span class="total-qty"></span>  sản phẩm trong giỏ</div>
-                     </div>
-                     <div class="grid">
-                        <div class="grid__item">
-                           <div class="cart__total d-flex align-items-center justify-content-between">
-                              <span class="cart__subtotal-title">Tổng tiền:</span>
-                              <span class="cart__subtotal"><span class="total-money money"><?=number_format($this->cart->total(),'0',',','.')?></span></span>
-                           </div>
-                           <br>
-                           <div id="threshold_bar_popup">
-                              <div class="threshold_it">
-                                 <div class="ic_threshold_bar">
-                                    <i class="zmdi zmdi-truck"></i>
-                                 </div>
-                                 <div class="threshold_bar">
-                                    <span class="animate" style="width:25%!important">25%</span>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="box-confirm-cart">
-                           <input type="checkbox" class="confirm-cart" name="Đồng ý điều khoản mua hàng" value="confirm">
-                           <label for="Đồng ý điều khoản mua hàng">Đồng ý điều khoản mua hàng</label>
-                        </div>
-                     </div>
-                  </div>
-                  <a href="<?=site_url("dat-hang")?>" class="btn-get-cart">Đặt hàng</a>
                </div>
             </div>
          </form>

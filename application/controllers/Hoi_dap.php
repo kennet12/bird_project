@@ -9,23 +9,6 @@ class Hoi_dap extends CI_Controller {
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Trang chủ" => site_url('')));
 	}
 	public function index($category=null, $id=null) {
-		// $data = array(
-		// 	'id'      => 'product_id',
-		// 	'qty'     => 4,
-		// 	'price'   => 20.95,
-		// 	'name'    => 'Ramsey',
-		// );
-		// $this->cart->insert($data);
-
-		// $data = array(
-		// 	'rowid' => '0256a32c98ce49afbe2a4eb8c96c5884',
-		// 	'qty'   => 1
-		// );
-	
-		// $this->cart->update($data);// 
-		// $this->cart->remove('0256a32c98ce49afbe2a4eb8c96c5884');
-		// $this->cart->destroy();
-		// var_dump($this->cart->contents());
 
 		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Hỏi-Đáp" => site_url($this->util->slug($this->router->fetch_class()))));
 		

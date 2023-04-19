@@ -4,7 +4,22 @@
 	$info = new stdClass();
 	$user_online = $this->session->userdata("user");
 
-	$carts		= $this->cart->contents();
+	if(!empty($_COOKIE['basa_cart']) && empty($this->cart->contents())) {
+		$cookie_carts = json_decode($_COOKIE['basa_cart']);
+		foreach($cookie_carts as $cookie_cart) {
+			$data = array(
+				'id'        => $cookie_cart->id,
+				'qty'       => $cookie_cart->qty,
+				'price'     => $cookie_cart->price,
+				'name'      => $cookie_cart->name,
+				'thumbnail' => $cookie_cart->thumbnail,
+			);
+			$this->cart->insert($data);
+		}
+	}
+
+	$carts = $this->cart->contents();
+	
 	$count_cart = count($carts);
 	$subtotal = 0;
 	foreach ($carts as $carts) {
