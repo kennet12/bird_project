@@ -74,21 +74,7 @@
                         </span>
                      </p>
                      <div class="selectorVariants">
-                        <!-- <div class="pattern">
-                           <div class="pattern-label">Khối lượng:</div>
-                           <ul class="list clearfix">
-                              <li class="item get-item typename-100g" data-src="" qty="40">
-                                 <label class="radio-container">
-                                    <div class="pattern-info">
-                                       <div class="type">100g</div>
-                                       <div class="sub-price" price="3000000"></div>
-                                    </div>
-                                    <input stt="0" class="p-typename" type="radio" checked="checked" sale="7" name="typename" value="100g"><span class="checkmark"></span>
-                                 </label>
-                              </li>
-                           </ul>
-                        </div> -->
-                        <!-- <div class="group-quantity">
+                        <div class="group-quantity">
                            <span class="control-label">Số lượng:</span>
                            <div class="product-form__item product-form__item--quantity align-item-center mb-30">
                               <label for="Quantity" class="quantity-selector"></label>
@@ -113,9 +99,29 @@
                               </div>
                            </div>
                            <script type="text/javascript">
-                              addToCart('enable-cart','Thêm vào giỏ','Hoàn thành ','Sản phẩm của bạn đã được thêm vào giỏ','Tiếp tục mua sắm','Đặt hàng');
+                              $('.btnAddToCart').click(function() {
+                                 $.ajax({
+                                    method: "POST",
+                                    url: "<?=site_url("ajax-them-san-pham")?>",
+                                    data: {
+                                       productId: '<?=$item->id?>',
+                                       qty: $('#Quantity').val()
+                                    },
+                                    dataType: "json",
+                                    success: function (response) {
+                                       if (response) {
+                                          messageBoxCart('Thêm vào giỏ','Hoàn thành','Sản phẩm của bạn đã được thêm vào giỏ','Tiếp tục mua sắm','Đặt hàng');
+                                          $('#_desktop_cart_count').html('<span id="CartCount">'+Object.keys(response).length+'</span>');
+                                          $('#qty_cart_item').html(Object.keys(response).length);
+                                       } else {
+                                          messageBox('ERROR','Thêm sản phẩm',' Thêm sản phẩm thất bại','Đóng')
+                                       }
+                                    }
+
+                                 });
+                              })
                            </script>
-                        </div> -->
+                        </div>
                      </div>
                   </div>
                </div>

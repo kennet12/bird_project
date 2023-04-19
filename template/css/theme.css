@@ -35,7 +35,7 @@
 .affiliate-report .total-approach h5 {
     font-size: 18px;
     margin: 15px 0;
-    color: #553713;
+    color: #959594;
     font-weight: 400;
 }
 .affiliate-report .total-approach .approach {
@@ -87,7 +87,7 @@
     background: #13cc662b;
     padding: 10px;
     border: 1px solid white;
-    color: #553713;
+    color: #959594;
 }
 .affiliate-report .booking-list .booking-detail {
     margin-top: -1px;
@@ -292,7 +292,7 @@
     color: #afafaf 
 }
 .order-mobile .text-para span, .order .text-para span {
-    color: #553713;
+    color: #959594;
     font-weight: 600 
 }
 .order-mobile .payment-method .fa-donate, .order .payment-method .fa-donate {
@@ -559,7 +559,7 @@
 #tin-tuc .article__readmore {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     background: #f2f2f2;
-    color: #553713;
+    color: #959594;
     padding: 14.5px 45px;
     font-size: 11px;
     font-weight: 700;
@@ -614,7 +614,7 @@
 .list-keyword .title-search {
     margin: 10px 0 5px 0;
     padding: 4px 15px;
-    color: #553713 
+    color: #959594 
 }
 .list-keyword .search-more {
     color: #fd5722;
@@ -628,7 +628,7 @@
 }
 .list-keyword .item {
     padding: 4px 15px;
-    color: #553713;
+    color: #959594;
     cursor: pointer 
 }
 .list-keyword .item:hover {
@@ -637,7 +637,7 @@
 .list-keyword .item>.zmdi-search {
     font-size: 13px;
     margin-right: 5px;
-    color: #553713 
+    color: #959594 
 }
 .list-keyword .search-product {
     display: table;
@@ -894,7 +894,7 @@
 .pattern .pattern-label {
     font-size: 10px;
     font-weight: 700;
-    color: #553713;
+    color: #959594;
     text-transform: uppercase;
     margin-right: 15px;
     margin-top: 10px;
@@ -918,7 +918,7 @@
     cursor: pointer 
 }
 .pattern .list .item.active .pattern-info {
-    color: #553713 
+    color: #959594 
 }
 .pattern .list .item.disabled {
     background: #ebebeb 
@@ -3359,7 +3359,7 @@ hr {
     letter-spacing: 1px;
     color: #333;
     text-transform: uppercase;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -3966,7 +3966,7 @@ hr {
 }
 .wishlist-page .wrapper-wishlist .wishlist-content .item-product .product-image {
     max-width: 170px;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     margin-right: 30px 
 }
 .wishlist-page .wrapper-wishlist .wishlist-content .item-product .product-info .product-title a {
@@ -4003,7 +4003,7 @@ hr {
     width: 100%;
     height: 40px;
     line-height: 40px;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-weight: 700;
     font-size: 10px;
@@ -4195,7 +4195,7 @@ hr {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-weight: 700;
     font-size: 13px;
-    color: #553713;
+    color: #959594;
     width: 297px;
     text-align: right;
     background: #f9f9f9;
@@ -4842,7 +4842,7 @@ hr {
     }
 }
 .block_information .control-label {
-    color: #553713;
+    color: #959594;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 10px;
@@ -4953,7 +4953,7 @@ h1.product-single__title {
 }
 .product-single__socials {
     font-weight: 700;
-    color: #553713 
+    color: #959594 
 }
 .product-single__socials a:hover {
     color: #3F51B5 
@@ -5062,7 +5062,7 @@ h1.product-single__title {
 }
 .product-single__options .product__available {
     font-size: 12px;
-    color: #553713;
+    color: #959594;
     font-weight: 700 
 }
 .product-single__options .product__available i, .product-single__options .product__available span:not(.available) {
@@ -5182,7 +5182,7 @@ h1.product-single__title {
     border-radius: 3px;
     font-weight: 400;
     font-size: 1.4rem;
-    color: #553713 
+    color: #959594 
 }
 .product-form__item--quantity .js-qty .js-qty__num {
     height: 48px;
@@ -5244,7 +5244,7 @@ h1.product-single__title {
     position: relative;
     font-weight: 400;
     font-size: 1.4rem;
-    color: #553713;
+    color: #959594;
     margin: 0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -5258,7 +5258,7 @@ h1.product-single__title {
     font-size: 14px;
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-weight: 600;
-    color: #553713;
+    color: #959594;
     text-align: center;
     border: 0;
     background-color: #f6f6f6;
@@ -5537,7 +5537,7 @@ h1.product-single__title {
 .variant_drop .selectorVariants .selector-wrapper label {
     font-size: 10px;
     font-weight: 700;
-    color: #553713 
+    color: #959594 
 }
 .variant_drop .selectorVariants .selector-wrapper select {
     max-width: 240px;
@@ -6083,7 +6083,7 @@ h1.product-single__title {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-weight: 700;
     font-size: 13px;
-    color: #553713;
+    color: #333;
     text-align: center;
     background-color: #f9f9f9;
     padding: 0;
@@ -6226,7 +6226,7 @@ h1.product-single__title {
 }
 #gio-hang .btn-get-cart {
     width: 100%;
-    background: #553713;
+    background: #959594;
     margin-top: 20px;
     color: #fff;
     text-align: center;
@@ -6238,7 +6238,7 @@ h1.product-single__title {
     letter-spacing: .2px 
 }
 #gio-hang .btn-get-cart:hover {
-    background: #ff9800 
+    background: #3f51b5 
 }
 .cart-section .cart .cart__layout_right .cart__heading {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
@@ -6436,7 +6436,7 @@ h1.product-single__title {
 }
 .cart__footer .cart__subtotal-title {
     font-size: 1.6rem;
-    color: #553713;
+    color: #959594;
     font-weight: 700 
 }
 .cart__footer .cart__subtotal {
@@ -6465,7 +6465,7 @@ h1.product-single__title {
 }
 .template-blog .article--listing .article__title a {
     font-weight: 600;
-    color: #553713;
+    color: #959594;
     font-size: 1.8rem 
 }
 .template-blog .article--listing .article__title a:hover {
@@ -6481,7 +6481,7 @@ h1.product-single__title {
 .template-blog .article--listing .article__readmore {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     background: #f2f2f2;
-    color: #553713;
+    color: #959594;
     padding: 14.5px 45px;
     font-size: 11px;
     font-weight: 700;
@@ -6847,7 +6847,7 @@ h1.product-single__title {
 .categories__sidebar .block__content>.cateTitle>a {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-size: 13px;
-    color: #553713;
+    color: #959594;
     font-weight: 700 
 }
 .categories__sidebar .block__content>.cateTitle>a:hover {
@@ -7120,7 +7120,7 @@ h1.product-single__title {
     display: inline-block;
     padding: 5px 10px;
     text-align: center;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     background: #fff;
     margin-right: 6px;
     margin-bottom: 9px 
@@ -7219,7 +7219,7 @@ h1.product-single__title {
     transition: all .35s linear 
 }
 .sidebar-filter::-webkit-scrollbar-track {
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
@@ -7228,7 +7228,7 @@ h1.product-single__title {
 }
 .sidebar-filter::-webkit-scrollbar {
     width: 2px;
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
@@ -7908,7 +7908,7 @@ h1.product-single__title {
     margin-top: 20px 
 }
 .article__comments h5 {
-    border-bottom: 1px solid #5537135c;
+    border-bottom: 1px solid #9595945c;
     padding-bottom: 6px;
     margin-bottom: 8px 
 }
@@ -8367,7 +8367,7 @@ h1.product-single__title {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, .2) 
 }
 .site-header-pc .site_header__search .search-header__input, .site-header__search .site_header__search .search-header__input {
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
@@ -8805,7 +8805,7 @@ h1.product-single__title {
 .grid--view-items .item-product {
     background: #fff;
     margin-bottom: 25px;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -12467,7 +12467,7 @@ h1.product-single__title {
     padding: 0 30px 
 }
 #popup-quickview .proBoxInfo::-webkit-scrollbar-track {
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
@@ -12476,7 +12476,7 @@ h1.product-single__title {
 }
 #popup-quickview .proBoxInfo::-webkit-scrollbar {
     width: 3px;
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
@@ -12529,7 +12529,7 @@ h1.product-single__title {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #553713;
+    color: #959594;
     margin: 0 
 }
 #popup-quickview .quickviewAvailability {
@@ -12571,7 +12571,7 @@ h1.product-single__title {
     border-radius: 3px;
     font-weight: 400;
     font-size: 1.4rem;
-    color: #553713;
+    color: #959594;
     margin-bottom: 30px 
 }
 #popup-quickview .js-qty .js-qty__num {
@@ -12877,11 +12877,11 @@ h1.product-single__title {
     padding: 41px 30px 49px 
 }
 .open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar-track {
-    background-color: #5537135c 
+    background-color: #9595945c 
 }
 .open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar {
     width: 3px;
-    background-color: #5537135c 
+    background-color: #9595945c 
 }
 .open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar-thumb {
     background-color: #3F51B5 
@@ -12946,7 +12946,7 @@ h1.product-single__title {
 }
 .open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .label, .open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__cat .label, .open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__sku .label, .open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__tags .label {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
-    color: #553713;
+    color: #959594;
     letter-spacing: .1px;
     font-size: 10px;
     font-weight: 700;
@@ -13002,7 +13002,7 @@ h1.product-single__title {
 }
 .open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .group-quantity .quantity-selector {
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
-    color: #553713;
+    color: #959594;
     letter-spacing: .2px;
     font-size: 10px;
     font-weight: 700 
@@ -13055,7 +13055,7 @@ h1.product-single__title {
     position: relative;
     font-weight: 400;
     font-size: 1.4rem;
-    color: #553713;
+    color: #959594;
     margin: 11px 0 30px;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -13366,11 +13366,11 @@ h1.product-single__title {
     margin: 0 -10px 
 }
 .cart_popup_opened .nov-content .cart__popup_content .cart_items::-webkit-scrollbar-track {
-    background-color: #5537135c 
+    background-color: #9595945c 
 }
 .cart_popup_opened .nov-content .cart__popup_content .cart_items::-webkit-scrollbar {
     width: 3px;
-    background-color: #5537135c 
+    background-color: #9595945c 
 }
 .cart_popup_opened .nov-content .cart__popup_content .cart_items::-webkit-scrollbar-thumb {
     background-color: #3F51B5 
@@ -13434,7 +13434,7 @@ h1.product-single__title {
     color: #3F51B5 
 }
 .cart_popup_opened .nov-content .cart__popup-item .cart__popup-thumb {
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     margin-right: 30px;
     min-width: 60px;
     -webkit-border-radius: 3px;
@@ -13720,7 +13720,7 @@ h1.product-single__title {
     text-align: center;
     background: #fff;
     padding: 10px;
-    border: 1px solid #5537135c;
+    border: 1px solid #9595945c;
     -webkit-transition: all .35s linear;
     -moz-transition: all .35s linear;
     -ms-transition: all .35s linear;
@@ -13940,7 +13940,7 @@ h1.product-single__title {
     display: block;
     font-family: Roboto, HelveticaNeue, "Helvetica Neue", sans-serif;
     font-size: 10px;
-    color: #553713;
+    color: #959594;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 20px;
@@ -13955,7 +13955,7 @@ h1.product-single__title {
     position: relative;
     font-weight: 400;
     font-size: 1.4rem;
-    color: #553713;
+    color: #959594;
     margin-bottom: 30px;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -14457,7 +14457,7 @@ h1.product-single__title {
 .swatch .header {
     font-size: 10px;
     font-weight: 700;
-    color: #553713;
+    color: #959594;
     text-transform: uppercase;
     margin-right: 15px;
     margin-top: 10px;
@@ -14600,7 +14600,7 @@ h1.product-single__title {
     height: 100vh 
 }
 .sidebarmenu_content .sidebarmenu_list_content::-webkit-scrollbar-track {
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
@@ -14609,7 +14609,7 @@ h1.product-single__title {
 }
 .sidebarmenu_content .sidebarmenu_list_content::-webkit-scrollbar {
     width: 3px;
-    background-color: #5537135c;
+    background-color: #9595945c;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;

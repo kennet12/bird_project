@@ -10,7 +10,7 @@ class Hoi_dap extends CI_Controller {
 	}
 	public function index($category=null, $id=null) {
 		// $data = array(
-		// 	'id'      => 'RSY001',
+		// 	'id'      => 'product_id',
 		// 	'qty'     => 4,
 		// 	'price'   => 20.95,
 		// 	'name'    => 'Ramsey',

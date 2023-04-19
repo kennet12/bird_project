@@ -4,12 +4,12 @@
 	$info = new stdClass();
 	$user_online = $this->session->userdata("user");
 
-	// $carts		= $this->cart->contents();
-	// $count_cart = count($carts);
-	// $subtotal = 0;
-	// foreach ($carts as $carts) {
-	// 	$subtotal += $carts['subtotal'];
-	// }
+	$carts		= $this->cart->contents();
+	$count_cart = count($carts);
+	$subtotal = 0;
+	foreach ($carts as $carts) {
+		$subtotal += $carts['subtotal'];
+	}
 	$info = new stdClass();
 	$info->parent_id = 0;
 	$product_categories = $this->m_product_categories->items($info,1);

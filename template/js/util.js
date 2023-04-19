@@ -230,34 +230,6 @@ function validatePhone(new_phone) {
 		return false;
 	}
 }
-function addToCart(class_selector,title,message,gotocart,lose,checkout) {
-	$(document).on('click','.'+class_selector,function(){
-		let id 			= $(this).attr('title');
-		let typename 	= $("input[name='typename']:checked").val();
-		let subtypename = $("input[name='subtypename']:checked").val();
-		let quantity 	= $("#Quantity").val();
-		if (typename == undefined) { typename = null; }
-		if (subtypename == undefined) { subtypename = null; }
-		let p = {};
-			p["id"] 			= id;
-			p["typename"] 		= typename;
-			p["subtypename"] 	= subtypename;
-			p["quantity"] 		= quantity;
-		if (quantity > 0) {
-			$.ajax({
-				url: BASE_URL+'/gio-hang/ajax-add-cart.html',
-				type: 'POST',
-				dataType: 'json',
-				data: p,
-				success: function (result) {
-					messageBoxCart(title,message,gotocart,lose,checkout);
-					$('#_desktop_cart_count').html('<span id="CartCount">'+Object.keys(result).length+'</span>');
-					$('#qty_cart_item').html(Object.keys(result).length);
-				}
-			});
-		}
-	});
-}
 function messageBoxCart(title, message, gotocart, lose, checkout)
 {
 	if (!$("#dialog").length) {
