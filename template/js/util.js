@@ -394,3 +394,21 @@ function addLike(selector) {
 		}
 	})
 }
+function messageForm(type, title, messageList){
+	$('#myNotify').addClass(type)
+	
+	$('#title-modal').html(title)
+	
+	var myModal = new bootstrap.Modal($('#myNotify'), {keyboard: false})
+
+	var list = '<ul>';
+	for (let i = 0; i < messageList.length; i++) {
+		list += '<li>'+messageList[i]+'</li>';
+	}
+	list += '</ul>';
+
+	$('#message-list').html(list);
+
+	myModal.show()
+
+}
