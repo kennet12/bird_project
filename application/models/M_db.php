@@ -174,7 +174,7 @@ class M_db extends CI_Model {
 		
 		if (!empty($user)) {
 			if ($this->db->field_exists("updated_by", $this->_table)) {
-				$data["updated_by"] = $user->id;
+				$data["updated_by"] = !empty($user->id)?$user->id:0;
 			}
 			if ($this->db->field_exists("updated_date", $this->_table)) {
 				$data["updated_date"] = date($this->config->item("log_date_format"));
@@ -189,7 +189,7 @@ class M_db extends CI_Model {
 		$data_log['status'] = $status;
 		$data_log['log_tbl'] = $this->_table;
 		
-		$data_log["updated_by"] = $user->id;
+		$data_log["updated_by"] = !empty($user->id)?$user->id:0;
 		$data_log["created_date"] = date($this->config->item("log_date_format"));
 		$data_log["updated_date"] = date($this->config->item("log_date_format"));
 

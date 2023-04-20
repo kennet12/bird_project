@@ -148,5 +148,7 @@ $autoload['model'] = array(
 	'm_product',
 	'm_product_gallery',
 	'm_partner',
-	'm_log'
+	'm_log',
+	'm_order_detail',
+	'm_order'
 );

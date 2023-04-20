@@ -45,8 +45,8 @@
                                         <?
                                         $array_gender = [
                                           '1' => 'Nam',
-                                          '2' => 'Nữ',
-                                          '3' => 'Giới tính thứ 3'];
+                                          '2' => 'Nữ'
+                                        ];
                                         echo $array_gender[$user->gender];
                                       ?>
                                     </p>

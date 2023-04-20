@@ -34,7 +34,7 @@
 											</div>
 											<div class="radio">
 												<label>
-													<input type="radio" name="gender" id="input" value="0" <?=empty($user->gender) ? 'checked="checked"' : ''?>>
+													<input type="radio" name="gender" id="input" value="2" <?=empty($user->gender) ? 'checked="checked"' : ''?>>
 													Nữ
 												</label>
 											</div>

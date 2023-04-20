@@ -209,7 +209,7 @@
 							<div class="site-header__cart">
 								<span class="site-header__cart-icon" style="background: url(<?=IMG_URL?>icon-cart-header.png) no-repeat;"></span>
 								<span id="_desktop_cart_count" class="site-header__cart-count">
-									<span id="CartCount"><?=!empty($carts) ? '<span>'.$count_cart.'</span>' : '<span>0</span>' ?></span>
+									<span id="CartCount"><?=(!empty($_COOKIE['basa_cart']) && !empty($carts)) ? '<span>'.$count_cart.'</span>' : '<span>0</span>' ?></span>
 								</span>
 							</div>
 							<div class="nv-ml-20 d-none d-lg-block">

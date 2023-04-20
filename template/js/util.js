@@ -395,6 +395,7 @@ function addLike(selector) {
 	})
 }
 function messageForm(type, title, messageList){
+	
 	$('#myNotify').addClass(type)
 	
 	$('#title-modal').html(title)
@@ -408,7 +409,7 @@ function messageForm(type, title, messageList){
 	list += '</ul>';
 
 	$('#message-list').html(list);
-
+	
 	myModal.show()
-
+	console.log(123)
 }

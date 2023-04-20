@@ -4,8 +4,7 @@
          <div class="section-header">
             <div class="title-block">Đặt hàng</div>
          </div>
-         <form id="form-post" method="post" novalidate="" class="cart box-checkout" >
-         <input type="hidden" name="task" id="task" class="form-control" value="">
+         <form id="form-post" action="<?=site_url('dat-hang/mua-hang')?>" method="post" novalidate="" class="cart box-checkout" >
             <div class="row data-sticky_parent">
                <div class="col-md-7 data-sticky_column mt-md-40">
                   <div class="cart__layout_right">
@@ -14,45 +13,41 @@
                      </div>
                      <div class="grid info">
                         <div class="grid__item">
-                           <input type="email" name="" id="email" class="form-control" value="" required="required" placeholder="Email" title="">
+                           <input type="email" name="email" id="email" class="form-control" value="" required="required" placeholder="Email" title="">
                            <div class="row">
                               <div class="col-md-6">
-                                 <input type="text" name="" id="name" class="form-control" value="" required="required" placeholder="Họ tên" title="">
+                                 <input type="text" name="fullname" id="name" class="form-control" value="" required="required" placeholder="Họ tên" title="">
                               </div>
                               <div class="col-md-6">
-                                 <input type="text" name="" id="phone" class="form-control" value="" required="required" placeholder="Số điện thoại" title="">
+                                 <input type="text" name="phone" id="phone" class="form-control" value="" required="required" placeholder="Số điện thoại" title="">
                               </div>
                            </div>
-                           <input type="text" name="" id="adress" class="form-control" value="" required="required" placeholder="Địa chỉ nhận hàng" title="">
+                           <input type="text" name="address" id="address" class="form-control" value="" required="required" placeholder="Địa chỉ nhận hàng" title="">
                            <textarea name="message" id="note" class="form-control" rows="3" placeholder="Ghi chú giao hàng"></textarea>
                         </div>
                         <div class="text-center">
-                           <a href="#" class="btn-get-cart">Mua hàng</a>
+                           <a class="btn-get-cart">Mua hàng</a>
                         </div>
                      </div>
                      <script>
                            $('.btn-get-cart').click(function(){
                               let notify = [];
                               if($('#email').val() == ''){
-                                 notify.push('vui long nhap emaii');
+                                 notify.push('Vui lòng nhập email');
                               }
                               if($('#name').val() == ''){
-                                 notify.push('vui long nhap ho va ten');
+                                 notify.push('Vui lòng nhập họ và tên');
                               }
                               if($('#phone').val() == ''){
-                                 notify.push('vui long nhap so dien thoai');
+                                 notify.push('Vui lòng nhập số điện thoại');
                               }
-                              if($('#adress').val() == ''){
-                                 notify.push('vui long nhap dia chi nhan hang');
-                              }
-                              if($('#note').val() == ''){
-                                 notify.push('vui long nhap ghi chu giao hang');
+                              if($('#address').val() == ''){
+                                 notify.push('Vui lòng nhập địa chỉ');
                               }
                               if (notify.length == 0) {
-                                 $('#task').val('save');
                                  $('#form-post').submit();
                               } else {
-                                 messageForm('eror','Đã xảy ra lỗi',notify);
+                                 showErrorMessage('Đặt hàng','Đã xảy ra lỗi',notify,'Đóng');
 			                     }
                            });
                            $(".btn-cancel").click(function(){
@@ -80,7 +75,7 @@
                            </div>
                            <div class="col-md-5 cart__image-wrapper d-flex align-items-center mb-xs-20">
                               <a href="#">
-                              <img class="cart__image" src="<?=$cart['thumbnail']?>">
+                              <img class="cart__image" src=".<?=$cart['thumbnail']?>">
                               </a>
                               <div class="cart__meta cart-flex-item">
                                  <div class="content-left">
