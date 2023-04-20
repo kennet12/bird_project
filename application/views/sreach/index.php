@@ -3,7 +3,7 @@
       <div class="row">
          <div class="sidebar sidebar-collection col-lg-3 col-md-4 flex-xs-unordered">
             <div class="collection_vn pt-md-30 mb-md-40">
-               <div class="collection_title"><?=!empty($category->name)?$category->name:"Tất cả sản phẩm";?></div>
+               <div class="collection_title">Kết quả sản phẩm tìm kiếm</div>
             </div>
             <div id="shopify-section-nov-sidebar" class="shopify-section">
                <div class="close-filter"><i class="zmdi zmdi-close"></i></div>
@@ -83,30 +83,93 @@
                                  <div class="drop-item" id="price-desc" data-value="tang-dan"><?='Tăng dần'?></div>
                                  <div class="drop-item" id="price-asc" data-value="giam-dan"><?='giảm dần'?></div>
                               </div>
-                              <script>
+                                <script>
                                  $('.drop-item').click(function() {
+                                    // $(document).on("click",".drop-items",function() {
+
+                                    var val = $(this).attr('data-value')
                                     let url_page = window.location.href.split('?')[0];
                                    
-                                    let params = getParams(window.location.href)
-                                  
-                                    var val = $(this).attr('data-value')
-                                   
-                                    if (val != '')
-                                       url_page += '?sap-xep='+val
-                                   
-                                    if(params.page != undefined) {
-                                       url_page += (val == '')?'?':'&'
-                                       url_page += 'page='+params.page
+                                    var params = getParams(window.location.href)
+                                    
+                                    // console.log(params.search_text)
+
+                                    $.ajax({
+                                    method: "POST",
+                                    url: "<?=site_url("ajax-tim-kiem")?>",
+                                    data: {
+                                       val:$(this).attr('data-value'),
+                                       sreach:params.search_text
+                                    },
+                                    dataType: "json",
+                                    success: function (response)
+                                    {
+                                    // console.log(response)
+
+                                       for (let i = 0; i < response.length; i++) 
+                                       {
+                                          
+                                          let str ='';
+                                          str += '<div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">';
+                                             str += ' <div class="item-product">';
+                                                
+                                                      str += ' <div class="thumbnail-container has-multiimage has_variants">';
+                                                      str +=' <a href="" style="margin-top: 10px;"> <img class="w-100 img-fluid product__thumbnail" src='' alt=''> </a>';
+                                                      str +='</div>';
+
+                                                      str +=' <div class="product__info">';
+                                                         str +=' <div class="block_product_info">';
+                                                            str += '<div class="product__title"><a href=" " class="limit-content-1-line">'+response[i].thumbnail+' </a> </div>'; 
+
+                                                            str += ' <div class="product__price">'; 
+
+                                                               str += '<span class="product-price__price product-price__sale">';
+                                                               
+                                                                  str += ' <span class="money">'+response[i].price+'  </span>'; 
+
+                                                               str += '</span>'; 
+
+                                                            str += '</div>'; 
+
+                                                            str += '<div class="desc mt-15">'+response[i].content+' </div>'; 
+
+                                                         str += '</div>'; 
+
+                                                      str += '</div>'; 
+
+                                                      str += ' <div class="group_buttons_bottom">; 
+
+                                                         str += ' <div class="group-buttons">';
+
+                                                            str += ' <a class="btn btnAddToCart btnChooseVariant" href="">';
+
+                                                            str += ' <i class="zmdi zmdi-zoom-in"></i> <span>Xem chi tiết</span>';
+
+                                                            str += '</a>';
+
+                                                         str += '</div>';
+
+                                                      str += '</div>'; 
+                                                      
+
+                                                str += '</div>';  
+                                             str += '</div>';
+                                       }
+                                       $('.nov-wapper-product').html(str)
+                                                   
                                     }
+                                    
+
+                                 });
                                        
-                                    window.location.href = url_page
                                  })
+                                 
                               </script>
                            </div>
                         </div>
                      </div>
                      <?
-                    foreach($result_products as $result_product){
+                    foreach($items as $result_product){
                      ?>
                      <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">
                         <div class="item-product">
@@ -116,6 +179,7 @@
                               </a>
                            </div>
                            <div class="product__info">
+
                               <div class="block_product_info">
                                  
                                  <div class="product__title">
@@ -127,8 +191,10 @@
                                     
                                     </span>
                                  </div>
+
                                  <div class="desc mt-15"><?=character_limiter($result_product ->content,250)?></div>
                               </div>
+
                               <div class="group_buttons_bottom">
                                  <div class="group-buttons">
                                     <a class="btn btnAddToCart btnChooseVariant" href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>">
@@ -140,6 +206,7 @@
                            </div>
                         </div>
                      </div>
+                     
 					      <? } ?>
                      <!------------------------------------------------------>
                   </div>

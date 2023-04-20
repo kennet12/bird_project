@@ -41,10 +41,10 @@ class San_pham extends CI_Controller {
 
 				$view_data = array();
 				$view_data["breadcrumb"] 			= $this->_breadcrumb;
-				$view_data['item'] = $item;
-				$view_data['category'] 		= $category;
-				$view_data['product_galleries'] = $product_galleries;
-				$view_data['related_product'] = $related_product;	
+				$view_data['item'] 					= $item;
+				$view_data['category'] 				= $category;
+				$view_data['product_galleries'] 	= $product_galleries;
+				$view_data['related_product'] 		= $related_product;	
 
 				$tmpl_content = array();
 				$tmpl_content["content"]   = $this->load->view("product/detail", $view_data, TRUE);
@@ -178,7 +178,7 @@ class San_pham extends CI_Controller {
 			$view_data['total']				 	 = $total;
 			$view_data['page_num']				 =$check;
 			$view_data['page']				 	 = $page;
-			$view_data['product_categories'] 	 = $this->m_product_categories->items(null,1);
+			$view_data['product_categories'] 	 = $product_categories;
 			$view_data['result_products']		 =$products;
 			
 			$tmpl_content = array();
