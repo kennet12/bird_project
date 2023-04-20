@@ -15,9 +15,11 @@ class M_product extends M_db
 			if (!empty($info->category_id)) {
 				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
-			if (!empty($info->search)) {
-				$info->search = trim($info->search);
-				$sql .= " AND (I.title LIKE '%{$info->search}%')";
+			if (!empty($info->searchtext)) {
+				$info->searchtext = trim($info->searchtext);
+				// $sql .= " AND (I.title LIKE '%{$info->searchtext}%')";
+				$sql .= " AND (I.title = '{$info->searchtext}')";
+
 			}
 		}
 		
@@ -38,7 +40,6 @@ class M_product extends M_db
 		}
 
 		$query = $this->db->query($sql);
-		
 		return $query->result();
 	}
 	
@@ -132,52 +133,6 @@ class M_product extends M_db
 		return $query->result();
 	}
 
-
-
-	// public function items_b($info=null, $active=null, $limit=null, $offset=null, $order_by=null, $sort_by='DESC')
-	// {
-		
-	// 	$sql ="SELECT DISTINCT
-	// 	pd.*, 
-	// 	pdc.*,
-
-	// 	FROM
-	// 	m_product as pd 
-		
-	// 	INNER JOIN 
-	// 	m_product_categories as pdc 
-	// 	ON (pdc.id = pd.category_id)
-		
-	// 	WHERE 1 = 1";
-
-	// 	if(!is_null($info))
-	// 	{
-	// 		if(!empty($info->$category_id))
-	// 		{
-	// 			$sql .=" AND pd.category_id = '{$info->$category_id}'";
-	// 		}
-	// 	}
-	// 	if(!is_null($active))
-	// 	{
-	// 		$sql .= " AND pd.active  = '{$active}'";
-	// 	}
-	// 	$sql .= " AND pd.deleted = '0'";
-	// 	if (!empty($order_by)) {
-	// 		$sql .= " ORDER BY pd.{$order_by} {$sort_by}";
-	// 	} else {
-	// 		$sql .= " ORDER BY pd.created_date DESC";
-	// 	}
-	// 	if (!is_null($limit)) {
-	// 		$sql .= " LIMIT {$limit}";
-	// 	}
-	// 	if (!is_null($offset)) {
-	// 		$sql .= " OFFSET {$offset}";
-	// 	}
-	// 	$query = $this->db->query($sql);
-	// 	// var_dump($sql);
-	// 	return $query->result();
-
-	// }
 
 }
 ?>

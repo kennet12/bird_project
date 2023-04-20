@@ -167,23 +167,7 @@
 										Tìm kiếm
 										</span>
 									</button>
-									<ul class="search-results has-scroll" style="position: absolute; left: 0px; top: 44px; display: none;"></ul>
-								
-									<div class="list-keyword" style="display: none; overflow: scroll; width: 290px; right: 0px;">
-										<div class="title-search">
-											<strong><i class="zmdi zmdi-key"></i> Từ khóa gợi ý</strong>
-										</div>
-																<div class="item" data="nha">
-											<i class="zmdi zmdi-search"></i> nha						</div>
-																<div class="item" data="trai cay">
-											<i class="zmdi zmdi-search"></i> trai cay						</div>
-																<div class="item" data="kiwi">
-											<i class="zmdi zmdi-search"></i> kiwi						</div>
-																<div class="item" data="ngũ cốc">
-											<i class="zmdi zmdi-search"></i> ngũ cốc						</div>
-																<div class="item" data="kẹo">
-											<i class="zmdi zmdi-search"></i> kẹo						</div>
-														</div>
+									
 								</form>
 								<script>
 									searchProduct('#search-pc','Từ khóa gợi ý','Không tìm thấy từ khóa','Kết quả sản phẩm đã tìm','Không tìm thấy sản phẩm','Xem thêm');
@@ -194,7 +178,7 @@
 					</div>
 				</div>
 			</div>
-			<script>
+			<!-- <script>
 				$(document).on('click', '.search-more', function () {
 					$('.frm-search').submit(); 
 				});
@@ -216,7 +200,7 @@
 						$('.search-box .list-keyword').hide();
 					}        
 				});
-			</script>
+			</script> -->
 			<div class="col-md-3 d-flex align-items-center content_right">
 				<div class="contentsticky_cart nv-mr-10 nv-ml-auto">
 					<a href="<?=site_url("gio-hang")?>">

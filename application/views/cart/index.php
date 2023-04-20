@@ -18,7 +18,8 @@
                         </div>
                      </div>
                      <div class="cart__body">
-                        <? foreach($carts as $cart) { ?>
+                        <? foreach($carts as $cart) {
+                           ?>
                         <div id="<?=$cart['rowid']?>" class="row spacing-0 align-items-center line2 cart-flex cart_item nv-pl-xs-15 nv-pr-xs-15">
                            <div class="col-md-1 cart__remove-wrapper text-center mb-xs-20">
                               <a href="#" class="cart__remove">

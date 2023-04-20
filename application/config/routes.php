@@ -69,4 +69,7 @@ $route['ajax-cap-nhat-san-pham'] 			= "gio-hang/cap_nhat";
 $route['ajax-xoa-san-pham'] 			    = "gio-hang/xoa";
 $route['gio-hang'] 					        = "gio-hang/index";
 $route['lien-he/ajax-contact']				= 'lien-he/ajax-contact';
+$route['tim-kiem'] 					        = "tim-kiem/index";
+$route['tim-kiem(:any)'] 					= "tim-kiem/index/$1";
+$route['ajax-tim-kiem'] 			        = "tim-kiem/sx";
 $route['test']				                = 'bieu-phi-dich-vu/index1';
