@@ -15,10 +15,10 @@ class M_product extends M_db
 			if (!empty($info->category_id)) {
 				$sql .= " AND I.category_id = '{$info->category_id}'";
 			}
-			if (!empty($info->searchtext)) {
-				$info->searchtext = trim($info->searchtext);
-				// $sql .= " AND (I.title LIKE '%{$info->searchtext}%')";
-				$sql .= " AND (I.title = '{$info->searchtext}')";
+			if (!empty($info->search_text)) {
+				$info->search_text = trim($info->search_text);
+				$sql .= " AND (I.title LIKE '%{$info->search_text}%')";
+				// $sql .= " AND (I.title = '{$info->searchtext}')";
 
 			}
 		}
@@ -38,7 +38,6 @@ class M_product extends M_db
 		if (!is_null($offset)) {
 			$sql .= " OFFSET {$offset}";
 		}
-
 		$query = $this->db->query($sql);
 		return $query->result();
 	}

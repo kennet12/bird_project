@@ -9,8 +9,6 @@
    	}
    	public function index($category_alias=null)
    	{
-		
-
    		if(!empty($_GET['search_text']) )
    		{
 
@@ -18,7 +16,7 @@
 			$sort_by = null;
 
 			$info = new stdClass();
-			$info->searchtext = !empty($_GET['search_text']) ? trim($_GET['search_text']," ") : '';
+			$info->search_text = !empty($_GET['search_text']) ? trim($_GET['search_text']," ") : '';
 			
 			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : ROW_PER_PAGE;
 				
@@ -53,7 +51,6 @@
 			}
 	
 			$items = $this->m_product->items($info,1, $page_num,$offset,$order_by,$sort_by);
-
 			
 			$product_categories = $this->m_product_categories->items(null,1);
 			
@@ -63,8 +60,6 @@
 				$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
 				$product->image = !empty($gallery[0]->thumbnail) ? BASE_URL.$gallery[0]->thumbnail : null;
 			}
-
-		
 			
 			$view_data = array();
 			$view_data["items"] 			     = $items;
@@ -74,7 +69,7 @@
 			$view_data['page']				 	 = $page;
 	
 			$tmpl_content = array();
-			$tmpl_content["content"]   = $this->load->view("sreach/index", $view_data, TRUE);
+			$tmpl_content["content"]   = $this->load->view("search_product/index", $view_data, TRUE);
 			$this->load->view("layout/view", $tmpl_content);
 				
 		}
@@ -85,7 +80,7 @@
 		
 		$val = $_POST['val'];
 		$info = new stdClass();
-		$info->searchtext = $_POST['sreach'];
+		$info->search_text = $_POST['search_text'];
 
 		
 
@@ -100,13 +95,13 @@
 			$sort_by = 'DESC';
 		}
 		 
-		$items2 = $this->m_product->items($info,1, null,null,$order_by,$sort_by);
+		$seach_products = $this->m_product->items($info,1, null,null,$order_by,$sort_by);
 
 
-		foreach($items2 as $product) {
+		foreach($seach_products as $product) {
 
 			$info = new stdClass();
-			$info->searchtext = $_POST['sreach'];
+			$info->search_text = $_POST['search_text'];
 			$info->product_id =$product->id;
 			
 			$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
@@ -114,7 +109,7 @@
 		
 		}
 		
-		echo json_encode($items2);
+		echo json_encode($seach_products);
 
 	}
    }
