@@ -104,62 +104,83 @@
                                     dataType: "json",
                                     success: function (response)
                                     {
-                                    // console.log(response)
-
-                                       for (let i = 0; i < response.length; i++) 
+                                       
+                                    var str ='';
+                                       for (var i = 0; i < response.length; i++) 
                                        {
+
+                                          // response.forEach(myFunction);
                                           
-                                          let str ='';
-                                          str += '<div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">';
-                                             str += ' <div class="item-product">';
-                                                
-                                                      str += ' <div class="thumbnail-container has-multiimage has_variants">';
-                                                      str +=' <a href="" style="margin-top: 10px;"> <img class="w-100 img-fluid product__thumbnail" src='' alt=''> </a>';
-                                                      str +='</div>';
 
-                                                      str +=' <div class="product__info">';
-                                                         str +=' <div class="block_product_info">';
-                                                            str += '<div class="product__title"><a href=" " class="limit-content-1-line">'+response[i].thumbnail+' </a> </div>'; 
+                                          // function myFunction(item) {
+                                          
+                                          console.log(response[i])
 
-                                                            str += ' <div class="product__price">'; 
+                                             str += ' <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">';
+                                                str += ' <div class="item-product">';
 
-                                                               str += '<span class="product-price__price product-price__sale">';
-                                                               
-                                                                  str += ' <span class="money">'+response[i].price+'  </span>'; 
+                                                   str+='<div class="thumbnail-container has-multiimage has_variants">';
 
-                                                               str += '</span>'; 
+                                                      str += '<a href="đường dãn" style="margin-top: 10px;">';
 
-                                                            str += '</div>'; 
+                                                         str += '<img class="w-100 img-fluid product__thumbnail" src="'+response[i].image+'" alt="">';
 
-                                                            str += '<div class="desc mt-15">'+response[i].content+' </div>'; 
+                                                      str += '</a>';  
 
-                                                         str += '</div>'; 
+                                                   str += '</div>'; 
+                                                   //////////////////////////////////////////////////////////////////////////////////////////
 
-                                                      str += '</div>'; 
+                                                   str+='<div class="product__info">';
 
-                                                      str += ' <div class="group_buttons_bottom">; 
+                                                      str += '<div class="block_product_info">';
 
-                                                         str += ' <div class="group-buttons">';
+                                                         str += ' <div class="product__title">';
 
-                                                            str += ' <a class="btn btnAddToCart btnChooseVariant" href="">';
+                                                            str += '<a href="đường dẫn" class="limit-content-1-line">'+response[i].title+'</a>';
 
-                                                            str += ' <i class="zmdi zmdi-zoom-in"></i> <span>Xem chi tiết</span>';
+                                                         str += '</div>';
+
+                                                         str += '<div class="product__price">';
+
+                                                            str +='<span class="product-price__price product-price__sale">';
+
+                                                               str +='<span class="money">price</span>';
+
+                                                            str +='</span>';
+
+                                                         str +='</div>';
+
+                                                         str +='<div class="desc mt-15">price</div>';
+
+                                                      str += '</div>';
+
+                                                      str += ' <div class="group_buttons_bottom">';
+
+                                                         str += '<div class="group-buttons">';
+
+                                                            str += '<a class="btn btnAddToCart btnChooseVariant" href="dường dãn">';
+
+                                                               str += '<i class="zmdi zmdi-zoom-in"></i>';
+
+                                                               str +='<span>Xem chi tiết</span>';
 
                                                             str += '</a>';
 
                                                          str += '</div>';
 
-                                                      str += '</div>'; 
-                                                      
+                                                      str += '</div>';
 
+                                                   str += '</div>';
+                                                
                                                 str += '</div>';  
                                              str += '</div>';
-                                       }
-                                       $('.nov-wapper-product').html(str)
-                                                   
+                                          }
+
+                                       // }
+                                       // console.log(str)
+                                       $('.nov-wrapper-product').html(str)
                                     }
                                     
-
                                  });
                                        
                                  })
@@ -178,6 +199,7 @@
                                  <img class="w-100 img-fluid product__thumbnail" src="<?=!empty($result_product ->image)?$result_product ->image : ' '?>" alt="">
                               </a>
                            </div>
+
                            <div class="product__info">
 
                               <div class="block_product_info">
@@ -185,12 +207,13 @@
                                  <div class="product__title">
 								         	<a href="<?=site_url("san-pham/{$result_product->category_alias}/{$result_product->alias}")?>" class="limit-content-1-line"><?=$result_product->title; ?></a>
                                  </div>
+
                                  <div class="product__price">
 								         	<span class="product-price__price product-price__sale">
                                     <span class="money"><?=!empty($result_product ->price)?number_format($result_product ->price,0,',','.')." VND" : "Liên Hệ "?></span>
-                                    
                                     </span>
                                  </div>
+
 
                                  <div class="desc mt-15"><?=character_limiter($result_product ->content,250)?></div>
                               </div>
@@ -203,7 +226,9 @@
                                     </a>
                                  </div>
                               </div>
+
                            </div>
+
                         </div>
                      </div>
                      
