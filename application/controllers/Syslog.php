@@ -1400,10 +1400,8 @@ class Syslog extends CI_Controller {
 				$total,
 				$page_num
 			);
-		// var_dump($_SERVER);
-		// die;
-				$info = new stdClass();
-				$info->search = !empty($_GET['search'])?$_GET['search']:'';
+			$info = new stdClass();
+			$info->search = !empty($_GET['search'])?$_GET['search']:'';
 
 				// thêm ngày tháng , tên người sửa
 			$products = $this->m_product->items($info, null, $page_num, $offset);
@@ -1659,148 +1657,6 @@ class Syslog extends CI_Controller {
 		
 	}
 	//------------------------------------------------------------------------------
-	// document
-	//------------------------------------------------------------------------------
-	public function document($action=null,$id=null){
-		$config_row_page = ADMIN_ROW_PER_PAGE;
-		$pagi		= (isset($_GET["pagi"]) ? $_GET["pagi"] : $config_row_page);
-		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
-			$page = 1;
-		}
-		else {
-			$page = $_GET['page'];
-		}
-		$offset = ($page - 1) * $pagi;
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array( "Danh sách danh mục" => site_url("{$this->util->slug($this->router->fetch_class())}/category-document")));
-		$task = $this->input->post('task');
-		if (!empty($task)){
-			if ($task == 'save'){
-				$title 			= $this->input->post('title');
-				$active 		= $this->input->post('active');
-				
-				if (!empty($_FILES['file_upload']["name"])){
-					$allowed_type = explode('.',$_FILES['file_upload']["name"]);
-				}else{
-					$allowed_type = explode('.',$this->m_document->load($id)->file_name);
-				}
-				$data = array(
-						"title" 		=> $title,
-						"alias" 		=> $this->util->slug($title),
-						"file_name" 	=> $this->util->slug($allowed_type[0]).'.'.$allowed_type[1],
-						"type" 			=> strtolower($allowed_type[1]),
-						"active" 		=> $active,
-					);
-				if (empty($id)) {
-					$id = $this->m_document->get_next_value();
-				}
-				$path = "./files/upload/file_";
-				$data["file_path"] = BASE_URL."/files/upload/file_";
-				if ($data['type'] == 'rar'){
-					$path .= "rar";
-					$data["file_path"] .= "rar/{$id}/".$data["file_name"];
-				} else if ($data['type'] == 'zip'){
-					$path .= "zip";
-					$data["file_path"] .= "zip/{$id}/".$data["file_name"];
-				} else if (($data['type'] == 'doc') || ($data['type'] == 'docx')){
-					$path .= "word";
-					$data["file_path"] .= "word/{$id}/".$data["file_name"];
-				} else if (($data['type'] == 'xls') || ($data['type'] == 'xlsx') || ($data['type'] == 'csv')){
-					$path .= "excel";
-					$data["file_path"] .= "excel/{$id}/".$data["file_name"];
-				} else {
-					$path .= "pdf";
-					$data["file_path"] .= "pdf/{$id}/".$data["file_name"];
-				}
-				$path .= "/{$id}";
-				if (!file_exists($path)) {
-					mkdir($path, 0755, true);
-				}
-				if ($action == "add") {
-					$file_data = $this->util->upload_file($path,'file_upload');
-					$data["file_size"] = $file_data['file_size'];
-					$this->m_document->add($data);
-					$this->session->set_flashdata("success", "Thêm thành công.");
-				}
-				else if ($action == "edit") {
-					$item = $this->m_document->load($id);
-					$file_deleted = str_replace(BASE_URL,'.',$item->file_path);
-					$file_data = $this->util->upload_file($path,'file_upload',$file_deleted);
-
-					if ($this->document_type($allowed_type[1]) != $this->document_type(explode('.',$item->file_name)[1])) {
-						$dir_path = str_replace('/'.$item->file_name,'',$file_deleted);
-						rmdir($dir_path);
-					}
-					$data["file_size"] = $file_data['file_size'];
-					$where = array("id" => $id);
-					$this->m_document->update($data, $where);
-					$this->session->set_flashdata("success", "Cập nhật thành công.");
-				}
-				redirect(site_url("syslog/document"));
-			}
-			else if ($task == "publish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 1);
-					$where = array("id" => $id);
-					$this->m_document->update($data, $where);
-				}
-				redirect(site_url("syslog/document"));
-			}
-			else if ($task == "unpublish") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$data = array("active" => 0);
-					$where = array("id" => $id);
-					$this->m_document->update($data, $where);
-				}
-				redirect(site_url("syslog/document"));
-			}
-			else if ($task == "delete") {
-				$ids = $this->util->value($this->input->post("cid"), array());
-				foreach ($ids as $id) {
-					$where = array("id" => $id);
-					$this->m_document->delete($where);
-				}
-				$this->session->set_flashdata("success", "Xóa thành công");
-				redirect(site_url("syslog/document"));
-			}
-		}
-		if (!empty($action)){
-			$view_data = array();
-			if ($action == 'add'){
-				$this->_breadcrumb = array_merge($this->_breadcrumb, array( "Thêm mới" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}")));
-			} else if ($action == 'edit'){
-				$this->_breadcrumb = array_merge($this->_breadcrumb, array( $this->m_document->load($id)->title => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")));
-				$view_data['item'] = $this->m_document->load($id);
-
-			}
-			$view_data['breadcrumb'] 	= $this->_breadcrumb;
-
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/document/edit", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		} 
-		else {
-			$total = count($this->m_document->items());
-			if (!isset($_GET['pagi'])){
-				$pagination = $this->util->pagination(site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?pagi=$config_row_page"."$_SERVER[QUERY_STRING]", $total, $pagi);
-			}else{
-				$pagination = $this->util->pagination(site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]", $total, $pagi);
-			}
-			$items = $this->m_document->items(null,null,$pagi,$offset);
-			$view_data = array();
-			$view_data['breadcrumb'] 	= $this->_breadcrumb;
-			$view_data['items'] 		= $items;
-			$view_data['offset'] 		= $offset;
-			$view_data['pagi'] 			= $pagi;
-			$view_data['pagination'] 	= $pagination;
-
-			$tmpl_content = array();
-			$tmpl_content["content"] = $this->load->view("admin/document/index", $view_data, true);
-			$this->load->view("layout/admin/main", $tmpl_content);
-		}
-	}
-	//------------------------------------------------------------------------------
 	// post
 	//------------------------------------------------------------------------------
 	public function posts ($action=null, $id=null) {
@@ -1996,6 +1852,161 @@ class Syslog extends CI_Controller {
 			$tmpl_log["content"] = $this->load->view("admin/log/index", $view_data, true);
 			$this->load->view("layout/admin/main", $tmpl_log);
 		}
+	}
+	public function order($action= null , $id=null){
+		
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Đơn hàng" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
+		if(!empty($action))
+		{
+			
+			if($action == 'edit')
+			{
+				$this->_breadcrumb = array_merge($this->_breadcrumb, [
+					"Sữa" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}/{$action}/{$id}")
+				]);	
+
+				$item = $this->m_order->load($id);
+				$info = new stdClass();
+				$info->order_id = $item->id;
+				$details = $this->m_order_detail->items($info);
+				
+				$view_data = array();
+				$view_data["breadcrumb"] = $this->_breadcrumb;
+				$view_data["item"] = $item;
+				$view_data["details"] = $details;
+				$view_data["title"] = 'Thông tin đặt hàng';
+
+				$tmpl_contact = array();
+				$tmpl_contact["content"] = $this->load->view("admin/order/edit", $view_data, true);
+				$this->load->view("layout/admin/main", $tmpl_contact);	
+			}
+			else if($action == 'delete')
+			{
+				// $this->m_order->remove(['id' => $id]);
+				// $this->m_order_detail->remove(['id' => $id]);
+				$this->session->set_flashdata("success", "Hủy đơn thành công");
+				redirect(site_url("syslog/order"), "back");
+
+			}
+		}
+		else
+		{
+			$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+			$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+			if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+				$page = 1;
+			}
+			else {
+				$page = $_GET['page'];
+			}
+			$offset = ($page - 1) * $page_num;
+
+			$total = count($this->m_order->items());
+			
+			$pagination = $this->util->pagination(
+				site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+				$total,
+				$page_num
+			);
+			$items = $this->m_order->items(null,$page_num, $offset);
+			foreach ($items as $item) {
+				$user_update = $this->m_user->load($item->updated_by);
+				$item->username = !empty($user_update)?$user_update->fullname:'Đang cập nhật';
+
+				$info = new stdClass();
+				$info->order_id = $item->id;
+				$details = $this->m_order_detail->items($info);
+				$sub_total = 0;
+				foreach($details as $detail) {
+					$sub_total += ($detail->qty*$detail->price);
+				}
+				$item->sub_total = $sub_total;
+			}
+
+			$view_data = array();
+			$view_data["items"] = $items;
+			$view_data["offset"]		 = $offset;
+			$view_data["pagination"]	 = $pagination;
+			$view_data["breadcrumb"] 	 = $this->_breadcrumb;
+			$view_data["title"] = 'Danh sách đơn hàng';
+
+			$tmpl_contact = array();
+			$tmpl_contact["content"] = $this->load->view("admin/order/index", $view_data, true);
+			$this->load->view("layout/admin/main", $tmpl_contact);
+		}
+
+	}
+
+	public function report($action= null , $id=null){
+		
+		$this->_breadcrumb = array_merge($this->_breadcrumb, [
+			"Báo cáo" => site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}")
+		]);
+		$config_row_page = ADMIN_ROW_PER_PAGE;// số item trong 1 trang
+		$page_num		= isset($_GET["page_num"]) ? $_GET["page_num"] : $config_row_page;
+		if (!isset($_GET['page']) || (($_GET['page']) < 1) ) {
+			$page = 1;
+		}
+		else {
+			$page = $_GET['page'];
+		}
+		$offset = ($page - 1) * $page_num;
+
+		$fromDate = date('Y-m-d',strtotime("-1 day"));
+		$toDate = date('Y-m-d');
+		
+		if (!empty($_GET['report_date'])) {
+			$report_date = explode(' to ',$_GET['report_date']);
+			$fromDate = $report_date[0];
+			$toDate = !empty($report_date[1])?$report_date[1]:'';
+		}
+
+		$info = new stdClass();
+		$info->fromDate = $fromDate;
+		$info->toDate = $toDate;
+
+		$total_items = $this->m_order->items($info);
+		$total_qty = 0;
+		$total_price = 0;
+		foreach ($total_items as $total_item) {
+
+		}
+		$total = count($total_items);
+		
+		$pagination = $this->util->pagination(
+			site_url("{$this->util->slug($this->router->fetch_class())}/{$this->util->slug($this->router->fetch_method())}"). "?$_SERVER[QUERY_STRING]",
+			$total,
+			$page_num
+		);
+		$items = $this->m_order->items($info,$page_num, $offset);
+		foreach ($items as $item) {
+			$user_update = $this->m_user->load($item->updated_by);
+			$item->username = !empty($user_update)?$user_update->fullname:'Đang cập nhật';
+
+			$info = new stdClass();
+			$info->order_id = $item->id;
+			$details = $this->m_order_detail->items($info);
+			$sub_total = 0;
+			foreach($details as $detail) {
+				$sub_total += ($detail->qty*$detail->price);
+			}
+			$item->sub_total = $sub_total;
+		}
+
+		$view_data = array();
+		$view_data["items"] = $items;
+		$view_data["report_date"]    = $fromDate.' to '.$toDate;
+		$view_data["offset"]		 = $offset;
+		$view_data["total"]		 	= $total;
+		$view_data["pagination"]	 = $pagination;
+		$view_data["breadcrumb"] 	 = $this->_breadcrumb;
+		$view_data["title"] = 'Thống kê đơn hàng';
+
+		$tmpl_contact = array();
+		$tmpl_contact["content"] = $this->load->view("admin/report/index", $view_data, true);
+		$this->load->view("layout/admin/main", $tmpl_contact);
 	}
 }
 ?>

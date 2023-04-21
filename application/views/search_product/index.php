@@ -86,40 +86,35 @@
                                 <script>
                                  $('.drop-item').click(function() {
                                     var val = $(this).attr('data-value')
-                                    let url_page = window.location.href.split('?')[0];
-                                   
-                                    var params = getParams(window.location.href)
-                                    
-
                                     $.ajax({
                                        method: "POST",
                                        url: "<?=site_url("ajax-tim-kiem")?>",
                                        data: {
                                           val:$(this).attr('data-value'),
-                                          search_text: params.search_text.replaceAll('+',' ')
+                                          search_text: '<?=!empty($_GET['search_text'])?$_GET['search_text']:''?>'
                                        },
                                        dataType: "json",
-                                       success: function (response) {
+                                       success: function (res) {
                                           var str ='';
-                                          for (var i = 0; i < response.length; i++)  { 
+                                          for (var i = 0; i < res.length; i++)  { 
                                              str += ' <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">';
                                                 str += ' <div class="item-product">';
                                                    str+='<div class="thumbnail-container has-multiimage has_variants">';
                                                       str += '<a href="đường dãn" style="margin-top: 10px;">';
-                                                         str += '<img class="w-100 img-fluid product__thumbnail" src="'+response[i].image+'" alt="">';
+                                                         str += '<img class="w-100 img-fluid product__thumbnail" src="'+res[i].image+'" alt="">';
                                                       str += '</a>';  
                                                    str += '</div>'; 
                                                    str+='<div class="product__info">';
                                                       str += '<div class="block_product_info">';
                                                          str += ' <div class="product__title">';
-                                                            str += '<a href="đường dẫn" class="limit-content-1-line">'+response[i].title+'</a>';
+                                                            str += '<a href="đường dẫn" class="limit-content-1-line">'+res[i].title+'</a>';
                                                          str += '</div>';
                                                          str += '<div class="product__price">';
                                                             str +='<span class="product-price__price product-price__sale">';
-                                                               str +='<span class="money">price</span>';
+                                                               str +='<span class="money">'+formatDollar(parseInt(res[i].price))+'</span>';
                                                             str +='</span>';
                                                          str +='</div>';
-                                                         str +='<div class="desc mt-15">price</div>';
+                                                         str +='<div class="desc mt-15 limit-content-3-line">'+res[i].content+'</div>';
                                                       str += '</div>';
                                                       str += ' <div class="group_buttons_bottom">';
                                                          str += '<div class="group-buttons">';
@@ -137,7 +132,6 @@
                                        }
                                     });
                                  })
-                                 
                               </script>
                            </div>
                         </div>
@@ -170,7 +164,7 @@
                                     </div>
 
 
-                                    <div class="desc mt-15"><?=character_limiter($result_product ->content,250)?></div>
+                                    <div class="desc mt-15 limit-content-3-line"><?=character_limiter($result_product ->content,250)?></div>
                                  </div>
 
                                  <div class="group_buttons_bottom">

@@ -77,12 +77,9 @@
    
    	public function SX()
 	{
-		
 		$val = $_POST['val'];
 		$info = new stdClass();
 		$info->search_text = $_POST['search_text'];
-
-		
 
 		if($val == "tang-dan")
 		{
@@ -97,11 +94,9 @@
 		 
 		$seach_products = $this->m_product->items($info,1, null,null,$order_by,$sort_by);
 
-
 		foreach($seach_products as $product) {
 
 			$info = new stdClass();
-			$info->search_text = $_POST['search_text'];
 			$info->product_id =$product->id;
 			
 			$gallery = $this->m_product_gallery->items($info,null,null,'stt','ASC');
@@ -110,7 +105,6 @@
 		}
 		
 		echo json_encode($seach_products);
-
 	}
    }
    

@@ -80,10 +80,8 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <textarea class="form-control tinymce" name="content" placeholder="Nội dung"
-                                            rows="20"><?=!empty($item->content)? $item->content :''?></textarea>
-                                    </div>
+                                    <textarea class="form-control tinymce" name="content" placeholder="Nội dung"
+                                        rows="20"><?=!empty($item->content)? $item->content :''?></textarea>
                                 </div>
                             </div>
                         </div>
