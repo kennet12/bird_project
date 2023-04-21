@@ -80,6 +80,7 @@ class Dat_hang extends CI_Controller {
 
     public function that_bai() {
         $this->_breadcrumb = array_merge($this->_breadcrumb, array("Mua Hàng" => site_url("dat-hang/mua-hang")));
+        
         $view_data = array();
 		$view_data['carts'] 		= $this->cart->contents();
 		$view_data['breadcrumb'] 	= $this->_breadcrumb;
