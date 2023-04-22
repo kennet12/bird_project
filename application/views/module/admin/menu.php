@@ -58,14 +58,14 @@
         </li>
         <? if (in_array($admin->user_type, [USR_ADMIN, USR_SUPPER_ADMIN])) { ?>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'order') ? 'active' : ''?>" href="<?=site_url("syslog/order")?>"style = "color :#996699;">
-          <i class="fa-solid fa-handshake-simple"></i>
+          <a class="nav-link <?=($method == 'order') ? 'active' : ''?>" href="<?=site_url("syslog/order")?>"style = "color :#0efd84;">
+          <i class="fa-solid fa-recycle"></i>
             <span class="nav-link-text ms-1">Đơn hàng</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?=($method == 'report') ? 'active' : ''?>" href="<?=site_url("syslog/report")?>"style = "color :#996699;">
-          <i class="fa-solid fa-handshake-simple"></i>
+          <a class="nav-link <?=($method == 'report') ? 'active' : ''?>" href="<?=site_url("syslog/report")?>"style = "color :#eb0098;">
+          <i class="fa-regular fa-clipboard"></i>
             <span class="nav-link-text ms-1">Báo cáo</span>
           </a>
         </li>

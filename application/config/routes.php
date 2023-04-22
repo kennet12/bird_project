@@ -72,4 +72,6 @@ $route['lien-he/ajax-contact']				= 'lien-he/ajax-contact';
 $route['tim-kiem'] 					        = "tim-kiem/index";
 $route['tim-kiem(:any)'] 					= "tim-kiem/index/$1";
 $route['ajax-tim-kiem'] 			        = "tim-kiem/sx";
-$route['test']				                = 'bieu-phi-dich-vu/index1';
+$route['account'] 					        = "account/index";
+$route['tai-khoan/thong-tin-tai-khoan'] 	= "account/info";
+$route['tai-khoan/doi-mat-khau'] 	        = "account/change";

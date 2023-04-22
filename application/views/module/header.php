@@ -88,7 +88,7 @@
 				<ul id="currencies" class="list-inline">
 					<? if (empty($user_online)) { ?>
 					<li class="currency__item list-inline-item">
-						<a href="<?=site_url('tai-khoan/dang-nhap')?>">	
+						<a href="<?=site_url('account/index')?>">	
 							<span >Đăng nhập</span>
 						</a>
 					</li>
@@ -102,7 +102,7 @@
 						<div class="site-header_myaccount dropdown nv-mr-10 nv-ml-auto">
 							<div class="dropdown-toggle text-center d-flex" data-toggle="dropdown">
 								<a href="#">	
-									<span><?=$user_online->fullname;?></span>
+									 <span>Khách Hàng : <i><?=$user_online->fullname;?></i></span>
 								</a>
 							</div>
 							<div class="account-list dropdown-menu dropdown-menu-right" id="_desktop_account_list">
@@ -115,19 +115,14 @@
 											</a>
 										</div>
 										<div>
-											<a class="check-out" href="<?=site_url('tai-khoan/thong-tin-tai-khoan')?>" rel="nofollow" title="Profile">
+											<a class="check-out" href="<?=site_url('account/info')?>" rel="nofollow" title="Profile">
 												<i class="zmdi zmdi-account"></i>
 												<p>Thông tin tài khoản</p>
 											</a>
 										</div>
+									
 										<div class="link_wishlist">
-											<a class="wishlist" href="<?=site_url('tai-khoan/san-pham-yeu-thich')?>" rel="nofollow" title="My Wishlist">
-												<i class="zmdi zmdi-favorite"></i>
-												<p>Danh sách yêu thích</p>
-											</a>
-										</div>
-										<div class="link_wishlist">
-											<a class="wishlist" href="<?=site_url('tai-khoan/dang-xuat')?>" rel="nofollow" title="My Wishlist">
+											<a class="wishlist" href="<?=site_url('account/logout')?>" rel="nofollow" title="My Wishlist">
 												<i class="zmdi zmdi-long-arrow-return"></i>
 												<p>Đăng xuất</p>
 											</a>

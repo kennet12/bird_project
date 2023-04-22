@@ -65,27 +65,29 @@
                                  <a href="#" id="grid-2" title="Grid View 2" data-type="view_2"><i style="transform: rotate(90deg);" class="zmdi zmdi-view-module"></i></a>
                                  <a href="#" id="list" title="List View" data-type="list"><i class="zmdi zmdi-view-list"></i></a>
                               </div>
-                              <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" value="a" aria-expanded="true">
-                              <? 
-                              if(!empty($_GET['sap-xep'])) {
-                                 if ($_GET['sap-xep'] == 'tang-dan') {
-                                    echo 'Tăng dần';
-                                 } else if ($_GET['sap-xep'] == 'giam-dan') {
-                                    echo 'Giảm dần';
-                                 }
-                              } else {
-                                 echo 'Sắp xếp';
-                              }
-                              ?>
-                              </button>
+                              <button id="btn-sx" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" value="a" aria-expanded="true">
+                                     <span>sắp xếp</span>
+                             </button>
                               <div class="dropdown-menu dropdown-menu-right text-right">
                                  <div class="drop-item active" data-value="">Sắp xếp</div>
                                  <div class="drop-item" id="price-desc" data-value="tang-dan"><?='Tăng dần'?></div>
                                  <div class="drop-item" id="price-asc" data-value="giam-dan"><?='giảm dần'?></div>
                               </div>
                                 <script>
+                                 
+
                                  $('.drop-item').click(function() {
                                     var val = $(this).attr('data-value')
+                               
+                                  if(val =='tang-dan')
+                                    {
+                                       document.getElementById("btn-sx").innerHTML="Tăng Dần"
+                                    }
+                                    else if(val =='giam-dan')
+                                    {
+                                        document.getElementById("btn-sx").innerHTML="Giảm Dần"
+                                    }
+                                     
                                     $.ajax({
                                        method: "POST",
                                        url: "<?=site_url("ajax-tim-kiem")?>",
@@ -95,19 +97,22 @@
                                        },
                                        dataType: "json",
                                        success: function (res) {
+                                          var checksx =$(this).attr('data-value');
+                                         console.log(res)
+                                      
                                           var str ='';
                                           for (var i = 0; i < res.length; i++)  { 
                                              str += ' <div class="nov-wrapper-product col" data-colors="blue,red,orange,green,pink" data-materials="" data-sizes="small,medium,large,ultra" data-tags="apple,m,pink,upsell" data-price="3.00">';
                                                 str += ' <div class="item-product">';
                                                    str+='<div class="thumbnail-container has-multiimage has_variants">';
-                                                      str += '<a href="đường dãn" style="margin-top: 10px;">';
+                                                      str += '<a href="./san-pham/'+res[i].category_alias+'/'+res[i].alias+'.html" style="margin-top: 10px;">';
                                                          str += '<img class="w-100 img-fluid product__thumbnail" src="'+res[i].image+'" alt="">';
                                                       str += '</a>';  
                                                    str += '</div>'; 
                                                    str+='<div class="product__info">';
                                                       str += '<div class="block_product_info">';
                                                          str += ' <div class="product__title">';
-                                                            str += '<a href="đường dẫn" class="limit-content-1-line">'+res[i].title+'</a>';
+                                                            str += '<a href="./san-pham/'+res[i].category_alias+'/'+res[i].alias+'.html" class="limit-content-1-line">'+res[i].title+'</a>';
                                                          str += '</div>';
                                                          str += '<div class="product__price">';
                                                             str +='<span class="product-price__price product-price__sale">';
@@ -129,6 +134,7 @@
                                              str += '</div>'; 
                                           }
                                           $('.parent-product').html(str)
+
                                        }
                                     });
                                  })
