@@ -92,11 +92,7 @@
 							<span >Đăng nhập</span>
 						</a>
 					</li>
-					<li class="currency__item list-inline-item">
-						<a href="<?=site_url('tai-khoan/dang-ky-tai-khoan')?>">	
-							<span >Đăng ký</span>
-						</a>
-					</li>
+					
 					<? } else { ?>
 					<li class="currency__item list-inline-item">
 						<div class="site-header_myaccount dropdown nv-mr-10 nv-ml-auto">

@@ -27,14 +27,9 @@
                      <span class="show"><i class="zmdi zmdi-eye-off"></i></span>
                   </div>
                </div>
-               <div class="forgot_password">
-                  <i class="zmdi zmdi-email"></i>
-                  <a href="https://www.yen-vietnam.com/tai-khoan/lay-lai-mat-khau.html">
-                     Forgot your <strong>Password ?</strong>
-                  </a>
-               </div>
-               <div class="bank_register">If you have an account, please 
-                  <a href="https://www.yen-vietnam.com/tai-khoan/dang-ky-tai-khoan.html">Register here </a>
+             
+               <div class="bank_register">If you don't have an account please
+                  <a href="<?=site_url("account/register")?>">Register here </a>
                </div>
                <div class="form_submit">
                <button type="button" id="btn-login" class="btn">Login</button>

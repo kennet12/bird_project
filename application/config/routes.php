@@ -75,3 +75,4 @@ $route['ajax-tim-kiem'] 			        = "tim-kiem/sx";
 $route['account'] 					        = "account/index";
 $route['tai-khoan/thong-tin-tai-khoan'] 	= "account/info";
 $route['tai-khoan/doi-mat-khau'] 	        = "account/change";
+$route['account/register'] 	                = "account/register";

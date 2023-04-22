@@ -84,5 +84,14 @@ class Account extends CI_Controller {
 		$this->load->view("layout/view", $tmpl_content);
 	}
 
+	public function register()
+	{
+		$view_data=array();
+
+		$tmpl_content = array();
+		$tmpl_content["content"]   = $this->load->view("account/register", $view_data, TRUE);
+		$this->load->view("layout/view", $tmpl_content);
+	}
+
 }
 ?>	
