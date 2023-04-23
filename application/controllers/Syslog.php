@@ -2012,6 +2012,7 @@ class Syslog extends CI_Controller {
 		}
 
 		$info = new stdClass();
+		$info->status = 3;
 		$info->fromDate = $fromDate;
 		$info->toDate = $toDate;
 
@@ -2029,6 +2030,8 @@ class Syslog extends CI_Controller {
 			$page_num
 		);
 		$items = $this->m_order->items($info,$page_num, $offset);
+		$qty_total = 0;
+		$money_total = 0;
 		foreach ($items as $item) {
 			$user_update = $this->m_user->load($item->updated_by);
 			$item->username = !empty($user_update)?$user_update->fullname:'Đang cập nhật';
@@ -2037,10 +2040,13 @@ class Syslog extends CI_Controller {
 			$info->order_id = $item->id;
 			$details = $this->m_order_detail->items($info);
 			$sub_total = 0;
+			
 			foreach($details as $detail) {
 				$sub_total += ($detail->qty*$detail->price);
+				$qty_total += $detail->qty;
 			}
 			$item->sub_total = $sub_total;
+			$money_total += $sub_total;
 		}
 
 		$view_data = array();
@@ -2048,6 +2054,8 @@ class Syslog extends CI_Controller {
 		$view_data["report_date"]    = $fromDate.' to '.$toDate;
 		$view_data["offset"]		 = $offset;
 		$view_data["total"]		 	= $total;
+		$view_data["qty_total"]		 = $qty_total;
+		$view_data["money_total"]	= $money_total;
 		$view_data["pagination"]	 = $pagination;
 		$view_data["breadcrumb"] 	 = $this->_breadcrumb;
 		$view_data["title"] = 'Thống kê đơn hàng';

@@ -1,17 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Account extends CI_Controller {
+class Tai_khoan extends CI_Controller {
 	var $_breadcrumb = array();
+	var $user_online = array();
 
 	function __construct()
 	{
 		parent::__construct();
 
-		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Trang chủ" => site_url('')));
+		$this->_breadcrumb = array_merge($this->_breadcrumb, array("Trang chủ" => site_url()));
+		$this->user_online = $this->session->userdata("user");
 		
 	}
 	public function index() {
-		
+		$this->_breadcrumb = array_merge($this->_breadcrumb, ["Đăng nhập" => '']);
 		if(!empty($_POST))
 		{
 			$email			= $_POST['username'];
@@ -20,15 +22,16 @@ class Account extends CI_Controller {
 			if($this->m_user->login($email,$pass) == FALSE)
 			{
 				$this->session->set_flashdata("error", "Email hoặc password sai.");
-				redirect(site_url("account/index"), "back");
+				redirect(site_url("tai-khoan/index"), "back");
 			}
 			else
 			{
-				redirect(site_url("home"), "back");
+				redirect(site_url('tai-khoan/lich-su-don-hang'), "back");
 			}
 		}
 		
 		$view_data=array();
+		$view_data['breadcrumb']	 		= $this->_breadcrumb;
 
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("account/index", $view_data, TRUE);
@@ -37,21 +40,25 @@ class Account extends CI_Controller {
 
 	public function info()
 	{
+		$this->_breadcrumb = array_merge($this->_breadcrumb, ["Thông tin tài khoản" => '']);
+		if (empty($this->user_online)) {
+			redirect(site_url('tai-khoan'), "back");
+		}
 
 		if(!empty($_POST))
 		{
-			$view_data=array();
-			$view_data['fullname']	 			= $_POST['fullname'];
-			$view_data['gender']	 			= $_POST['gender'];
-			$view_data['birthday']	 			= $_POST['birthday'];
-			$view_data['phone']	 				= $_POST['phone'];
-			$view_data['address']	 			= $_POST['address'];
+			$data=array();
+			$data['fullname']	 			= $_POST['fullname'];
+			$data['gender']	 				= $_POST['gender'];
+			$data['birthday']	 			= $_POST['birthday'];
+			$data['phone']	 				= $_POST['phone'];
+			$data['address']	 			= $_POST['address'];
 
 			$user_session= $this->session->userdata("user");
 
-			if($this->m_user->update($view_data,['id'=>$user_session->id]) == TRUE)
+			if($this->m_user->update($data,['id'=>$user_session->id]))
 			{
-				redirect(site_url("account/logout"), "back");
+				redirect(site_url("tai-khoan/info"), "back");
 			}
 			$this->session->set_flashdata("success", "Thêm thành công");
 			
@@ -62,7 +69,8 @@ class Account extends CI_Controller {
 		$user_session= $this->session->userdata("user");
 
 		$view_data=array();
-		$view_data['infos']	 			= $user_session;
+		$view_data['infos']	 			= $this->m_user->load($user_session->id);
+		$view_data['breadcrumb']	 		= $this->_breadcrumb;
 
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("account/info", $view_data, TRUE);
@@ -77,6 +85,10 @@ class Account extends CI_Controller {
 
 	public function change_pass()
 	{
+		$this->_breadcrumb = array_merge($this->_breadcrumb, ["Đổi mật khẩu" => '']);
+		if (empty($this->user_online)) {
+			redirect(site_url('tai-khoan'), "back");
+		}
 		$user_session= $this->session->userdata("user");
 		if(!empty($_POST))
 		{
@@ -136,6 +148,7 @@ class Account extends CI_Controller {
 		}
 
 		$view_data=array();
+		$view_data['breadcrumb']	 		= $this->_breadcrumb;
 		
 
 		$tmpl_content = array();
@@ -145,10 +158,59 @@ class Account extends CI_Controller {
 
 	public function register()
 	{
+		$task = $this->input->post("task");
+		if (!empty($task)) {
+
+			$new_fullname			= $this->input->post("new_fullname");
+			$new_email				= $this->input->post("new_email");
+			$new_phone				= $this->input->post("new_phone");
+			$new_password			= $this->input->post("new_password");
+			$confirm_new_password	= $this->input->post("confirm_new_password");
+			
+			$data = array(
+				"fullname"			=> $new_fullname,
+				"email"				=> $new_email,
+				"password"			=> md5($new_password),
+				"password_text"		=> $new_password,
+				"phone"				=> $new_phone
+			);
+			if($this->m_user->add($data)) {
+				$this->session->set_flashdata("success", "Đăng ký thành công, vui lòng đăng nhập lại");
+				// redirect(site_url("tai-khoan"), "back");
+			}
+		}
+
+		$this->_breadcrumb = array_merge($this->_breadcrumb, ["Đăng ký" => '']);
 		$view_data=array();
+		$view_data['breadcrumb']	 		= $this->_breadcrumb;
 
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("account/register", $view_data, TRUE);
+		$this->load->view("layout/view", $tmpl_content);
+	}
+
+	public function lich_su_don_hang()
+	{
+		if (empty($this->user_online)) {
+			redirect(site_url('tai-khoan'), "back");
+		}
+		$info = new stdClass();
+		$info->user_id = $this->user_online->id;
+
+		$orders = $this->m_order->items($info);
+		foreach($orders as $order) {
+			$info = new stdClass();
+			$info->order_id = $order->id;
+			$order->order_details = $this->m_order_detail->items($info);
+		}
+
+		$this->_breadcrumb = array_merge($this->_breadcrumb, ["Lich sử đơn hàng" => '']);
+		$view_data=array();
+		$view_data['breadcrumb']	 	= $this->_breadcrumb;
+		$view_data['orders']	 		= $orders;
+
+		$tmpl_content = array();
+		$tmpl_content["content"]   = $this->load->view("account/checkout", $view_data, TRUE);
 		$this->load->view("layout/view", $tmpl_content);
 	}
 

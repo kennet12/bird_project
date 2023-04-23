@@ -27,10 +27,10 @@
                       <span>Tổng đơn: <?=$total?></span>
                     </div>
                     <div class="col-md-4"  style="color:#11cdef">
-                      <span>Tổng SL:</span>
+                      <span>Tổng số lượng: <?=$qty_total?></span>
                     </div>
                     <div class="col-md-4"  style="color:#2dce89">
-                      <span>Tổng tiền:</span>
+                      <span>Tổng tiền: <?=number_format($money_total,0,',','.')?></span>
                     </div>
                   </div>
               </div>
@@ -84,7 +84,6 @@
                       <td class="align-middle text-center">
                         <ul class="action">
                           <li><a href="<?=site_url("syslog/order/edit/{$item->id}")?>"><span class="badge badge-sm bg-gradient-info">Xem chi tiết</span></a></li>
-                          <li><a class="btn-delete" linkHref="<?=site_url("syslog/order/delete/{$item->id}")?>"><span class="badge badge-sm bg-gradient-danger">Hủy đơn</span></a></li>
                         </ul>
                         <i class="updated-date"><?=$this->util->to_vn_date($item->created_date)?></i>
                         <strong class="updated-by"><?=$item->username?></strong>

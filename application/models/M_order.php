@@ -19,6 +19,13 @@ class M_order extends M_db
 			if (!empty($info->fromDate) && empty($info->toDate)) {
 				$sql .= " AND created_date LIKE '{$info->fromDate}%'";
 			}
+
+			if (!empty($info->user_id)) {
+				$sql .= " AND user_id = '{$info->user_id}'";
+			}
+			if (!empty($info->status)) {
+				$sql .= " AND status = '{$info->status}'";
+			}
 		}
 
 		if (!empty($order_by)) {

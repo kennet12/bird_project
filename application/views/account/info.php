@@ -1,28 +1,24 @@
-
 <div class="page-width pb-30 ">
     <div class="container">
     <div class="nav-account">
-		<div class="list clearfix">
-			<div class="item ">
-				<a href="https://www.yen-vietnam.com/tai-khoan/affiliate.html">Affiliate</a>
-			</div>
-			<div class="item ">
-				<a href="https://www.yen-vietnam.com/tai-khoan/lich-su-don-hang.html">Check out</a>
-			</div>
-			<div class="item ">
-				<a href="https://www.yen-vietnam.com/tai-khoan/san-pham-yeu-thich.html">My Wishlist</a>
-			</div>
-			<div class="item ">
-				<a href="<?=site_url('account/change-pass')?>">Change password</a>
-			</div>
+	<div class="list clearfix">
+		<div class="item ">
+			<a href="<?=site_url("tai-khoan/lich-su-don-hang")?>">Lịch sử đặt hàng</a>
 		</div>
+		<div class="item active">
+			<a href="<?=site_url("tai-khoan/info")?>">Cập nhật thông tin</a>
+		</div>
+		<div class="item ">
+			<a href="<?=site_url('tai-khoan/change-pass')?>">Đổi mật khẩu</a>
+		</div>
+	</div>
 </div>
-	<div style="background: #fff;padding: 20px 0;">
+<div style="background: #fff;padding: 20px 0;">
     <div class="row justify-content-center">
         <div class="col-8 col-xs-12">
             <div class="form-vertical">
                 <form method="post" action="" id="create_customer" accept-charset="UTF-8">
-					<div class="title_block"><span>Profile</span></div>
+					<div class="title_block"><span>Thông tin tài khoản</span></div>
 					<div class="block-form-login">
 						<div class="form-group novform-firstname">
 							<input type="text" name="fullname" id="fullname" placeholder="Fullname" value="<?=(!empty($infos->fullname)?$infos->fullname:'')?>">
@@ -30,20 +26,18 @@
 						<div>
 							<div class="radio" style="display:inline-block">
 								<label style="font-size: 13px">
-									<input type="radio" name="gender" style="margin:7px 0 14px 0;" value="1" <?=!empty($infos->gender)? 'checked="checked"':' ' ?>>
-									Male								</label>
+									<input type="radio" name="gender" style="margin:7px 0 14px 0;" value="1" <?=($infos->gender==1)? 'checked="checked"':' ' ?>>
+									Nam								</label>
 							</div>
 							<div class="radio" style="margin-left: 12px;display:inline-block">
 								<label style="font-size: 13px">
-									<input type="radio" name="gender" style="margin:7px 0 14px 0;" value="0" <?=!empty($infos->gender)? 'checked="checked"':' ' ?>>
-									Female								</label>
+									<input type="radio" name="gender" style="margin:7px 0 14px 0;" value="2" <?=($infos->gender==2)? 'checked="checked"':' ' ?>>
+									Nữ								</label>
 							</div>
 						</div>
 
 						<div class="form-group novform-password">
-
-							
-                        <input type="date" name="birthday" id="birthday" class="" placeholder="Birthday" value="12/02/2023">
+                        <input type="date" name="birthday" id="birthday" class="" placeholder="Birthday" value="<?=date('Y-m-d',strtotime($infos->birthday))?>">
 						</div>
 						<div class="form-group novform-phone">
 							<input type="text" name="phone" id="phone" placeholder="Phone" value="<?=(!empty($infos->phone)?$infos->phone:'')?>">
