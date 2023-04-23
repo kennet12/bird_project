@@ -31,6 +31,7 @@
 	$new_categories = $this->m_content_categories->items(null,1);
 	$faq_categories = $this->m_faq_categories->items(null,1);
 	// $products = $this->m_product->items(null,1);
+	
 ?>
 <? if($this->util->detect_mobile()) {  ?>
 <div class="header-mobile d-md-none">
