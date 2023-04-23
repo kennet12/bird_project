@@ -1884,10 +1884,10 @@ button.disabled, button[disabled] {
     border-radius: 3px;
     padding: 12px 0;
     min-width: 118px;
-    background: #573816 
+    background: #3F51B5 
 }
 #customer_login .block-form-login .btn:hover {
-    background: #3F51B5;
+    background: #daa508;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;

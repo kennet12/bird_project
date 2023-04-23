@@ -1860,6 +1860,52 @@ class Syslog extends CI_Controller {
 		]);
 		if(!empty($action))
 		{
+
+			if(!empty($_POST))
+			{
+				
+				$receive_data=[];
+				$receive_data['fullname']	 		= $_POST['fullname'];
+				$receive_data['email']	 			= $_POST['email'];
+				$receive_data['phone']	 			= $_POST['phone'];
+				$receive_data['address']	 		= $_POST['address'];
+				$receive_data['message']	 		= $_POST['message'];
+				$receive_data['status']	 			= $_POST['status'];
+
+				if (empty($_POST['fullname'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập họ và tên.");
+					redirect(site_url("syslog/order"), "back");
+				}
+				if (empty($_POST['email'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập email.");
+					redirect(site_url("syslog/order"), "back");
+				}
+				if (empty($_POST['phone'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập số điện thoại.");
+					redirect(site_url("syslog/order"), "back");
+				}
+				
+				if (empty($_POST['address'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập địa chỉ.");
+					redirect(site_url("syslog/order"), "back");
+				}
+				if (empty($_POST['message'])) {
+					$this->session->set_flashdata("error", "Vui lòng nhập nội dung.");
+					redirect(site_url("syslog/order"), "back");
+				}
+				if (empty($_POST['status'])) {
+					$receive_data['status']	= 0;
+					
+				}
+
+				if($action == 'edit')
+				{
+					$this->session->set_flashdata("success", "Thêm thành công");
+					$this->m_order->update($receive_data,['id'=>$id]);
+				}
+				redirect(site_url("syslog/order"), "back");
+
+			}
 			
 			if($action == 'edit')
 			{
@@ -1884,8 +1930,9 @@ class Syslog extends CI_Controller {
 			}
 			else if($action == 'delete')
 			{
-				// $this->m_order->remove(['id' => $id]);
-				// $this->m_order_detail->remove(['id' => $id]);
+
+				$this->m_order->remove(['id' => $id]);
+				$this->m_order_detail->remove(['order_id' => $id]);
 				$this->session->set_flashdata("success", "Hủy đơn thành công");
 				redirect(site_url("syslog/order"), "back");
 
@@ -1955,6 +2002,7 @@ class Syslog extends CI_Controller {
 		$offset = ($page - 1) * $page_num;
 
 		$fromDate = date('Y-m-d',strtotime("-1 day"));
+	
 		$toDate = date('Y-m-d');
 		
 		if (!empty($_GET['report_date'])) {
