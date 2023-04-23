@@ -47,6 +47,7 @@ class Dat_hang extends CI_Controller {
         $data["fullname"] = $_POST['fullname'];
         $data["phone"] = $_POST['phone'];
         $data["address"] = $_POST['address'];
+        $data["user_id"] = !empty($this->session->userdata("user"))?$this->session->userdata("user")->id:0;
         $data["message"] = !empty($_POST['message'])?$_POST['message']:'';
         $this->m_order->add($data);
 
