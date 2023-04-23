@@ -27,10 +27,10 @@
                       <span>Tổng đơn: <?=$total?></span>
                     </div>
                     <div class="col-md-4"  style="color:#11cdef">
-                      <span>Tổng SL:</span>
+                      <span>Tổng SL: <?=$total_qty?></span>
                     </div>
                     <div class="col-md-4"  style="color:#2dce89">
-                      <span>Tổng tiền:</span>
+                      <span>Tổng tiền: <?=number_format($total_price,0,',','.')?></span>
                     </div>
                   </div>
               </div>

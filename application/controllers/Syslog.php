@@ -1964,15 +1964,13 @@ class Syslog extends CI_Controller {
 		}
 
 		$info = new stdClass();
+		$info->status = 3;
 		$info->fromDate = $fromDate;
 		$info->toDate = $toDate;
 
 		$total_items = $this->m_order->items($info);
 		$total_qty = 0;
 		$total_price = 0;
-		foreach ($total_items as $total_item) {
-
-		}
 		$total = count($total_items);
 		
 		$pagination = $this->util->pagination(
@@ -1991,6 +1989,8 @@ class Syslog extends CI_Controller {
 			$sub_total = 0;
 			foreach($details as $detail) {
 				$sub_total += ($detail->qty*$detail->price);
+				$total_qty += $detail->qty;
+				$total_price += ($detail->price*$detail->qty);
 			}
 			$item->sub_total = $sub_total;
 		}
@@ -2003,6 +2003,8 @@ class Syslog extends CI_Controller {
 		$view_data["pagination"]	 = $pagination;
 		$view_data["breadcrumb"] 	 = $this->_breadcrumb;
 		$view_data["title"] = 'Thống kê đơn hàng';
+		$view_data['total_price'] = $total_price;
+		$view_data['total_qty'] = $total_qty;
 
 		$tmpl_contact = array();
 		$tmpl_contact["content"] = $this->load->view("admin/report/index", $view_data, true);
