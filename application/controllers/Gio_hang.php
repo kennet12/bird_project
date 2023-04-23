@@ -37,7 +37,7 @@ class Gio_hang extends CI_Controller {
                     'id'        => $product->id,
                     'qty'       => $qty,
                     'price'     => $product->price,
-                    'name'      => $product->title,
+                    'name'      => str_replace('%','',$product->title),
                     'thumbnail' => $product->image
                 );
                 $this->cart->insert($data); // insert gio hang
