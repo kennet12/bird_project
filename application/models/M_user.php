@@ -37,9 +37,10 @@ class M_user extends M_db
 		
 		return null;
 	}
+
 	
 	public function users($info=null, $active=null, $limit=null, $offset=null)
-	{
+	{	
 		$sql = "SELECT *, '0' AS 'child_num' FROM {$this->_table} WHERE 1 = 1";
 		
 		if (!is_null($info)) {

@@ -77,7 +77,66 @@ class Account extends CI_Controller {
 
 	public function change_pass()
 	{
+		$user_session= $this->session->userdata("user");
+		if(!empty($_POST))
+		{
+			
+			$pass							= $_POST['password'];
+			$new_password 					= $_POST['new_password'];
+			$confirm_new_password			= $_POST['confirm_new_password'];
+
+			if(empty($_POST['password'])){
+				$this->session->set_Flashdata("error", "Vui Lòng Nhập mật khẩu");
+				redirect(site_url("account/change-pass") , "back");
+			}
+			if(empty($_POST['new_password'])){
+				$this->session->set_Flashdata("error", "Vui Lòng Nhập mật khẩu mới");
+				redirect(site_url("account/change-pass") , "back");
+			}
+			if(empty($_POST['confirm_new_password'])){
+				$this->session->set_Flashdata("error", "Vui Lòng xác nhận lại mật khẩu mới");
+				redirect(site_url("account/change-pass") , "back");
+			}
+			if($new_password != $confirm_new_password)
+			{
+				$this->session->set_Flashdata("error", "Nhập lại mật khẩu không chính xác");
+				redirect(site_url("account/change-pass") , "back");
+			}
+			if($new_password = $pass)
+			{
+				$this->session->set_Flashdata("error", "Mật khẩu mới không được trùng với mật khẩu củ");
+				redirect(site_url("account/change-pass") , "back");
+			}
+			
+			if($new_password == $confirm_new_password && !empty($pass))
+			{
+				if(md5($_POST['password']) == $user_session->password)
+				{
+					$checkpass = $_POST['new_password'];
+					$data = [];
+					
+					$data['password'] 		=md5($checkpass);
+					$data['password_text']  =$checkpass;
+	
+					$check=$this->m_user->update($data,['id' => $user_session->id]);
+				
+					if($check == true)
+					{
+						$this->m_user->logout();
+						redirect(site_url("home"), "back");
+						$this->session->set_Flashdata("Success", "Đổi mật khẩu thành công");
+					}
+				}
+				
+			}
+			else
+			{
+				redirect(site_url("account/change-pass"), "back");
+			}
+		}
+
 		$view_data=array();
+		
 
 		$tmpl_content = array();
 		$tmpl_content["content"]   = $this->load->view("account/change", $view_data, TRUE);

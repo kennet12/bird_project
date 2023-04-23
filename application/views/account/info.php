@@ -13,7 +13,7 @@
 				<a href="https://www.yen-vietnam.com/tai-khoan/san-pham-yeu-thich.html">My Wishlist</a>
 			</div>
 			<div class="item ">
-				<a href="<?=site_url('account/change_pass')?>">Change password</a>
+				<a href="<?=site_url('account/change-pass')?>">Change password</a>
 			</div>
 		</div>
 </div>
